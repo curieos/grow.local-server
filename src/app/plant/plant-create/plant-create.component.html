@@ -2,10 +2,10 @@
 	<div class="col-1"></div>
 	<div class="col-10 card">
 		<div class="card-body">
-			<form>
+			<form [formGroup]="form" (submit)="onSavePlant()">
 				<div class="form-group">
 					<label for="Name">Plant Name</label>
-					<input type="text" name="Name" id="" class="form-control" placeholder="Plant Name">
+					<input type="text" name="Name" formControlName="name" class="form-control" placeholder="Plant Name">
 				</div>
 				<div class="form-group">
 					<label for="moduleSelect">Select a Module</label>
@@ -16,7 +16,15 @@
 						<option>Clyde</option>
 					</select>
 				</div>
-				<button type="submit" class="btn btn-primary">Save</button>
+				<button type="submit" class="btn btn-primary">
+					<div *ngIf="!isLoading">
+						Save
+					</div>
+					<div *ngIf="isLoading">
+						<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+						Loading...
+					</div>
+				</button>
 			</form>
 		</div>
 	</div>
