@@ -9,6 +9,8 @@ import { PlantCreateComponent } from './plant/plant-create/plant-create.componen
 import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PlantListComponent } from './plant/plant-list/plant-list.component';
+import { ModuleListComponent } from './module/module-list/module-list.component';
+import { ModuleLinkComponent } from './module/module-link/module-link.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { PlantListComponent } from './plant/plant-list/plant-list.component';
     HeaderComponent,
     DashboardComponent,
     PlantListComponent,
+    ModuleListComponent,
+    ModuleLinkComponent,
   ],
   imports: [
     NgbModule,
