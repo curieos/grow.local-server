@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { PlantCreateComponent } from './plant/plant-create/plant-create.component';
 import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { PlantListComponent } from './plant/plant-list/plant-list.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     PlantCreateComponent,
     HeaderComponent,
     DashboardComponent,
+    PlantListComponent,
   ],
   imports: [
     NgbModule,
