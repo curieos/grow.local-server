@@ -6,18 +6,18 @@
 	</button>
 	<div class="collapse navbar-collapse" id="collapsibleNavId">
 		<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle text-white" href="#" id="dropdownId" data-toggle="dropdown"
+			<li class="nav-item" ngbDropdown>
+				<a class="nav-link text-white" ngbDropdownToggle role="button" style="cursor: pointer;" id="plants"
 					aria-haspopup="true" aria-expanded="false">Plants</a>
-				<div class="dropdown-menu" aria-labelledby="dropdownId">
+				<div class="dropdown-menu" ngbDropdownMenu aria-labelledby="plants">
 					<a class="dropdown-item" routerLink="/plants/">View</a>
 					<a class="dropdown-item" routerLink="/plants/create/">Create New</a>
 				</div>
 			</li>
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle text-white" href="#" id="dropdownId" data-toggle="dropdown"
+			<li class="nav-item" ngbDropdown>
+				<a class="nav-link text-white" ngbDropdownToggle role="button" style="cursor: pointer;" id="modules"
 					aria-haspopup="true" aria-expanded="false">Modules</a>
-				<div class="dropdown-menu" aria-labelledby="dropdownId">
+				<div class="dropdown-menu" ngbDropdownMenu aria-labelledby="modules">
 					<a class="dropdown-item" routerLink="/modules/">View</a>
 					<a class="dropdown-item" routerLink="/modules/link/">Link New</a>
 				</div>
