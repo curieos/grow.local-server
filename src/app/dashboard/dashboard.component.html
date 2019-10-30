@@ -10,9 +10,42 @@
 			<div class="row text-center">
 				<div class="col-sm-6">
 					<h2>Recent Activity</h2>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Plant</th>
+								<th scope="col">Soil Moisture</th>
+								<th scope="col">Last Watered</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">Violets</th>
+								<td>90%</td>
+								<td>Today, 14:51</td>
+							</tr>
+							<tr>
+								<th scope="row">Banana Peppers</th>
+								<td>82%</td>
+								<td>Today, 12:35</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 				<div class="col-sm-6">
-					<h2>Something Else</h2>
+					<h2>Monitoring
+						<div class="d-inline-block">
+							<select class="form-control" id="plantMonitorSelect">
+								<option>Violets</option>
+								<option>Banana Peppers</option>
+							</select>
+						</div>
+					</h2>
+					<div style="display: block;">
+						<canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels"
+							[options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+							[chartType]="lineChartType"></canvas>
+					</div>
 				</div>
 			</div>
 		</div>
