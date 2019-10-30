@@ -1,2 +1,1 @@
-front: node angular.js
-back: node server.js
+web: node angular.js
