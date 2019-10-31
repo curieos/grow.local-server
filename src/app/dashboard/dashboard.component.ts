@@ -1,13 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
+import { PlantsService } from '../plant/plants.service';
+import { Subscription } from 'rxjs';
+import { Plant } from '../plant/plant.model';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
+  public isLoading = false;
+  private plantSub: Subscription;
+  public plantList: Plant[];
+
+  // chart bs, temporary
   public lineChartData: ChartDataSets[] = [
     { data: [7, 6.7, 6.8, 6.5, 6.7, 6.9, 7.2], label: 'Soil ph' },
     { data: [70, 67, 64, 63, 62, 80, 90], label: 'Soil Moisture', yAxisID: 'moisture' },
@@ -52,11 +60,21 @@ export class DashboardComponent implements OnInit {
   ];
   public lineChartLegend = true;
   public lineChartType = 'line';
-  public isLoading = false;
+  // end chart bs
 
-  constructor() { }
+  constructor(private plantsService: PlantsService) { }
 
   ngOnInit() {
+    this.isLoading = true;
+    this.plantsService.getPlants();
+    this.plantSub = this.plantsService.getPlantsUpdateListener().subscribe((plantData: { plants: Plant[] }) => {
+      this.isLoading = false;
+      this.plantList = plantData.plants;
+    });
+  }
+
+  ngOnDestroy() {
+
   }
 
 }

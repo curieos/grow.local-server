@@ -19,15 +19,10 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<th scope="row">Violets</th>
+							<tr *ngFor="let plant of plantList">
+								<th scope="row">{{ plant.name }}</th>
 								<td>90%</td>
 								<td>Today, 14:51</td>
-							</tr>
-							<tr>
-								<th scope="row">Banana Peppers</th>
-								<td>82%</td>
-								<td>Today, 12:35</td>
 							</tr>
 						</tbody>
 					</table>
@@ -36,8 +31,7 @@
 					<h2>Monitoring
 						<div class="d-inline-block">
 							<select class="form-control" id="plantMonitorSelect">
-								<option>Violets</option>
-								<option>Banana Peppers</option>
+								<option *ngFor="let plant of plantList">{{ plant.name }}</option>
 							</select>
 						</div>
 					</h2>

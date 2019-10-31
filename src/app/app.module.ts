@@ -12,6 +12,7 @@ import { PlantListComponent } from './plant/plant-list/plant-list.component';
 import { ModuleListComponent } from './module/module-list/module-list.component';
 import { ModuleLinkComponent } from './module/module-link/module-link.component';
 import { ChartsModule } from "ng2-charts";
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ChartsModule } from "ng2-charts";
     NgbModule,
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule,
     AppRoutingModule,
     ChartsModule,
