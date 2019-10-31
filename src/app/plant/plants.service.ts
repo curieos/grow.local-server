@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class PlantsService {
@@ -13,7 +14,7 @@ export class PlantsService {
   constructor(private http: HttpClient) { }
 
   getPlants() {
-    this.http.get<{ message: string, plants: any }>('http://localhost:3400/api/plants').pipe(map((data) => {
+    this.http.get<{ message: string, plants: any }>(environment.apiURL + '/plants').pipe(map((data) => {
       return {
         plants: data.plants.map(plant => {
           return { _id: plant._id, name: plant.name, };
