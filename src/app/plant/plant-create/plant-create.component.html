@@ -1,32 +1,28 @@
-<div class="row p-3">
-	<div class="col-1"></div>
-	<div class="col-10 card">
-		<div class="card-body">
-			<form [formGroup]="form" (submit)="onSavePlant()">
-				<div class="form-group">
-					<label for="Name">Plant Name</label>
-					<input type="text" name="Name" formControlName="name" class="form-control" placeholder="Plant Name">
-				</div>
-				<div class="form-group">
-					<label for="moduleSelect">Select a Module</label>
-					<select class="form-control" id="moduleSelect">
-						<option>Blinky</option>
-						<option>Inky</option>
-						<option>Pinky</option>
-						<option>Clyde</option>
-					</select>
-				</div>
-				<button type="submit" class="btn btn-primary">
-					<div *ngIf="!isLoading">
-						Save
-					</div>
-					<div *ngIf="isLoading">
-						<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-						Loading...
-					</div>
-				</button>
-			</form>
-		</div>
+<form [formGroup]="form" (submit)="onSavePlant()">
+	<div class="form-group">
+		<label for="Name">Plant Name</label>
+		<input type="text" name="Name" formControlName="name" class="form-control" placeholder="Plant Name">
 	</div>
-	<div class="col-1"></div>
-</div>
+	<div class="form-group">
+		<label for="moduleSelect">Select a Module</label>
+		<select class="form-control" id="moduleSelect">
+			<option>Blinky</option>
+			<option>Inky</option>
+			<option>Pinky</option>
+			<option>Clyde</option>
+		</select>
+	</div>
+	<div class="form-group">
+		<label for="watering-time">Watering Time</label>
+		<ngb-timepicker id="watering-time" formControlName="watering_time"></ngb-timepicker>
+	</div>
+	<button type="submit" class="btn btn-primary">
+		<div *ngIf="!isLoading">
+			Save
+		</div>
+		<div *ngIf="isLoading">
+			<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+			Loading...
+		</div>
+	</button>
+</form>

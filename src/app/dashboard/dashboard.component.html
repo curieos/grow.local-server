@@ -1,48 +1,40 @@
-<div class="row p-3">
-	<div class="col-1"></div>
-	<div class="col-10 card">
-		<div class="card-body">
-			<div class="d-flex justify-content-center" *ngIf="isLoading">
-				<div class="spinner-border" role="status">
-					<span class="sr-only">Loading...</span>
-				</div>
+<div class="d-flex justify-content-center" *ngIf="isLoading">
+	<div class="spinner-border" role="status">
+		<span class="sr-only">Loading...</span>
+	</div>
+</div>
+<div class="row text-center">
+	<div class="col-sm-6">
+		<h2>Recent Activity</h2>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">Plant</th>
+					<th scope="col">Soil Moisture</th>
+					<th scope="col">Last Watered</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let plant of plantList">
+					<th scope="row">{{ plant.name }}</th>
+					<td>90%</td>
+					<td>Today, 14:51</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="col-sm-6">
+		<h2>Monitoring
+			<div class="d-inline-block">
+				<select class="form-control" id="plantMonitorSelect">
+					<option *ngFor="let plant of plantList">{{ plant.name }}</option>
+				</select>
 			</div>
-			<div class="row text-center">
-				<div class="col-sm-6">
-					<h2>Recent Activity</h2>
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th scope="col">Plant</th>
-								<th scope="col">Soil Moisture</th>
-								<th scope="col">Last Watered</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr *ngFor="let plant of plantList">
-								<th scope="row">{{ plant.name }}</th>
-								<td>90%</td>
-								<td>Today, 14:51</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="col-sm-6">
-					<h2>Monitoring
-						<div class="d-inline-block">
-							<select class="form-control" id="plantMonitorSelect">
-								<option *ngFor="let plant of plantList">{{ plant.name }}</option>
-							</select>
-						</div>
-					</h2>
-					<div style="display: block;">
-						<canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels"
-							[options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
-							[chartType]="lineChartType"></canvas>
-					</div>
-				</div>
-			</div>
+		</h2>
+		<div style="display: block;">
+			<canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels"
+				[options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+				[chartType]="lineChartType"></canvas>
 		</div>
 	</div>
-	<div class="col-1"></div>
 </div>
