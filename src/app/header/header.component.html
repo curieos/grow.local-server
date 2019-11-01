@@ -4,22 +4,23 @@
 		aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
-	<div class="collapse navbar-collapse" id="collapsibleNavId">
+	<div class="collapse navbar-collapse" [class.collapse]="collapsed" id="collapsibleNavId">
 		<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 			<li class="nav-item" ngbDropdown>
 				<a class="nav-link text-white" ngbDropdownToggle role="button" style="cursor: pointer;" id="plants"
 					aria-haspopup="true" aria-expanded="false">Plants</a>
 				<div class="dropdown-menu" ngbDropdownMenu aria-labelledby="plants">
-					<a class="dropdown-item" routerLink="/plants/">View</a>
-					<a class="dropdown-item" routerLink="/plants/create/">Create New</a>
+					<a class="dropdown-item" routerLink="/plants/" (click)="$event.preventDefault()">View</a>
+					<a class="dropdown-item" routerLink="/plants/create/" (click)="$event.preventDefault()">Create
+						New</a>
 				</div>
 			</li>
 			<li class="nav-item" ngbDropdown>
 				<a class="nav-link text-white" ngbDropdownToggle role="button" style="cursor: pointer;" id="modules"
 					aria-haspopup="true" aria-expanded="false">Modules</a>
 				<div class="dropdown-menu" ngbDropdownMenu aria-labelledby="modules">
-					<a class="dropdown-item" routerLink="/modules/">View</a>
-					<a class="dropdown-item" routerLink="/modules/link/">Link New</a>
+					<a class="dropdown-item" routerLink="/modules/" (click)="$event.preventDefault()">View</a>
+					<a class="dropdown-item" routerLink="/modules/link/" (click)="$event.preventDefault()">Link New</a>
 				</div>
 			</li>
 		</ul>
