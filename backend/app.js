@@ -1,9 +1,6 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
-const env = require("node-env-file");
-
-env("./.env");
 
 const plantsRoutes = require("./routes/plants")
 
