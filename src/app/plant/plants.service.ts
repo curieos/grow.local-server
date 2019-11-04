@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { Plant } from './plant.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -31,10 +31,8 @@ export class PlantsService {
   }
 
   addNewPlant(plantName: string, moduleName: string) {
-    const plantData = new FormData();
-    plantData.append('plantName', plantName);
-    plantData.append('moduleName', moduleName);
-    this.http.post(environment.apiURL + '/plants', plantData).subscribe((responseData) => {
+    const postData = JSON.stringify({ plantName, moduleName });
+    this.http.post(environment.apiURL + '/plants', postData, { headers: { 'Content-Type': 'application/json' } }).subscribe((responseData) => {
       this.router.navigate(['/']);
     });
   }
