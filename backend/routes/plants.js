@@ -6,29 +6,34 @@ const router = express.Router();
 
 var plantList = [];
 
-let UpdatePlantList = new Promise(function (resolve, reject) {
-	Plant.findAll().then(plants => {
-		let newList = [];
-		for (let plant of plants) {
-			let newPlant = { _id: plant._id, name: plant.name };
-			newList.push(newPlant);
-		}
-		plantList = [...newList];
+function UpdatePlantList() {
+	return new Promise((resolve, reject) => {
+		Plant.findAll().then(plants => {
+			let newList = [];
+			for (let plant of plants) {
+				let newPlant = { id: plant.id, name: plant.name };
+				newList.push(newPlant);
+			}
+			plantList.length = newList.length;
+			plantList = [...newList];
+			resolve();
+		});
 	});
-	resolve();
-});
-
+}
 router.get("", (req, res, next) => {
-	UpdatePlantList.then(
+	UpdatePlantList().then((response) => {
 		res.status(200).json({
 			message: "Plants Fetched Successfully",
 			plants: plantList,
-		}));
+		})
+	});
 });
 
 router.post("", (req, res, next) => {
-	const plant = { _id: req.body._id, name: req.body.name };
-	plantList.push(plant);
+	console.log(req.body);
+	Plant.create({ name: req.body.plantName }).then(plant => {
+		res.status(201).json({ message: "Successfuly Added Plant" });
+	});
 	//UpdatePlantList();
 });
 
