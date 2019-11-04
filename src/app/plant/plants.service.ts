@@ -11,7 +11,7 @@ export class PlantsService {
   private plants: Plant[] = [];
   private plantsUpdated = new Subject<{ plants: Plant[] }>();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   getPlants() {
     this.http.get<{ message: string, plants: any }>(environment.apiURL + '/plants').pipe(map((data) => {
@@ -28,5 +28,14 @@ export class PlantsService {
 
   getPlantsUpdateListener() {
     return this.plantsUpdated.asObservable();
+  }
+
+  addNewPlant(plantName: string, moduleName: string) {
+    const plantData = new FormData();
+    plantData.append('plantName', plantName);
+    plantData.append('moduleName', moduleName);
+    this.http.post(environment.apiURL + '/plants', plantData).subscribe((responseData) => {
+      this.router.navigate(['/']);
+    });
   }
 }
