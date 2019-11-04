@@ -17,7 +17,7 @@ export class PlantsService {
     this.http.get<{ message: string, plants: any }>(environment.apiURL + '/plants').pipe(map((data) => {
       return {
         plants: data.plants.map(plant => {
-          return { _id: plant._id, name: plant.name, };
+          return { id: plant.id, name: plant.name, };
         })
       };
     })).subscribe((transformedPlants) => {
