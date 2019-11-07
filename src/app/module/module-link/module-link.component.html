@@ -1,16 +1,21 @@
-<form>
+<form [formGroup]="form" (submit)="onSaveModule()">
 	<div class="form-group">
 		<label for="Name">Module Name</label>
-		<input type="text" name="Name" id="" class="form-control" placeholder="Module Name">
+		<input formControlName="name" type="text" name="Name" class="form-control" placeholder="Module Name">
 	</div>
 	<div class="form-group">
 		<label for="moduleSelect">Select a Module</label>
-		<select class="form-control" id="moduleSelect">
-			<option>Blinky</option>
-			<option>Inky</option>
-			<option>Pinky</option>
-			<option>Clyde</option>
+		<select class="form-control" id="moduleSelect" formControlName="module">
+			<option *ngFor="let module of rawModuleList" [ngValue]="module">{{ module.name }}</option>
 		</select>
 	</div>
-	<button type="submit" class="btn btn-primary">Save</button>
+	<button type="submit" class="btn btn-primary">
+		<div *ngIf="!isLoading">
+			Save
+		</div>
+		<div *ngIf="isLoading">
+			<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+			Loading...
+		</div>
+	</button>
 </form>

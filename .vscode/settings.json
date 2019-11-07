@@ -1,9 +1,10 @@
 {
-    "psi-header.changes-tracking": {
-        "isActive": false,
-        "autoHeader": "off",
+	"psi-header.changes-tracking": {
+		"isActive": false,
+		"autoHeader": "off",
 	},
-	"editor.insertSpaces": false,
-	"editor.detectIndentation": false,
-	"editor.formatOnSave": true
+	"[typescript]": {
+		"editor.insertSpaces": true,
+		"editor.tabSize": 2
+	}
 }
