@@ -6,23 +6,13 @@
 	</button>
 	<div class="collapse navbar-collapse" [class.collapse]="collapsed" id="collapsibleNavId">
 		<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-			<li class="nav-item" ngbDropdown>
-				<a class="nav-link text-white" ngbDropdownToggle role="button" style="cursor: pointer;" id="plants"
-					aria-haspopup="true" aria-expanded="false">Plants</a>
-				<div class="dropdown-menu" ngbDropdownMenu aria-labelledby="plants">
-					<a class="dropdown-item" href="#" routerLink="/plants/" (click)="$event.preventDefault()">View</a>
-					<a class="dropdown-item" href="#" routerLink="/plants/create/"
-						(click)="$event.preventDefault()">Create New</a>
-				</div>
+			<li class="nav-item">
+				<a class="nav-link text-white" routerLink="/plants/" role="button" style="cursor: pointer;"
+					id="plants">Plants</a>
 			</li>
-			<li class="nav-item" ngbDropdown>
-				<a class="nav-link text-white" ngbDropdownToggle role="button" style="cursor: pointer;" id="modules"
-					aria-haspopup="true" aria-expanded="false">Modules</a>
-				<div class="dropdown-menu" ngbDropdownMenu aria-labelledby="modules">
-					<a class="dropdown-item" href="#" routerLink="/modules/" (click)="$event.preventDefault()">View</a>
-					<a class="dropdown-item" href="#" routerLink="/modules/link/" (click)="$event.preventDefault()">Link
-						New</a>
-				</div>
+			<li class="nav-item">
+				<a class="nav-link text-white" routerLink="/modules/" role=" button" style="cursor: pointer;"
+					id="modules">Modules</a>
 			</li>
 		</ul>
 	</div>

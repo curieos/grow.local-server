@@ -3,6 +3,9 @@
 		<span class="sr-only">Loading...</span>
 	</div>
 </div>
+<div class="d-flex flex-row justify-content-end pb-2">
+	<button class="btn btn-primary" routerLink="/plants/create">New Plant</button>
+</div>
 <div class="accordion" id="plant-accordion" *ngIf="!isLoading">
 	<div class="card" *ngFor="let plant of plantList">
 		<div class="card-header" id="headingOne">

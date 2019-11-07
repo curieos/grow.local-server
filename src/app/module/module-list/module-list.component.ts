@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Module } from '../module.model';
 
 @Component({
   selector: 'app-module-list',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./module-list.component.css']
 })
 export class ModuleListComponent implements OnInit {
+  public moduleList: Module[];
 
   constructor() { }
 
