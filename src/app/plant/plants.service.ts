@@ -33,7 +33,11 @@ export class PlantsService {
   addNewPlant(plantName: string, moduleName: string) {
     const postData = JSON.stringify({ plantName, moduleName });
     this.http.post(environment.apiURL + '/plants', postData, { headers: { 'Content-Type': 'application/json' } }).subscribe((responseData) => {
-      this.router.navigate(['/']);
+      this.router.navigate(['/plants']);
     });
+  }
+
+  deletePlant(plantID: string) {
+    this.http.delete(environment.apiURL + '/plants/' + plantID).subscribe();
   }
 }

@@ -30,11 +30,19 @@ router.get("", (req, res, next) => {
 });
 
 router.post("", (req, res, next) => {
-	console.log(req.body);
 	Plant.create({ name: req.body.plantName }).then(plant => {
 		res.status(201).json({ message: "Successfuly Added Plant" });
 	});
-	//UpdatePlantList();
+});
+
+router.delete("/:id", (req, res, next) => {
+	Plant.destroy({
+		where: {
+			id: req.params.id
+		}
+	}).then(() => {
+		res.status(201).json({ message: "Successfully Deleted Plant" });
+	});
 });
 
 module.exports = router;

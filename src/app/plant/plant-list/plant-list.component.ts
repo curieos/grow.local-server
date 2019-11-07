@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PlantsService } from '../plants.service';
 import { Subscription } from 'rxjs';
 import { Plant } from '../plant.model';
@@ -8,7 +8,7 @@ import { Plant } from '../plant.model';
   templateUrl: './plant-list.component.html',
   styleUrls: ['./plant-list.component.css']
 })
-export class PlantListComponent implements OnInit {
+export class PlantListComponent implements OnInit, OnDestroy {
   public isLoading = false;
   private plantSub: Subscription;
   public plantList: Plant[];
@@ -16,6 +16,14 @@ export class PlantListComponent implements OnInit {
   constructor(private plantsService: PlantsService) { }
 
   ngOnInit() {
+    this.getPlants();
+  }
+
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  getPlants() {
     this.isLoading = true;
     this.plantsService.getPlants();
     this.plantSub = this.plantsService.getPlantsUpdateListener().subscribe((plantData: { plants: Plant[] }) => {
@@ -24,9 +32,15 @@ export class PlantListComponent implements OnInit {
     });
   }
 
-  fixName(name: string) {
-    const split = name.split(' ');
-    return split.join('-');
+  deletePlant(id: string) {
+    this.isLoading = true;
+    this.plantsService.deletePlant(id);
+    this.delay(500).then(() =>
+      this.getPlants()
+    );
   }
 
+  ngOnDestroy() {
+    this.plantSub.unsubscribe();
+  }
 }
