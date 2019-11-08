@@ -10,7 +10,9 @@ const sequelize = new Sequelize({
 const Plant = PlantModel(sequelize, Sequelize);
 const Module = ModuleModel(sequelize, Sequelize);
 
-Module.hasMany(Plant);
+Plant.belongsTo(Module,{
+	onDelete: "CASCADE"
+});
 
 sequelize.sync()
 	.then(() => {

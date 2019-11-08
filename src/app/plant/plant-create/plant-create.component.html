@@ -5,12 +5,10 @@
 	</div>
 	<div class="form-group">
 		<label for="moduleSelect">Select a Module</label>
-		<select formControlName="module" class="form-control" id="moduleSelect">
-			<option>Blinky</option>
-			<option>Inky</option>
-			<option>Pinky</option>
-			<option>Clyde</option>
+		<select formControlName="module" class="form-control" id="moduleSelect" *ngIf="moduleList.length > 0">
+			<option *ngFor="let module of moduleList" [ngValue]="module">{{ module.name }}</option>
 		</select>
+		<p *ngIf="moduleList.length == 0">Please link a module before creating a plant</p>
 	</div>
 	<div class="form-group">
 		<label for="watering-time">Watering Time</label>

@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const Plant = require("../sequelize").Plant;
+const Module = require("../sequelize").Module;
 
 const router = express.Router();
 
@@ -30,8 +31,10 @@ router.get("", (req, res, next) => {
 });
 
 router.post("", (req, res, next) => {
-	Plant.create({ name: req.body.plantName }).then(plant => {
-		res.status(201).json({ message: "Successfuly Added Plant" });
+	Module.findOne({where: { name: req.body.moduleName }}).then(module => {
+		Plant.create({ name: req.body.plantName, moduleId: module.id }).then(plant => {
+			res.status(201).json({ message: "Successfuly Added Plant" });
+		});
 	});
 });
 
