@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public isLoading = false;
   private plantSub: Subscription;
   public plantList: Plant[];
+  public selectedPlant: Plant;
 
   // chart bs, temporary
   public lineChartData: ChartDataSets[] = [
@@ -70,11 +71,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.plantSub = this.plantsService.getPlantsUpdateListener().subscribe((plantData: { plants: Plant[] }) => {
       this.isLoading = false;
       this.plantList = plantData.plants;
+      this.selectedPlant = this.plantList[0];
     });
   }
 
   ngOnDestroy() {
-
+    this.plantSub.unsubscribe();
   }
 
 }
