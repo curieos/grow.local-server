@@ -11,7 +11,7 @@ build:
     stage: build
     script:
         - npm install
-        - npm run heroku-postbuild
+        - npm run build:prod
     cache:
         policy: push
         paths:
@@ -21,4 +21,7 @@ build:
         - dist/
         - backend/
         - server.js
+        - package.json
+        - README.md
+        - LICENSE
 
