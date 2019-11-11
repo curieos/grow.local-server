@@ -1,4 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { HttpClientModule } from '@angular/common/http';
 
 import { ModuleLinkComponent } from './module-link.component';
 
@@ -8,9 +12,16 @@ describe('ModuleLinkComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModuleLinkComponent ]
-    })
-    .compileComponents();
+      imports: [
+        ReactiveFormsModule,
+        HttpClientModule,
+        RouterTestingModule,
+        NgbModule
+      ],
+      declarations: [
+        ModuleLinkComponent
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
