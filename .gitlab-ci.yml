@@ -1,0 +1,24 @@
+image: node:latest
+
+
+# This folder is cached between builds
+# http://docs.gitlab.com/ce/ci/yaml/README.html#cache
+cache:
+  paths:
+    - node_modules/
+
+build:
+    stage: build
+    script:
+        - npm install
+        - npm run heroku-postbuild
+    cache:
+        policy: push
+        paths:
+        - node_modules/
+    artifacts:
+        paths:
+        - dist/
+        - backend/
+        - server.js
+
