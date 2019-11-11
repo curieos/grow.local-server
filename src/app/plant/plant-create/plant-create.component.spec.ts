@@ -1,4 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { HttpClientModule } from '@angular/common/http';
 
 import { PlantCreateComponent } from './plant-create.component';
 
@@ -8,9 +12,16 @@ describe('PlantCreateComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PlantCreateComponent ]
-    })
-    .compileComponents();
+      imports: [
+        ReactiveFormsModule,
+        HttpClientModule,
+        RouterTestingModule,
+        NgbModule
+      ],
+      declarations: [
+        PlantCreateComponent
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
