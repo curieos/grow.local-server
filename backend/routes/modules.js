@@ -131,7 +131,7 @@ router.delete('/:id', (req, res, next) => {
 
 router.get('/:id/info', (req, res, next) => {
   UpdateModuleList().then((response) => {
-    const module = moduleList.find(module => module.id == req.params.id)
+    const module = moduleList.find(module => module.id === req.params.id)
     NewGetRequest(`${module.name}.local`, '/module/info').then(response => {
       res.status(200).json(response)
     }).catch(error => {

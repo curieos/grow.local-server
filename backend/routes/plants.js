@@ -75,7 +75,7 @@ router.delete('/:id', (req, res, next) => {
 
 router.get('/:id/info', (req, res, next) => {
   UpdatePlantList().then((response) => {
-    const plant = plantList.find(plant => plant.id == req.params.id)
+    const plant = plantList.find(plant => plant.id === req.params.id)
 
     if (typeof plant === 'undefined') res.status(500).json({ message: 'Failed to find plant with id' })
     else {
