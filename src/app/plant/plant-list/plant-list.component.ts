@@ -1,9 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { PlantsService } from '../plants.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChartDataSets, ChartOptions } from 'chart.js';
+import { Color, Label } from 'ng2-charts';
 import { Subscription } from 'rxjs';
 import { Plant } from '../plant.model';
-import { Color, Label } from 'ng2-charts';
-import { ChartOptions, ChartDataSets } from 'chart.js';
+import { PlantsService } from '../plants.service';
 
 @Component({
   selector: 'app-plant-list',
@@ -85,7 +85,7 @@ export class PlantListComponent implements OnInit, OnDestroy {
 
   getAverage(data: [{value: number, time: string}]) {
     let avg = 0;
-    for(const dataPoint of data) {
+    for (const dataPoint of data) {
       avg += dataPoint.value;
     }
     avg /= data.length;

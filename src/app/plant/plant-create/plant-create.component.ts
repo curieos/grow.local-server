@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PlantsService } from '../plants.service';
 import { ModulesService } from 'src/app/module/modules.service';
@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './plant-create.component.html',
   styleUrls: ['./plant-create.component.css']
 })
-export class PlantCreateComponent implements OnInit {
+export class PlantCreateComponent implements OnInit, OnDestroy {
   isLoading = false;
   form: FormGroup;
   public moduleList: Module[] = [];
@@ -40,7 +40,7 @@ export class PlantCreateComponent implements OnInit {
   }
 
   onSavePlant() {
-    if (this.form.invalid) return;
+    if (this.form.invalid) { return; }
     this.plantsService.addNewPlant(this.form.value.name, this.form.value.module.name);
     this.isLoading = true;
     this.form.reset();

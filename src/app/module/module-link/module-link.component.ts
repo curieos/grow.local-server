@@ -33,7 +33,7 @@ export class ModuleLinkComponent implements OnInit, OnDestroy {
   }
 
   onSaveModule() {
-    if (this.form.invalid) return;
+    if (this.form.invalid) { return; }
     const rawModule = this.rawModuleList.find(module => module.moduleName === this.form.value.module.moduleName);
     this.modulesService.addNewModule(this.form.value.name, rawModule.ipAddress);
     this.isLoading = true;

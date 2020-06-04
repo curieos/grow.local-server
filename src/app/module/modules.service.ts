@@ -26,7 +26,7 @@ export class ModulesService {
       };
     })).subscribe((transformedModules) => {
       this.modules = transformedModules.modules;
-      this.modulesUpdated.next({ modules: [...this.modules] })
+      this.modulesUpdated.next({ modules: [...this.modules] });
     });
   }
 
@@ -35,7 +35,7 @@ export class ModulesService {
   }
 
   getModuleInfo(id: string) {
-    this.http.get<{ moduleName: string, ipAddress: string, ambientTemperature: string }>(environment.apiURL + "/modules/" + id + "/info").subscribe((data) => {
+    this.http.get<{ moduleName: string, ipAddress: string, ambientTemperature: string }>(environment.apiURL + '/modules/' + id + '/info').subscribe((data) => {
       const module = this.modules.find(module => module.id === id);
       module.moduleName = data.moduleName;
       module.ipAddress = data.ipAddress;
@@ -57,7 +57,7 @@ export class ModulesService {
       };
     })).subscribe((transformedModules) => {
       this.rawModules = transformedModules.modules;
-      this.rawModulesUpdated.next({ modules: [...this.rawModules] })
+      this.rawModulesUpdated.next({ modules: [...this.rawModules] });
     });
   }
 
@@ -67,7 +67,6 @@ export class ModulesService {
 
   addNewModule(name: string, ip: string) {
     const postData = JSON.stringify({ name, ip });
-    console.log(postData);
     this.http.post(environment.apiURL + '/modules', postData, { headers: { 'Content-Type': 'application/json' } }).subscribe((responseData) => {
       this.router.navigate(['/modules']);
     });

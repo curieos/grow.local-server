@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { Plant } from './plant.model';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Plant } from './plant.model';
 
 @Injectable({ providedIn: 'root' })
 export class PlantsService {
@@ -23,7 +23,7 @@ export class PlantsService {
       };
     })).subscribe((transformedPlants) => {
       this.plants = transformedPlants.plants;
-      this.plantsUpdated.next({ plants: [...this.plants] })
+      this.plantsUpdated.next({ plants: [...this.plants] });
     });
   }
 
