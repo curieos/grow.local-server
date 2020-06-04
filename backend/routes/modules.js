@@ -1,5 +1,4 @@
 const express = require('express')
-const path = require('path')
 const Module = require('../sequelize').Module
 const find = require('local-devices')
 const http = require('http')
@@ -45,9 +44,9 @@ function NewGetRequest (host, path) {
       method: 'GET'
     }
     const request = http.get(options, response => {
-      const data_chunks = []
+      const dataChunks = []
       response.on('data', d => {
-        data_chunks.push(d)
+        dataChunks.push(d)
       }).on('end', () => {
         const data = Buffer.concat(data_chunks)
         resolve(JSON.parse(data))
@@ -111,7 +110,7 @@ router.post('', (req, res, next) => {
 
 router.delete('/:id', (req, res, next) => {
   UpdateModuleList().then((response) => {
-    const module = moduleList.find(module => module.id == req.params.id)
+    const module = moduleList.find(module => module.id === req.params.id)
     const data = JSON.stringify({
       name: 'new_module',
       timezoneOffset: new Date().getTimezoneOffset()

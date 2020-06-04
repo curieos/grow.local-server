@@ -1,5 +1,4 @@
 const express = require('express')
-const path = require('path')
 const Plant = require('../sequelize').Plant
 const Module = require('../sequelize').Module
 const http = require('http')
@@ -32,9 +31,9 @@ function NewGetRequest (host, path) {
       method: 'GET'
     }
     const request = http.get(options, response => {
-      const data_chunks = []
+      const dataChunks = []
       response.on('data', d => {
-        data_chunks.push(d)
+        dataChunks.push(d)
       }).on('end', () => {
         const data = Buffer.concat(data_chunks)
         resolve(JSON.parse(data))

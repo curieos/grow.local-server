@@ -3,6 +3,5 @@
     "tslint:recommended",
     "tslint-angular"
   ],
-  "rules": {
-  }
+  "rules": {}
 }

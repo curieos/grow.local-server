@@ -27,11 +27,9 @@ const onError = error => {
     case 'EACCES':
       console.error(bind + ' requires elevated privileges')
       process.exit(1)
-      break
     case 'EADDRINUSE':
       console.error(bind + ' is already in use')
       process.exit(1)
-      break
     default:
       throw error
   }
@@ -40,7 +38,7 @@ const onError = error => {
 const onListening = () => {
   const addr = server.address()
   const bind = typeof port === 'string' ? 'pipe ' + port : 'port ' + port
-  debug('Listening on ' + bind)
+  debug('Listening at ' + addr + ' on ' + bind)
 }
 
 const port = normalizePort(process.env.PORT || '3400')
