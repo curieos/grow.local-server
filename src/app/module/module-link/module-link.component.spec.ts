@@ -5,7 +5,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModuleLinkComponent } from './module-link.component';
 
-
 describe('ModuleLinkComponent', () => {
   let component: ModuleLinkComponent;
   let fixture: ComponentFixture<ModuleLinkComponent>;

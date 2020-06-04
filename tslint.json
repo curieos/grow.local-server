@@ -3,5 +3,10 @@
     "tslint:recommended",
     "tslint-angular"
   ],
+  "linterOptions": {
+    "exclude": [
+      "*.js"
+    ]
+  },
   "rules": {}
 }

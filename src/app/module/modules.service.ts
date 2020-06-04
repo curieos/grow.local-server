@@ -40,7 +40,7 @@ export class ModulesService {
       ipAddress: string,
       ambientTemperature: string
     }>(environment.apiURL + '/modules/' + id + '/info').subscribe((data) => {
-      const module = this.modules.find(m => m.id === id);
+      const module = this.modules.find((m) => m.id === id);
       module.moduleName = data.moduleName;
       module.ipAddress = data.ipAddress;
       module.ambientTemperature = data.ambientTemperature;

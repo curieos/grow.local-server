@@ -39,8 +39,8 @@ export class PlantsService {
         humidity: [{ value: number, time: string }],
         soilMoisture: [{ value: number, time: string }]
       }
-    }>(environment.apiURL + '/plants/' + plantID + '/info').subscribe(data => {
-      const plant = this.plants.find(p => p.id === plantID);
+    }>(environment.apiURL + '/plants/' + plantID + '/info').subscribe((data) => {
+      const plant = this.plants.find((p) => p.id === plantID);
       plant.temperatureHistory = data.data.ambientTemperature;
       plant.humidityHistory = data.data.humidity;
       plant.soilMoistureHistory = data.data.soilMoisture;
