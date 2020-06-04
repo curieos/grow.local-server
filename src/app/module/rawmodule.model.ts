@@ -1,4 +1,4 @@
 export class RawModule {
-  name: string;
-  ip: string;
+  moduleName: string;
+  ipAddress: string;
 }

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiURL: 'https://grow-local-angular.herokuapp.com/api'
+  apiURL: 'http://192.168.0.237:3400/api'
 };

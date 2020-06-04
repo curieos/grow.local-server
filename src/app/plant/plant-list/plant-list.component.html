@@ -11,25 +11,51 @@
 		<div class="card-header" id="headingOne">
 			<h2 class="mb-0">
 				<button class="btn btn-link" type="button" data-toggle="collapse" attr.data-target="#p{{ plant.id }}"
-					aria-expanded="false" attr.aria-controls="p{{ plant.id }}">
+					aria-expanded="false" attr.aria-controls="p{{ plant.id }}" (click)="getPlantInfo(plant)">
 					{{ plant.name }}
 				</button>
 			</h2>
 		</div>
-
 		<div id="p{{ plant.id }}" class="collapse" aria-labelledby="headingOne" data-parent="#plant-accordion">
 			<div class="card-body">
-				<p>
-					Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-					squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck
-					quinoa
-					nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
-					single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft
-					beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-					vice
-					lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
-					probably haven't heard of them accusamus labore sustainable VHS.
-				</p>
+				<div class="row">
+					<div class="col-sm-6">
+						<h2>Recent Activity</h2>
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th scope="col"></th>
+									<th scope="col">Current Value</th>
+									<th scope="col">12hr Average</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngIf="plant.temperatureHistory" class="cursor-pointer" (click)="setChartTo(plant.temperatureHistory, 'Temperature')">
+									<th scope="row">Ambient Temperature (°C)</th>
+									<td>{{ plant.temperatureHistory[plant.temperatureHistory.length -1].value }}</td>
+									<td>{{ getAverage(plant.temperatureHistory).toPrecision(3) }}</td>
+								</tr>
+								<tr *ngIf="plant.humidityHistory" class="cursor-pointer" (click)="setChartTo(plant.humidityHistory, 'Humidity')">
+									<th scope="row">Humidity (%)</th>
+									<td>{{ plant.humidityHistory[plant.humidityHistory.length -1].value }}</td>
+									<td>{{ getAverage(plant.humidityHistory).toPrecision(3) }}</td>
+								</tr>
+								<tr *ngIf="plant.soilMoistureHistory" class="cursor-pointer" (click)="setChartTo(plant.soilMoistureHistory, 'Soil Moisture')">
+									<th scope="row">Soil Moisture</th>
+									<td>{{ plant.soilMoistureHistory[plant.soilMoistureHistory.length -1].value }}</td>
+									<td>{{ getAverage(plant.soilMoistureHistory).toPrecision(3) }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="col-sm-6">
+						<div style="display: block;">
+							<canvas baseChart width="400" height="400" [datasets]="lineChartData"
+								[labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors"
+								[legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
+						</div>
+					</div>
+				</div>
 				<div class="float-right mb-1">
 					<button type="button" class="btn btn-warning m-1">Edit</button>
 					<button type="button" class="btn btn-danger m-1" (click)="deletePlant(plant.id)">Delete</button>

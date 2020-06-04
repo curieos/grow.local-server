@@ -12,6 +12,7 @@ export class ModulesService {
   private modules: Module[] = [];
   private rawModules: RawModule[] = [];
   private modulesUpdated = new Subject<{ modules: Module[] }>();
+  private moduleInfoUpdated = new Subject<{ module: Module }>();
   private rawModulesUpdated = new Subject<{ modules: RawModule[] }>();
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -33,16 +34,30 @@ export class ModulesService {
     return this.modulesUpdated.asObservable();
   }
 
+  getModuleInfo(id: string) {
+    this.http.get<{ moduleName: string, ipAddress: string, ambientTemperature: string }>(environment.apiURL + "/modules/" + id + "/info").subscribe((data) => {
+      const module = this.modules.find(module => module.id === id);
+      module.moduleName = data.moduleName;
+      module.ipAddress = data.ipAddress;
+      module.ambientTemperature = data.ambientTemperature;
+      this.moduleInfoUpdated.next({ module });
+    });
+  }
+
+  getModuleInfoUpdateListener() {
+    return this.moduleInfoUpdated.asObservable();
+  }
+
   getRawModules() {
-    this.http.get<{ message: string, modules: any}>(environment.apiURL + '/modules/raw').pipe(map((data) => {
+    this.http.get<{ message: string, modules: any }>(environment.apiURL + '/modules/raw').pipe(map((data) => {
       return {
         modules: data.modules.map(module => {
-          return { name: module.name, ip: module.ip };
+          return { moduleName: module.moduleName, ipAddress: module.ipAddress };
         })
       };
     })).subscribe((transformedModules) => {
       this.rawModules = transformedModules.modules;
-      this.rawModulesUpdated.next({ modules: [...this.rawModules]})
+      this.rawModulesUpdated.next({ modules: [...this.rawModules] })
     });
   }
 
@@ -51,7 +66,8 @@ export class ModulesService {
   }
 
   addNewModule(name: string, ip: string) {
-    const postData = JSON.stringify({name, ip});
+    const postData = JSON.stringify({ name, ip });
+    console.log(postData);
     this.http.post(environment.apiURL + '/modules', postData, { headers: { 'Content-Type': 'application/json' } }).subscribe((responseData) => {
       this.router.navigate(['/modules']);
     });

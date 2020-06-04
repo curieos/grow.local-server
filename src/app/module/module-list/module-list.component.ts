@@ -10,7 +10,9 @@ import { Module } from '../module.model';
 })
 export class ModuleListComponent implements OnInit, OnDestroy {
   public isLoading = false;
+  public isInfoLoading = false;
   private moduleSub: Subscription;
+  private moduleInfoSub: Subscription;
   public moduleList: Module[];
 
   constructor(private modulesService: ModulesService) { }
@@ -18,7 +20,7 @@ export class ModuleListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getModules();
   }
-  
+
   delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
@@ -32,6 +34,15 @@ export class ModuleListComponent implements OnInit, OnDestroy {
     });
   }
 
+  getModuleInfo(module: Module) {
+    this.isInfoLoading = true;
+    this.modulesService.getModuleInfo(module.id);
+    this.moduleInfoSub = this.modulesService.getModuleInfoUpdateListener().subscribe((moduleInfo: {module: Module}) => {
+      this.isInfoLoading = false;
+      module = moduleInfo.module;
+    });
+  }
+
   deleteModule(id: string) {
     this.isLoading = true;
     this.modulesService.deleteModule(id);
@@ -42,5 +53,8 @@ export class ModuleListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.moduleSub.unsubscribe();
+    if (this.moduleInfoSub) {
+      this.moduleInfoSub.unsubscribe();
+    }
   }
 }

@@ -15,7 +15,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr *ngFor="let plant of plantList" (click)="selectedPlant = plant" style="cursor: pointer;">
+				<tr class="cursor-pointer" *ngFor="let plant of plantList" (click)="getPlantInfo(plant)">
 					<th scope="row">{{ plant.name }}</th>
 					<td>90%</td>
 					<td>Today, 14:51</td>

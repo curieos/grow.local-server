@@ -13,15 +13,16 @@ import { Plant } from '../plant/plant.model';
 export class DashboardComponent implements OnInit, OnDestroy {
   public isLoading = false;
   private plantSub: Subscription;
+  private plantInfoSub: Subscription;
   public plantList: Plant[];
   public selectedPlant: Plant;
 
   // chart bs, temporary
   public lineChartData: ChartDataSets[] = [
-    { data: [7, 6.7, 6.8, 6.5, 6.7, 6.9, 7.2], label: 'Soil ph' },
-    { data: [70, 67, 64, 63, 62, 80, 90], label: 'Soil Moisture', yAxisID: 'moisture' },
+    { data: [], label: 'Humidity', yAxisID: 'humidity' },
+    { data: [], label: 'Soil Moisture', yAxisID: 'moisture' },
   ];
-  public lineChartLabels: Label[] = ['7:00', '9:00', '11:00', '13:00', '15:00', '17:00', '19:00'];
+  public lineChartLabels: Label[] = [];
   public lineChartOptions: (ChartOptions) = {
     responsive: true,
     scales: {
@@ -29,34 +30,34 @@ export class DashboardComponent implements OnInit, OnDestroy {
       xAxes: [{}],
       yAxes: [
         {
-          id: 'ph',
+          id: 'humidity',
           position: 'left',
-          ticks: { beginAtZero: true, suggestedMax: 14 }
+          ticks: { suggestedMin: 40, suggestedMax: 60 }
         },
         {
           id: 'moisture',
           position: 'right',
-          ticks: { beginAtZero: true, suggestedMax: 100 }
+          ticks: { suggestedMin: 40, suggestedMax: 60 }
         }
       ]
     },
   };
   public lineChartColors: Color[] = [
-    { // grey
-      backgroundColor: 'rgba(120,8,9,0.2)',
-      borderColor: 'rgba(120,8,9,1)',
-      pointBackgroundColor: 'rgba(120,8,9,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(120,8,9,1)'
-    },
-    { // dark grey
+    {
       backgroundColor: 'rgba(1,50,220,0.2)',
       borderColor: 'rgba(1,50,220,1)',
       pointBackgroundColor: 'rgba(1,15,220,1)',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(1,50,220,0.8)'
+    },
+    {
+      backgroundColor: 'rgba(120,8,9,0.2)',
+      borderColor: 'rgba(120,8,9,1)',
+      pointBackgroundColor: 'rgba(120,8,9,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(120,8,9,1)'
     },
   ];
   public lineChartLegend = true;
@@ -71,8 +72,40 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.plantSub = this.plantsService.getPlantsUpdateListener().subscribe((plantData: { plants: Plant[] }) => {
       this.isLoading = false;
       this.plantList = plantData.plants;
-      this.selectedPlant = this.plantList[0];
+      this.getPlantInfo(this.plantList[0]);
     });
+  }
+
+  getPlantInfo(plant: Plant) {
+    this.plantsService.getPlantInfo(plant.id);
+    this.plantInfoSub = this.plantsService.getPlantInfoUpdateListener().subscribe((plantInfo: {plant: Plant}) => {
+      plant = plantInfo.plant;
+      this.lineChartData = this.getChartData(plant);
+      this.lineChartLabels = this.getPlantHistoryTimestamp(plant.humidityHistory);
+    });
+  }
+
+  getChartData(plant: Plant) {
+    const newData = [{ data: [], label: 'Humidity', yAxisID: 'humidity'}];
+    for (const dataPoint of plant.humidityHistory) {
+      newData[0].data.push(dataPoint.value);
+    }
+    if (plant.soilMoistureHistory) {
+      const moistureData = [];
+      for (const dataPoint of plant.soilMoistureHistory) {
+        moistureData.push(dataPoint.value);
+      }
+      newData.push({data: moistureData, label: 'Soil Moisture', yAxisID: 'moisture'});
+    }
+    return newData;
+  }
+
+  getPlantHistoryTimestamp(data: [{value: number, time: string}]) {
+    const label = [];
+    for (const dataPoint of data) {
+      label.push(dataPoint.time.slice(0, 5));
+    }
+    return label;
   }
 
   ngOnDestroy() {

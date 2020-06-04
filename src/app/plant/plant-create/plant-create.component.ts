@@ -22,7 +22,10 @@ export class PlantCreateComponent implements OnInit {
     this.form = new FormGroup({
       name: new FormControl(null, { validators: [Validators.required, Validators.minLength(4)] }),
       module: new FormControl(null, { validators: [Validators.required] }),
-      watering_time: new FormControl({ hour: 12, minute: 0 }, { validators: [Validators.required] }),
+      control_watering: new FormControl(false, {validators: [Validators.required]}),
+      use_moisture_sensor: new FormControl(false, {validators: [Validators.required]}),
+      watering_interval: new FormControl({ hour: 12, minute: 0 }, { validators: [Validators.required] }),
+      moisture_level: new FormControl(0, { validators: [Validators.required, Validators.min(0)] }),
     });
     this.getModules();
   }
@@ -38,7 +41,6 @@ export class PlantCreateComponent implements OnInit {
 
   onSavePlant() {
     if (this.form.invalid) return;
-    console.log(this.form.value.module);
     this.plantsService.addNewPlant(this.form.value.name, this.form.value.module.name);
     this.isLoading = true;
     this.form.reset();

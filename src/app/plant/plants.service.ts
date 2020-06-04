@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 export class PlantsService {
   private plants: Plant[] = [];
   private plantsUpdated = new Subject<{ plants: Plant[] }>();
+  private plantInfoUpdated = new Subject<{ plant: Plant }>();
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -28,6 +29,20 @@ export class PlantsService {
 
   getPlantsUpdateListener() {
     return this.plantsUpdated.asObservable();
+  }
+
+  getPlantInfo(plantID: string) {
+    this.http.get<{message: string, data: {ambientTemperature: [{value: number, time: string}], humidity: [{value: number, time: string}], soilMoisture: [{value: number, time: string}]}}>(environment.apiURL + '/plants/' + plantID + '/info').subscribe(data => {
+      const plant = this.plants.find(plant => plant.id === plantID);
+      plant.temperatureHistory = data.data.ambientTemperature;
+      plant.humidityHistory = data.data.humidity;
+      plant.soilMoistureHistory = data.data.soilMoisture;
+      this.plantInfoUpdated.next({ plant });
+    });
+  }
+
+  getPlantInfoUpdateListener() {
+    return this.plantInfoUpdated.asObservable();
   }
 
   addNewPlant(plantName: string, moduleName: string) {

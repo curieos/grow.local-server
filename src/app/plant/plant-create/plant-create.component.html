@@ -1,18 +1,45 @@
 <form [formGroup]="form" (submit)="onSavePlant()">
 	<div class="form-group">
 		<label for="Name">Plant Name</label>
-		<input type="text" name="Name" formControlName="name" class="form-control" placeholder="Plant Name">
+		<input type="text" name="Name" formControlName="name" class="form-control"
+			[class.is-invalid]="form.get('name').invalid" placeholder="Plant Name">
+		<div class="invalid-feedback">
+			Please enter a name.
+		</div>
 	</div>
 	<div class="form-group">
 		<label for="moduleSelect">Select a Module</label>
-		<select formControlName="module" class="form-control" id="moduleSelect" *ngIf="moduleList.length > 0">
+		<select formControlName="module" class="form-control" [class.is-invalid]="form.get('module').invalid"
+			id="moduleSelect" *ngIf="moduleList.length > 0">
 			<option *ngFor="let module of moduleList" [ngValue]="module">{{ module.name }}</option>
 		</select>
-		<p *ngIf="moduleList.length == 0">Please link a module before creating a plant</p>
+		<p *ngIf="moduleList.length == 0">Please setup a module before creating a plant</p>
+		<div class="invalid-feedback">
+			Please select a module.
+		</div>
 	</div>
-	<div class="form-group">
-		<label for="watering-time">Watering Time</label>
-		<ngb-timepicker id="watering-time" formControlName="watering_time"></ngb-timepicker>
+	<div class="form-group form-check">
+		<input formControlName="control_watering" type="checkbox" class="form-check-input" id="controlWatering">
+		<label class="form-check-label" for="controlWatering">Control Watering</label>
+	</div>
+	<div class="watering-options" *ngIf="form.get('control_watering').value">
+		<div class="form-group form-check">
+			<input formControlName="use_moisture_sensor" type="checkbox" class="form-check-input"
+				id="useMoistureSensor">
+			<label class="form-check-label" for="useMoistureSensor">Use Mosture Sensor</label>
+		</div>
+		<div class="form-group" *ngIf="!form.get('use_moisture_sensor').value">
+			<label for="watering-interval">Watering Interval</label>
+			<ngb-timepicker id="watering-interval" formControlName="watering_interval"></ngb-timepicker>
+		</div>
+		<div class="form-group" *ngIf="form.get('use_moisture_sensor').value">
+			<label for="moisture-level">Moisture Level</label>
+			<input formControlName="moisture_level" type="number" id="moisture-level" class="form-control"
+				[class.is-invalid]="form.get('moisture_level').invalid">
+			<div class="invalid-feedback">
+				Please use a value between 0 and X
+			</div>
+		</div>
 	</div>
 	<button type="submit" class="btn btn-primary">
 		<div *ngIf="!isLoading">
