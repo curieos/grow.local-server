@@ -35,7 +35,7 @@ function NewGetRequest (host, path) {
       response.on('data', d => {
         dataChunks.push(d)
       }).on('end', () => {
-        const data = Buffer.concat(data_chunks)
+        const data = Buffer.concat(dataChunks)
         resolve(JSON.parse(data))
       })
     })
