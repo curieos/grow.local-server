@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { Module } from './module.model';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Module } from './module.model';
 import { RawModule } from './rawmodule.model';
 
 @Injectable({ providedIn: 'root' })
@@ -35,8 +35,12 @@ export class ModulesService {
   }
 
   getModuleInfo(id: string) {
-    this.http.get<{ moduleName: string, ipAddress: string, ambientTemperature: string }>(environment.apiURL + '/modules/' + id + '/info').subscribe((data) => {
-      const module = this.modules.find(module => module.id === id);
+    this.http.get<{
+      moduleName: string,
+      ipAddress: string,
+      ambientTemperature: string
+    }>(environment.apiURL + '/modules/' + id + '/info').subscribe((data) => {
+      const module = this.modules.find(m => m.id === id);
       module.moduleName = data.moduleName;
       module.ipAddress = data.ipAddress;
       module.ambientTemperature = data.ambientTemperature;
@@ -67,7 +71,11 @@ export class ModulesService {
 
   addNewModule(name: string, ip: string) {
     const postData = JSON.stringify({ name, ip });
-    this.http.post(environment.apiURL + '/modules', postData, { headers: { 'Content-Type': 'application/json' } }).subscribe((responseData) => {
+    this.http.post(
+      environment.apiURL + '/modules',
+      postData,
+      { headers: { 'Content-Type': 'application/json' } }
+    ).subscribe((responseData) => {
       this.router.navigate(['/modules']);
     });
   }

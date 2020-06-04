@@ -1,9 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { PlantsService } from '../plants.service';
-import { ModulesService } from 'src/app/module/modules.service';
-import { Module } from 'src/app/module/module.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Module } from 'src/app/module/module.model';
+import { ModulesService } from 'src/app/module/modules.service';
+import { PlantsService } from '../plants.service';
 
 @Component({
   selector: 'app-plant-create',

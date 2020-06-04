@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { PlantCreateComponent } from './plant/plant-create/plant-create.component';
-import { PlantListComponent } from './plant/plant-list/plant-list.component';
 import { ModuleLinkComponent } from './module/module-link/module-link.component';
 import { ModuleListComponent } from './module/module-list/module-list.component';
+import { PlantCreateComponent } from './plant/plant-create/plant-create.component';
+import { PlantListComponent } from './plant/plant-list/plant-list.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },

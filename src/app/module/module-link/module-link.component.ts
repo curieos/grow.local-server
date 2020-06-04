@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy, SystemJsNgModuleLoader } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { RawModule } from '../rawmodule.model';
 import { ModulesService } from '../modules.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { RawModule } from '../rawmodule.model';
 
 @Component({
   selector: 'app-module-link',

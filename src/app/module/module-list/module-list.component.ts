@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ModulesService } from '../modules.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Module } from '../module.model';
+import { ModulesService } from '../modules.service';
 
 @Component({
   selector: 'app-module-list',
