@@ -1,6 +1,6 @@
 const express = require('express')
 const Module = require('../sequelize').Module
-const find = require('local-devices')
+// const find = require('local-devices')
 const http = require('http')
 
 const router = express.Router()

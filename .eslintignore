@@ -1,0 +1,10 @@
+src
+e2e
+node_modules
+dist
+
+*.json
+*.js
+
+!server.js
+!backend/**/*js
