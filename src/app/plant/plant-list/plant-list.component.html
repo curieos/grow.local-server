@@ -32,18 +32,18 @@
 							<tbody>
 								<tr *ngIf="plant.temperatureHistory" class="cursor-pointer" (click)="setChartTo(plant.temperatureHistory, 'Temperature')">
 									<th scope="row">Ambient Temperature (°C)</th>
-									<td>{{ plant.temperatureHistory[plant.temperatureHistory.length -1].value }}</td>
-									<td>{{ getAverage(plant.temperatureHistory).toPrecision(3) }}</td>
+									<td>{{ plant.getCurrentTemperature() }}</td>
+									<td>{{ plant.getAverageTemperature().toPrecision(3) }}</td>
 								</tr>
 								<tr *ngIf="plant.humidityHistory" class="cursor-pointer" (click)="setChartTo(plant.humidityHistory, 'Humidity')">
 									<th scope="row">Humidity (%)</th>
-									<td>{{ plant.humidityHistory[plant.humidityHistory.length -1].value }}</td>
-									<td>{{ getAverage(plant.humidityHistory).toPrecision(3) }}</td>
+									<td>{{ plant.getCurrentHumidity() }}</td>
+									<td>{{ plant.getAverageHumidity().toPrecision(3) }}</td>
 								</tr>
 								<tr *ngIf="plant.soilMoistureHistory" class="cursor-pointer" (click)="setChartTo(plant.soilMoistureHistory, 'Soil Moisture')">
 									<th scope="row">Soil Moisture</th>
-									<td>{{ plant.soilMoistureHistory[plant.soilMoistureHistory.length -1].value }}</td>
-									<td>{{ getAverage(plant.soilMoistureHistory).toPrecision(3) }}</td>
+									<td>{{ plant.getCurrentSoilMoisture() }}</td>
+									<td>{{ plant.getAverageSoilMoisture().toPrecision(3) }}</td>
 								</tr>
 							</tbody>
 						</table>
