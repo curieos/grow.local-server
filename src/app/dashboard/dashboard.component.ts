@@ -32,12 +32,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
         {
           id: 'humidity',
           position: 'left',
-          ticks: { suggestedMin: 40, suggestedMax: 60 }
+          ticks: { suggestedMin: 40, suggestedMax: 60 },
         },
         {
           id: 'moisture',
           position: 'right',
-          ticks: { suggestedMin: 40, suggestedMax: 60 }
+          ticks: { suggestedMin: 40, suggestedMax: 60 },
         },
       ],
     },

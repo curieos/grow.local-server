@@ -6,7 +6,7 @@ import { ModulesService } from '../modules.service';
 @Component({
   selector: 'app-module-list',
   templateUrl: './module-list.component.html',
-  styleUrls: ['./module-list.component.css']
+  styleUrls: ['./module-list.component.css'],
 })
 export class ModuleListComponent implements OnInit, OnDestroy {
   public isLoading = false;

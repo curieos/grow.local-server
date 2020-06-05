@@ -15,7 +15,7 @@ describe('ModuleListComponent', () => {
       ],
       declarations: [
         ModuleListComponent,
-      ]
+      ],
     }).compileComponents();
   }));
 

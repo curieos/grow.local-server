@@ -57,7 +57,7 @@ export class ModulesService {
       return {
         modules: data.modules.map((module) => {
           return { moduleName: module.moduleName, ipAddress: module.ipAddress };
-        })
+        }),
       };
     })).subscribe((transformedModules) => {
       this.rawModules = transformedModules.modules;

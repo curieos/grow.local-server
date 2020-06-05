@@ -35,6 +35,6 @@ import { PlantListComponent } from './plant/plant-list/plant-list.component';
   providers: [],
   bootstrap: [
     AppComponent,
-  ]
+  ],
 })
 export class AppModule { }
