@@ -12,6 +12,7 @@ import { ModuleLinkComponent } from './module/module-link/module-link.component'
 import { ModuleListComponent } from './module/module-list/module-list.component';
 import { PlantCreateComponent } from './plant/plant-create/plant-create.component';
 import { PlantListComponent } from './plant/plant-list/plant-list.component';
+import { PlantEditComponent } from './plant/plant-edit/plant-edit.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { PlantListComponent } from './plant/plant-list/plant-list.component';
     PlantListComponent,
     ModuleListComponent,
     ModuleLinkComponent,
+    PlantEditComponent,
   ],
   imports: [
     NgbModule,
