@@ -1,31 +1,32 @@
 @mixin box-shadow {
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-	0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow:
+    0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .navbar {
-	@include box-shadow;
+  @include box-shadow;
 }
 
 .card {
-	@include box-shadow;
+  @include box-shadow;
 }
 
 .accordion .card {
-	box-shadow: none;
+  box-shadow: none;
 }
 
 .cursor-pointer {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 $theme-colors: (
-	"primary": #15492F,
-	"secondary": #463F3E,
-	"success": #21BC67,
-	"warning": #C6B133,
-	"danger": #BC3943,
-	"info": #C77232,
+  "primary": #15492f,
+  "secondary": #463f3e,
+  "success": #21bc67,
+  "warning": #c6b133,
+  "danger": #bc3943,
+  "info": #c77232,
 );
 
 @import "node_modules/bootstrap/scss/bootstrap";
