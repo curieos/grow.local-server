@@ -5,6 +5,7 @@ dist
 
 *.json
 *.js
+*.sqlite
 
 !server.js
 !backend/**/*js

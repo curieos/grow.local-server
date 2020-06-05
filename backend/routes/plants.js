@@ -51,8 +51,9 @@ router.delete('/:id', (req, res, next) => {
 
 router.get('/:id/info', (req, res, next) => {
   UpdatePlantList().then((response) => {
-    const plant = plantList.find(plant => plant.id === req.params.id)
-
+    /* eslint-disable eqeqeq */
+    const plant = plantList.find(plant => plant.id == req.params.id)
+    /* eslint-enable eqeqeq */
     if (typeof plant === 'undefined') res.status(500).json({ message: 'Failed to find plant with id' })
     else {
       Module.findOne({ where: { id: plant.moduleId } }).then(module => {

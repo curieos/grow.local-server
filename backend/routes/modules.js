@@ -61,7 +61,9 @@ router.post('', (req, res, next) => {
 
 router.delete('/:id', (req, res, next) => {
   UpdateModuleList().then((response) => {
-    const module = moduleList.find(module => module.id === req.params.id)
+    /* eslint-disable eqeqeq */
+    const module = moduleList.find(module => module.id == req.params.id)
+    /* eslint-enable eqeqeq */
     const data = JSON.stringify({
       name: 'new_module',
       timezoneOffset: new Date().getTimezoneOffset()
@@ -77,18 +79,26 @@ router.delete('/:id', (req, res, next) => {
       console.error(error)
       res.status(502).json({ message: 'Failed to Reset Module' })
     })
+  }).catch((error) => {
+    console.error(error)
+    res.status(502).json({ message: 'Failed to retrieve data from database' })
   })
 })
 
 router.get('/:id/info', (req, res, next) => {
   UpdateModuleList().then((response) => {
-    const module = moduleList.find(module => module.id === req.params.id)
+    /* eslint-disable eqeqeq */
+    const module = moduleList.find(module => module.id == req.params.id)
+    /* eslint-enable eqeqeq */
     Requests.NewGetRequest(`${module.name}.local`, '/module/info').then(response => {
       res.status(200).json(response)
     }).catch(error => {
       console.error(error)
       res.status(502).json({ message: 'Failed to retrieve data from module' })
     })
+  }).catch((error) => {
+    console.error(error)
+    res.status(502).json({ message: 'Failed to retrieve data from database' })
   })
 })
 
