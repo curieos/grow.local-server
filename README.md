@@ -1,5 +1,7 @@
 # Grow.local
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/dcbc5600517643b6acb174a7c693e770)](https://app.codacy.com/manual/caroline/Grow.local-Server?utm_source=github.com&utm_medium=referral&utm_content=curieos/Grow.local-Server&utm_campaign=Badge_Grade_Settings)
+
 Grow.local is a SEAN stack app for plant care.
 
 ## Building
