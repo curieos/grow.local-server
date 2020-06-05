@@ -83,15 +83,6 @@ export class PlantListComponent implements OnInit, OnDestroy {
     this.lineChartLabels = this.getPlantHistoryTimestamp(data);
   }
 
-  getAverage(data: [{value: number, time: string}]) {
-    let avg = 0;
-    for (const dataPoint of data) {
-      avg += dataPoint.value;
-    }
-    avg /= data.length;
-    return avg;
-  }
-
   getChartData(data: [{value: number, time: string}], label: string) {
     const newData = [{ data: [], label}];
     for (const dataPoint of data) {
