@@ -1,7 +1,7 @@
 const express = require('express')
 const Module = require('../sequelize').Module
 // const find = require('local-devices')
-const http = require('http')
+const Requests = require('../lib/request-wrapper')
 
 const router = express.Router()
 
@@ -25,62 +25,13 @@ function UpdateModuleList () {
 
 function UpdateRawModuleList () {
   return new Promise((resolve, reject) => {
-    NewGetRequest('new_module.local', '/module/info').then(response => {
+    Requests.NewGetRequest('new_module.local', '/module/info').then(response => {
       rawModuleList = []
       rawModuleList.push(response)
       resolve()
     }).catch(error => {
       reject(error)
     })
-  })
-}
-
-function NewGetRequest (host, path) {
-  return new Promise((resolve, reject) => {
-    const options = {
-      hostname: host,
-      port: 80,
-      path: path,
-      method: 'GET'
-    }
-    const request = http.get(options, response => {
-      const dataChunks = []
-      response.on('data', d => {
-        dataChunks.push(d)
-      }).on('end', () => {
-        const data = Buffer.concat(dataChunks)
-        resolve(JSON.parse(data))
-      })
-    })
-    request.on('error', error => {
-      reject(error)
-    })
-    request.end()
-  })
-}
-
-function NewPostRequest (host, path, data) {
-  return new Promise((resolve, reject) => {
-    const options = {
-      hostname: host,
-      port: 80,
-      path: path,
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-        'Content-Length': data.length
-      }
-    }
-    const post = http.request(options, response => {
-      resolve(response)
-    })
-
-    post.on('error', error => {
-      reject(error)
-    })
-
-    post.write(data)
-    post.end()
   })
 }
 
@@ -99,7 +50,7 @@ router.post('', (req, res, next) => {
       name: module.name,
       timezoneOffset: new Date().getTimezoneOffset()
     })
-    NewPostRequest(module.ip, '/module/setup', data).then(response => {
+    Requests.NewPostRequest(module.ip, '/module/setup', data).then(response => {
       res.status(201).json({ message: 'Successfuly Added Module' })
     }).catch(error => {
       console.error(error)
@@ -115,7 +66,7 @@ router.delete('/:id', (req, res, next) => {
       name: 'new_module',
       timezoneOffset: new Date().getTimezoneOffset()
     })
-    NewPostRequest(`${module.name}.local`, '/module/setup', data).then(response => {
+    Requests.NewPostRequest(`${module.name}.local`, '/module/setup', data).then(response => {
       Module.destroy({ where: { id: req.params.id } }).then(() => {
         res.status(204).json({ message: 'Successfully Deleted Module' })
       }).catch(error => {
@@ -132,7 +83,7 @@ router.delete('/:id', (req, res, next) => {
 router.get('/:id/info', (req, res, next) => {
   UpdateModuleList().then((response) => {
     const module = moduleList.find(module => module.id === req.params.id)
-    NewGetRequest(`${module.name}.local`, '/module/info').then(response => {
+    Requests.NewGetRequest(`${module.name}.local`, '/module/info').then(response => {
       res.status(200).json(response)
     }).catch(error => {
       console.error(error)
