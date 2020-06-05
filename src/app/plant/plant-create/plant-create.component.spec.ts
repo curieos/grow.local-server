@@ -15,10 +15,10 @@ describe('PlantCreateComponent', () => {
         ReactiveFormsModule,
         HttpClientModule,
         RouterTestingModule,
-        NgbModule
+        NgbModule,
       ],
       declarations: [
-        PlantCreateComponent
+        PlantCreateComponent,
       ],
     }).compileComponents();
   }));

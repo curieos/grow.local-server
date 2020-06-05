@@ -22,7 +22,7 @@ export class ModuleListComponent implements OnInit, OnDestroy {
   }
 
   delay(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   getModules() {
@@ -47,7 +47,7 @@ export class ModuleListComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.modulesService.deleteModule(id);
     this.delay(500).then(() =>
-      this.getModules()
+      this.getModules(),
     );
   }
 

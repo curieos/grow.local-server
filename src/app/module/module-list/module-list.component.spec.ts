@@ -11,11 +11,12 @@ describe('ModuleListComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientModule,
-        RouterTestingModule
+        RouterTestingModule,
       ],
-      declarations: [ ModuleListComponent ]
-    })
-    .compileComponents();
+      declarations: [
+        ModuleListComponent,
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -8,7 +8,7 @@ import { PlantsService } from '../plants.service';
 @Component({
   selector: 'app-plant-list',
   templateUrl: './plant-list.component.html',
-  styleUrls: ['./plant-list.component.css']
+  styleUrls: ['./plant-list.component.css'],
 })
 export class PlantListComponent implements OnInit, OnDestroy {
   public isLoading = false;
@@ -30,9 +30,9 @@ export class PlantListComponent implements OnInit, OnDestroy {
         {
           id: 'temperature',
           position: 'right',
-          ticks: { suggestedMin: 10, suggestedMax: 40 }
-        }
-      ]
+          ticks: { suggestedMin: 10, suggestedMax: 40 },
+        },
+      ],
     },
   };
   public lineChartColors: Color[] = [
@@ -42,7 +42,7 @@ export class PlantListComponent implements OnInit, OnDestroy {
       pointBackgroundColor: 'rgba(1,15,220,1)',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(1,50,220,0.8)'
+      pointHoverBorderColor: 'rgba(1,50,220,0.8)',
     },
   ];
   public lineChartLegend = true;
@@ -55,7 +55,7 @@ export class PlantListComponent implements OnInit, OnDestroy {
   }
 
   delay(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   getPlants() {
@@ -112,7 +112,7 @@ export class PlantListComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.plantsService.deletePlant(id);
     this.delay(500).then(() =>
-      this.getPlants()
+      this.getPlants(),
     );
   }
 

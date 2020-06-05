@@ -15,10 +15,10 @@ describe('ModuleLinkComponent', () => {
         ReactiveFormsModule,
         HttpClientModule,
         RouterTestingModule,
-        NgbModule
+        NgbModule,
       ],
       declarations: [
-        ModuleLinkComponent
+        ModuleLinkComponent,
       ],
     }).compileComponents();
   }));

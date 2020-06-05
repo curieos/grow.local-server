@@ -7,7 +7,7 @@ import { RawModule } from '../rawmodule.model';
 @Component({
   selector: 'app-module-link',
   templateUrl: './module-link.component.html',
-  styleUrls: ['./module-link.component.css']
+  styleUrls: ['./module-link.component.css'],
 })
 export class ModuleLinkComponent implements OnInit, OnDestroy {
   isLoading = false;
@@ -34,7 +34,7 @@ export class ModuleLinkComponent implements OnInit, OnDestroy {
 
   onSaveModule() {
     if (this.form.invalid) { return; }
-    const rawModule = this.rawModuleList.find(module => module.moduleName === this.form.value.module.moduleName);
+    const rawModule = this.rawModuleList.find((module) => module.moduleName === this.form.value.module.moduleName);
     this.modulesService.addNewModule(this.form.value.name, rawModule.ipAddress);
     this.isLoading = true;
     this.form.reset();

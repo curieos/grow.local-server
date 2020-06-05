@@ -33,6 +33,8 @@ import { PlantListComponent } from './plant/plant-list/plant-list.component';
     ChartsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent,
+  ]
 })
 export class AppModule { }

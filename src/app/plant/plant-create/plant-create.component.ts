@@ -8,7 +8,7 @@ import { PlantsService } from '../plants.service';
 @Component({
   selector: 'app-plant-create',
   templateUrl: './plant-create.component.html',
-  styleUrls: ['./plant-create.component.css']
+  styleUrls: ['./plant-create.component.css'],
 })
 export class PlantCreateComponent implements OnInit, OnDestroy {
   isLoading = false;

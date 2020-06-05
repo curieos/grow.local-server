@@ -16,10 +16,9 @@ describe('DashboardComponent', () => {
         RouterTestingModule,
       ],
       declarations: [
-        DashboardComponent
-      ]
-    })
-    .compileComponents();
+        DashboardComponent,
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

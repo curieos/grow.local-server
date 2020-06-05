@@ -8,7 +8,7 @@ import { PlantsService } from '../plant/plants.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   public isLoading = false;
@@ -38,8 +38,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
           id: 'moisture',
           position: 'right',
           ticks: { suggestedMin: 40, suggestedMax: 60 }
-        }
-      ]
+        },
+      ],
     },
   };
   public lineChartColors: Color[] = [
@@ -49,7 +49,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       pointBackgroundColor: 'rgba(1,15,220,1)',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(1,50,220,0.8)'
+      pointHoverBorderColor: 'rgba(1,50,220,0.8)',
     },
     {
       backgroundColor: 'rgba(120,8,9,0.2)',
@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       pointBackgroundColor: 'rgba(120,8,9,1)',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(120,8,9,1)'
+      pointHoverBorderColor: 'rgba(120,8,9,1)',
     },
   ];
   public lineChartLegend = true;

@@ -18,8 +18,8 @@ export class PlantsService {
     this.http.get<{ message: string, plants: any }>(environment.apiURL + '/plants').pipe(map((data) => {
       return {
         plants: data.plants.map((plant) => {
-          return { id: plant.id, name: plant.name, };
-        })
+          return { id: plant.id, name: plant.name };
+        }),
       };
     })).subscribe((transformedPlants) => {
       this.plants = transformedPlants.plants;
@@ -37,8 +37,8 @@ export class PlantsService {
       data: {
         ambientTemperature: [{ value: number, time: string }],
         humidity: [{ value: number, time: string }],
-        soilMoisture: [{ value: number, time: string }]
-      }
+        soilMoisture: [{ value: number, time: string }],
+      },
     }>(environment.apiURL + '/plants/' + plantID + '/info').subscribe((data) => {
       const plant = this.plants.find((p) => p.id === plantID);
       plant.temperatureHistory = data.data.ambientTemperature;
@@ -57,7 +57,7 @@ export class PlantsService {
     this.http.post(
       environment.apiURL + '/plants',
       postData,
-      { headers: { 'Content-Type': 'application/json' } }
+      { headers: { 'Content-Type': 'application/json' } },
     ).subscribe((responseData) => {
       this.router.navigate(['/plants']);
     });
