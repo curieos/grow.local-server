@@ -60,6 +60,7 @@ router.get('/:id/info', (req, res, next) => {
         Requests.NewGetRequest(`${module.name}.local`, '/plant/info').then(response => {
           res.status(200).json({
             message: 'Successfully Retrieved Plant Info',
+            plant: plant,
             data: response
           })
         }).catch(error => {
