@@ -72,7 +72,7 @@ export class PlantListComponent implements OnInit, OnDestroy {
     this.plantsService.getPlantInfo(plant.id);
     this.plantInfoSub = this.plantsService.getPlantInfoUpdateListener().subscribe((plantInfo: {plant: Plant}) => {
       this.isInfoLoading = false;
-      plant = plantInfo.plant;
+      plant = Object.assign(plant, plantInfo.plant);
       this.lineChartData = this.getChartData(plant.temperatureHistory, 'Temperature');
       this.lineChartLabels = this.getPlantHistoryTimestamp(plant.temperatureHistory);
     });
