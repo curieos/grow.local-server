@@ -45,7 +45,7 @@ export class PlantsService {
           data.plant.name,
           data.data.ambientTemperature,
           data.data.humidity,
-          data.data.soilMoisture
+          data.data.soilMoisture,
         ),
       };
     })).subscribe((data) => {

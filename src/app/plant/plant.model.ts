@@ -8,7 +8,7 @@ export class Plant {
     public name: string,
     public temperatureHistory: [{ value: number, time: string }] = null,
     public humidityHistory: [{ value: number, time: string }] = null,
-    public soilMoistureHistory: [{ value: number, time: string }] = null
+    public soilMoistureHistory: [{ value: number, time: string }] = null,
   ) { }
 
   getCurrentTemperature() {
