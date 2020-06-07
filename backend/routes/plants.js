@@ -1,7 +1,7 @@
 const express = require('express')
 const Plant = require('../sequelize').Plant
 const Module = require('../sequelize').Module
-const http = require('http')
+const Requests = require('../lib/request-wrapper')
 
 const router = express.Router()
 
@@ -19,30 +19,6 @@ function UpdatePlantList () {
       plantList = [...newList]
       resolve()
     })
-  })
-}
-
-function NewGetRequest (host, path) {
-  return new Promise((resolve, reject) => {
-    const options = {
-      hostname: host,
-      port: 80,
-      path: path,
-      method: 'GET'
-    }
-    const request = http.get(options, response => {
-      const dataChunks = []
-      response.on('data', d => {
-        dataChunks.push(d)
-      }).on('end', () => {
-        const data = Buffer.concat(dataChunks)
-        resolve(JSON.parse(data))
-      })
-    })
-    request.on('error', error => {
-      reject(error)
-    })
-    request.end()
   })
 }
 
@@ -75,14 +51,16 @@ router.delete('/:id', (req, res, next) => {
 
 router.get('/:id/info', (req, res, next) => {
   UpdatePlantList().then((response) => {
-    const plant = plantList.find(plant => plant.id === req.params.id)
-
+    /* eslint-disable eqeqeq */
+    const plant = plantList.find(plant => plant.id == req.params.id)
+    /* eslint-enable eqeqeq */
     if (typeof plant === 'undefined') res.status(500).json({ message: 'Failed to find plant with id' })
     else {
       Module.findOne({ where: { id: plant.moduleId } }).then(module => {
-        NewGetRequest(`${module.name}.local`, '/plant/info').then(response => {
+        Requests.NewGetRequest(`${module.name}.local`, '/plant/info').then(response => {
           res.status(200).json({
             message: 'Successfully Retrieved Plant Info',
+            plant: plant,
             data: response
           })
         }).catch(error => {

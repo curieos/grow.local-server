@@ -72,7 +72,7 @@ export class PlantListComponent implements OnInit, OnDestroy {
     this.plantsService.getPlantInfo(plant.id);
     this.plantInfoSub = this.plantsService.getPlantInfoUpdateListener().subscribe((plantInfo: {plant: Plant}) => {
       this.isInfoLoading = false;
-      plant = plantInfo.plant;
+      plant = Object.assign(plant, plantInfo.plant);
       this.lineChartData = this.getChartData(plant.temperatureHistory, 'Temperature');
       this.lineChartLabels = this.getPlantHistoryTimestamp(plant.temperatureHistory);
     });
@@ -81,15 +81,6 @@ export class PlantListComponent implements OnInit, OnDestroy {
   setChartTo(data: [{value: number, time: string}], label: string) {
     this.lineChartData = this.getChartData(data, label);
     this.lineChartLabels = this.getPlantHistoryTimestamp(data);
-  }
-
-  getAverage(data: [{value: number, time: string}]) {
-    let avg = 0;
-    for (const dataPoint of data) {
-      avg += dataPoint.value;
-    }
-    avg /= data.length;
-    return avg;
   }
 
   getChartData(data: [{value: number, time: string}], label: string) {
@@ -118,5 +109,8 @@ export class PlantListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.plantSub.unsubscribe();
+    if (this.plantInfoSub) {
+      this.plantInfoSub.unsubscribe();
+    }
   }
 }
