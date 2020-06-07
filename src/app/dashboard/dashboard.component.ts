@@ -110,6 +110,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.plantSub.unsubscribe();
+    if (this.plantInfoSub) {
+      this.plantInfoSub.unsubscribe();
+    }
   }
 
 }
