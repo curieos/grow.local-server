@@ -1,12 +1,15 @@
 import { Module } from '../module/module.model';
 
 export class Plant {
-  temperatureHistory: [{ value: number, time: string }];
-  humidityHistory: [{ value: number, time: string }];
-  soilMoistureHistory: [{ value: number, time: string }];
   module: Module;
 
-  constructor(public id: string, public name: string) {}
+  constructor(
+    public id: string,
+    public name: string,
+    public temperatureHistory: [{ value: number, time: string }] = null,
+    public humidityHistory: [{ value: number, time: string }] = null,
+    public soilMoistureHistory: [{ value: number, time: string }] = null
+  ) { }
 
   getCurrentTemperature() {
     return this.getCurrentValue(this.temperatureHistory);
