@@ -9,7 +9,7 @@ var plantList = []
 
 function UpdatePlantList () {
   return new Promise((resolve, reject) => {
-    Plant.findAll().then(plants => {
+    Plant.findAll().then((plants) => {
       const newList = []
       for (const plant of plants) {
         const newPlant = { id: plant.id, name: plant.name, moduleId: plant.moduleId }
@@ -59,6 +59,19 @@ router.get('/:id/settings', (req, res, next) => {
       res.status(200).json({
         message: 'Successfully Retrieved Plant Settings',
         plant: plant
+      })
+    }
+  })
+})
+
+router.post('/:id/settings', (req, res, next) => {
+  Plant.findOne({ where: { id: req.params.id } }).then((plant) => {
+    if (plant === null) {
+      res.status(502).json({ message: 'Failed to find plant with id' })
+    } else {
+      plant.name = req.body.plantName
+      plant.save().then(() => {
+        res.status(200).json({ message: 'Successfully Updated Plant' })
       })
     }
   })

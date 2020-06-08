@@ -90,7 +90,14 @@ export class PlantsService {
   }
 
   updatePlantSettings(plant: Plant) {
-    this.router.navigate(['/plants']);
+    const postData = JSON.stringify({ plantName: plant.name });
+    this.http.post(
+      environment.apiURL + '/plants/' + plant.id + '/settings',
+      postData,
+      { headers: { 'Content-Type': 'application/json' } },
+    ).subscribe(() => {
+      this.router.navigate(['/plants']);
+    });
   }
 
   deletePlant(plantID: string) {
