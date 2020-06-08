@@ -8,7 +8,7 @@ const router = express.Router()
 var moduleList = []
 var rawModuleList = []
 
-function UpdateModuleList () {
+function UpdateModuleList() {
   return new Promise((resolve, reject) => {
     Module.findAll().then(modules => {
       const newList = []
@@ -23,7 +23,7 @@ function UpdateModuleList () {
   })
 }
 
-function UpdateRawModuleList () {
+function UpdateRawModuleList() {
   return new Promise((resolve, reject) => {
     Requests.NewGetRequest('new_module.local', '/module/info').then(response => {
       rawModuleList = []
@@ -95,6 +95,19 @@ router.get('/:id/settings', (req, res, next) => {
       res.status(200).json({
         message: 'Successfully Retrieved Module Settings',
         module: module
+      })
+    }
+  })
+})
+
+router.post('/:id/settings', (req, res, next) => {
+  Module.findOne({ where: { id: req.params.id } }).then((module) => {
+    if (module === null) {
+      res.status(502).json({ message: 'Failed to find module with id' })
+    } else {
+      module.name = req.body.name;
+      module.save().then(() => {
+        res.status(200).json({ message: 'Successfully Updated Module Data' })
       })
     }
   })
