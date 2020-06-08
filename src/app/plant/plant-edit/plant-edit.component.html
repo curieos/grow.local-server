@@ -1,0 +1,24 @@
+<div class="d-flex justify-content-center" *ngIf="isLoading">
+	<div class="spinner-border" role="status">
+		<span class="sr-only">Loading...</span>
+	</div>
+</div>
+<form [formGroup]="form" (submit)="updatePlantSettings()" *ngIf="!isLoading">
+	<div class="form-group">
+		<label for="Name">Plant Name</label>
+		<input type="text" name="Name" formControlName="name" class="form-control"
+			[class.is-invalid]="form.get('name').invalid" placeholder="Plant Name">
+		<div class="invalid-feedback">
+			Please enter a name.
+		</div>
+	</div>
+	<button type="submit" class="btn btn-primary">
+		<div *ngIf="!isUpdateLoading">
+			Save
+		</div>
+		<div *ngIf="isUpdateLoading">
+			<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+			Loading...
+		</div>
+	</button>
+</form>
