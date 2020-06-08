@@ -59,8 +59,18 @@ export class PlantsService {
   }
 
   getPlantSettings(plantID: string) {
-    this.http.get<{}>(environment.apiURL + '/plants/' + plantID + '/info').subscribe(() => {
-      this.plantSettingsUpdated.next({ plant: new Plant('1', 'Violets') });
+    this.http.get<{
+      message: string
+      plant: { id: string, name: string }
+    }>(environment.apiURL + '/plants/' + plantID + '/settings').pipe(map((data) => {
+      return {
+        plant: new Plant(
+          data.plant.id,
+          data.plant.name,
+        ),
+      };
+    })).subscribe((data) => {
+      this.plantSettingsUpdated.next(data);
     });
   }
 
