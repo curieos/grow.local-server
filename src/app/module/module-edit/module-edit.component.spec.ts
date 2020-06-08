@@ -1,4 +1,6 @@
+import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { ModuleEditComponent } from './module-edit.component';
 
 describe('ModuleEditComponent', () => {
@@ -7,9 +9,14 @@ describe('ModuleEditComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModuleEditComponent ],
-    })
-    .compileComponents();
+      imports: [
+        RouterTestingModule,
+        HttpClientModule,
+      ],
+      declarations: [
+        ModuleEditComponent,
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

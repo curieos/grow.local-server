@@ -13,6 +13,7 @@ export class ModulesService {
   private rawModules: RawModule[] = [];
   private modulesUpdated = new Subject<{ modules: Module[] }>();
   private moduleInfoUpdated = new Subject<{ module: Module }>();
+  private moduleSettingsUpdated = new Subject<{ module: Module }>();
   private rawModulesUpdated = new Subject<{ modules: RawModule[] }>();
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -52,6 +53,19 @@ export class ModulesService {
     return this.moduleInfoUpdated.asObservable();
   }
 
+  getModuleSettings(id: string) {
+    this.http.get<{}>(environment.apiURL + '/modules/' + id + '/info').subscribe(() => {
+      const module = new Module();
+      module.name = 'dummy';
+      module.id = id;
+      this.moduleSettingsUpdated.next({ module });
+    });
+  }
+
+  getModuleSettingsUpdateListener() {
+    return this.moduleSettingsUpdated.asObservable();
+  }
+
   getRawModules() {
     this.http.get<{ message: string, modules: any }>(environment.apiURL + '/modules/raw').pipe(map((data) => {
       return {
@@ -78,6 +92,10 @@ export class ModulesService {
     ).subscribe((responseData) => {
       this.router.navigate(['/modules']);
     });
+  }
+
+  updateModuleSettings(module: Module) {
+
   }
 
   deleteModule(moduleID: string) {
