@@ -85,8 +85,23 @@ router.delete('/:id', (req, res, next) => {
   })
 })
 
+router.get('/:id/settings', (req, res, next) => {
+  UpdateModuleList().then(() => {
+    /* eslint-disable eqeqeq */
+    const module = moduleList.find(module => module.id == req.params.id)
+    /* eslint-enable eqeqeq */
+    if (typeof module === 'undefined') res.status(500).json({ message: 'Failed to find module with id' })
+    else {
+      res.status(200).json({
+        message: 'Successfully Retrieved Module Settings',
+        module: module
+      })
+    }
+  })
+})
+
 router.get('/:id/info', (req, res, next) => {
-  UpdateModuleList().then((response) => {
+  UpdateModuleList().then(() => {
     /* eslint-disable eqeqeq */
     const module = moduleList.find(module => module.id == req.params.id)
     /* eslint-enable eqeqeq */
