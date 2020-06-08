@@ -8,9 +8,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './header/header.component';
+import { ModuleEditComponent } from './module/module-edit/module-edit.component';
 import { ModuleLinkComponent } from './module/module-link/module-link.component';
 import { ModuleListComponent } from './module/module-list/module-list.component';
 import { PlantCreateComponent } from './plant/plant-create/plant-create.component';
+import { PlantEditComponent } from './plant/plant-edit/plant-edit.component';
 import { PlantListComponent } from './plant/plant-list/plant-list.component';
 
 @NgModule({
@@ -22,6 +24,8 @@ import { PlantListComponent } from './plant/plant-list/plant-list.component';
     PlantListComponent,
     ModuleListComponent,
     ModuleLinkComponent,
+    PlantEditComponent,
+    ModuleEditComponent,
   ],
   imports: [
     NgbModule,

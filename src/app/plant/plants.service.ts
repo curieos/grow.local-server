@@ -10,6 +10,7 @@ import { Plant } from './plant.model';
 export class PlantsService {
   private plantsUpdated = new Subject<{ plants: Plant[] }>();
   private plantInfoUpdated = new Subject<{ plant: Plant }>();
+  private plantSettingsUpdated = new Subject<{ plant: Plant }>();
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -34,9 +35,9 @@ export class PlantsService {
       message: string,
       plant: { id: string, name: string },
       data: {
-        ambientTemperature: [{ value: number, time: string }],
-        humidity: [{ value: number, time: string }],
-        soilMoisture: [{ value: number, time: string }],
+        ambientTemperature: Array<{ value: number, time: string }>,
+        humidity: Array<{ value: number, time: string }>,
+        soilMoisture: Array<{ value: number, time: string }>,
       },
     }>(environment.apiURL + '/plants/' + plantID + '/info').pipe(map((data) => {
       return {
@@ -57,10 +58,41 @@ export class PlantsService {
     return this.plantInfoUpdated.asObservable();
   }
 
+  getPlantSettings(plantID: string) {
+    this.http.get<{
+      message: string
+      plant: { id: string, name: string },
+    }>(environment.apiURL + '/plants/' + plantID + '/settings').pipe(map((data) => {
+      return {
+        plant: new Plant(
+          data.plant.id,
+          data.plant.name,
+        ),
+      };
+    })).subscribe((data) => {
+      this.plantSettingsUpdated.next(data);
+    });
+  }
+
+  getPlantSettingsUpdateListener() {
+    return this.plantSettingsUpdated.asObservable();
+  }
+
   addNewPlant(plantName: string, moduleName: string) {
     const postData = JSON.stringify({ plantName, moduleName });
     this.http.post(
       environment.apiURL + '/plants',
+      postData,
+      { headers: { 'Content-Type': 'application/json' } },
+    ).subscribe(() => {
+      this.router.navigate(['/plants']);
+    });
+  }
+
+  updatePlantSettings(plant: Plant) {
+    const postData = JSON.stringify({ plantName: plant.name });
+    this.http.post(
+      environment.apiURL + '/plants/' + plant.id + '/settings',
       postData,
       { headers: { 'Content-Type': 'application/json' } },
     ).subscribe(() => {

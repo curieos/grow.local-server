@@ -13,6 +13,7 @@ export class ModulesService {
   private rawModules: RawModule[] = [];
   private modulesUpdated = new Subject<{ modules: Module[] }>();
   private moduleInfoUpdated = new Subject<{ module: Module }>();
+  private moduleSettingsUpdated = new Subject<{ module: Module }>();
   private rawModulesUpdated = new Subject<{ modules: RawModule[] }>();
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -52,6 +53,23 @@ export class ModulesService {
     return this.moduleInfoUpdated.asObservable();
   }
 
+  getModuleSettings(id: string) {
+    this.http.get<{
+      message: string,
+      module: { id: string, name: string, ip: string },
+    }>(environment.apiURL + '/modules/' + id + '/settings').subscribe((data) => {
+      const module = new Module();
+      module.id = data.module.id;
+      module.name = data.module.name;
+      module.ipAddress = data.module.ip;
+      this.moduleSettingsUpdated.next({ module });
+    });
+  }
+
+  getModuleSettingsUpdateListener() {
+    return this.moduleSettingsUpdated.asObservable();
+  }
+
   getRawModules() {
     this.http.get<{ message: string, modules: any }>(environment.apiURL + '/modules/raw').pipe(map((data) => {
       return {
@@ -76,6 +94,17 @@ export class ModulesService {
       postData,
       { headers: { 'Content-Type': 'application/json' } },
     ).subscribe((responseData) => {
+      this.router.navigate(['/modules']);
+    });
+  }
+
+  updateModuleSettings(module: Module) {
+    const postData = JSON.stringify({ name: module.name });
+    this.http.post(
+      environment.apiURL + '/modules/' + module.id + '/settings',
+      postData,
+      { headers: { 'Content-Type': 'application/json' } },
+    ).subscribe(() => {
       this.router.navigate(['/modules']);
     });
   }

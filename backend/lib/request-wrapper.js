@@ -15,7 +15,11 @@ class Requests {
           dataChunks.push(d)
         }).on('end', () => {
           const data = Buffer.concat(dataChunks)
-          resolve(JSON.parse(data))
+          try {
+            resolve(JSON.parse(data))
+          } catch (err) {
+            reject(err)
+          }
         })
       })
       request.on('error', error => {

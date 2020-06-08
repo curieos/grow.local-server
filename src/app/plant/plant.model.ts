@@ -3,12 +3,35 @@ import { Module } from '../module/module.model';
 export class Plant {
   module: Module;
 
+  static getPlantHistoryTimestamp(data: Array<{ value: number, time: string }>) {
+    const label = [];
+    for (const dataPoint of data) {
+      label.push(dataPoint.time.slice(0, 5));
+    }
+    return label;
+  }
+
+  static getChartData(data: Array<{ value: number, time: string }>, label: string): { data: number[], label: string, yAxisID: string } {
+    const newData = {
+      data: [], label, yAxisID: label.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, (match, index) => {
+        if (+match === 0) {
+          return ''; // or if (/\s+/.test(match)) for white spaces
+        }
+        return index === 0 ? match.toLowerCase() : match.toUpperCase();
+      }),
+    };
+    for (const dataPoint of data) {
+      newData.data.push(dataPoint.value);
+    }
+    return newData;
+  }
+
   constructor(
     public id: string,
     public name: string,
-    public temperatureHistory: [{ value: number, time: string }] = null,
-    public humidityHistory: [{ value: number, time: string }] = null,
-    public soilMoistureHistory: [{ value: number, time: string }] = null,
+    public temperatureHistory: Array<{ value: number, time: string }> = null,
+    public humidityHistory: Array<{ value: number, time: string }> = null,
+    public soilMoistureHistory: Array<{ value: number, time: string }> = null,
   ) { }
 
   getCurrentTemperature() {
@@ -23,7 +46,7 @@ export class Plant {
     return this.getCurrentValue(this.soilMoistureHistory);
   }
 
-  getCurrentValue(data: [{ value: number, time: string }]) {
+  getCurrentValue(data: Array<{ value: number, time: string }>) {
     if (!data) {
       return 0;
     }
@@ -42,7 +65,7 @@ export class Plant {
     return this.getAverage(this.soilMoistureHistory);
   }
 
-  getAverage(data: [{ value: number, time: string }]) {
+  getAverage(data: Array<{ value: number, time: string }>) {
     let avg = 0;
     for (const dataPoint of data) {
       avg += dataPoint.value;

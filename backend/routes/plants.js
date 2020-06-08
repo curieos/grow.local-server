@@ -9,7 +9,7 @@ var plantList = []
 
 function UpdatePlantList () {
   return new Promise((resolve, reject) => {
-    Plant.findAll().then(plants => {
+    Plant.findAll().then((plants) => {
       const newList = []
       for (const plant of plants) {
         const newPlant = { id: plant.id, name: plant.name, moduleId: plant.moduleId }
@@ -34,7 +34,7 @@ router.get('', (req, res, next) => {
 router.post('', (req, res, next) => {
   Module.findOne({ where: { name: req.body.moduleName } }).then(module => {
     Plant.create({ name: req.body.plantName, moduleId: module.id }).then(plant => {
-      res.status(201).json({ message: 'Successfuly Added Plant' })
+      res.status(201).json({ message: 'Successfully Added Plant' })
     })
   })
 })
@@ -46,6 +46,34 @@ router.delete('/:id', (req, res, next) => {
     }
   }).then(() => {
     res.status(204).json({ message: 'Successfully Deleted Plant' })
+  })
+})
+
+router.get('/:id/settings', (req, res, next) => {
+  UpdatePlantList().then((response) => {
+    /* eslint-disable eqeqeq */
+    const plant = plantList.find(plant => plant.id == req.params.id)
+    /* eslint-enable eqeqeq */
+    if (typeof plant === 'undefined') res.status(500).json({ message: 'Failed to find plant with id' })
+    else {
+      res.status(200).json({
+        message: 'Successfully Retrieved Plant Settings',
+        plant: plant
+      })
+    }
+  })
+})
+
+router.post('/:id/settings', (req, res, next) => {
+  Plant.findOne({ where: { id: req.params.id } }).then((plant) => {
+    if (plant === null) {
+      res.status(502).json({ message: 'Failed to find plant with id' })
+    } else {
+      plant.name = req.body.plantName
+      plant.save().then(() => {
+        res.status(200).json({ message: 'Successfully Updated Plant' })
+      })
+    }
   })
 })
 

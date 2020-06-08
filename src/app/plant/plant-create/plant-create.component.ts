@@ -20,7 +20,7 @@ export class PlantCreateComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.form = new FormGroup({
-      name: new FormControl(null, { validators: [Validators.required, Validators.minLength(4)] }),
+      name: new FormControl('', { validators: [Validators.required, Validators.minLength(4)] }),
       module: new FormControl(null, { validators: [Validators.required] }),
       control_watering: new FormControl(false, {validators: [Validators.required]}),
       use_moisture_sensor: new FormControl(false, {validators: [Validators.required]}),
