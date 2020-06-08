@@ -10,6 +10,7 @@ import { Plant } from './plant.model';
 export class PlantsService {
   private plantsUpdated = new Subject<{ plants: Plant[] }>();
   private plantInfoUpdated = new Subject<{ plant: Plant }>();
+  private plantSettingsUpdated = new Subject<{ plant: Plant }>();
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -55,6 +56,16 @@ export class PlantsService {
 
   getPlantInfoUpdateListener() {
     return this.plantInfoUpdated.asObservable();
+  }
+
+  getPlantSettings(plantID: string) {
+    this.http.get<{}>(environment.apiURL + '/plants/' + plantID + '/info').subscribe(() => {
+      this.plantSettingsUpdated.next({ plant: new Plant('1', 'Violets') });
+    });
+  }
+
+  getPlantSettingsUpdateListener() {
+    return this.plantSettingsUpdated.asObservable();
   }
 
   addNewPlant(plantName: string, moduleName: string) {
