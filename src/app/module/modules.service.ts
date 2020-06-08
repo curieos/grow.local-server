@@ -99,7 +99,14 @@ export class ModulesService {
   }
 
   updateModuleSettings(module: Module) {
-
+    const postData = JSON.stringify({ name: module.name });
+    this.http.post(
+      environment.apiURL + '/modules/' + module.id + '/settings',
+      postData,
+      { headers: { 'Content-Type': 'application/json' } },
+    ).subscribe(() => {
+      this.router.navigate(['/modules']);
+    });
   }
 
   deleteModule(moduleID: string) {
