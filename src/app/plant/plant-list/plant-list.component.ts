@@ -19,8 +19,6 @@ export class PlantListComponent implements OnInit, OnDestroy {
 
   public lineChartData: ChartDataSets[] = [
     { data: [], label: 'Temperature', yAxisID: 'temperature' },
-    { data: [], label: 'Humidity', yAxisID: 'humidity' },
-    { data: [], label: 'Soil Moisture', yAxisID: 'soilMoisture' },
   ];
   public lineChartLabels: Label[] = [];
   public lineChartOptions: (ChartOptions) = {

@@ -20,7 +20,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   // chart bs, temporary
   public lineChartData: ChartDataSets[] = [
     { data: [], label: 'Humidity', yAxisID: 'humidity' },
-    { data: [], label: 'Soil Moisture', yAxisID: 'moisture' },
   ];
   public lineChartLabels: Label[] = [];
   public lineChartOptions: (ChartOptions) = {
