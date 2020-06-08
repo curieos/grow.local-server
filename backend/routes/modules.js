@@ -85,8 +85,42 @@ router.delete('/:id', (req, res, next) => {
   })
 })
 
+router.get('/:id/settings', (req, res, next) => {
+  UpdateModuleList().then(() => {
+    /* eslint-disable eqeqeq */
+    const module = moduleList.find(module => module.id == req.params.id)
+    /* eslint-enable eqeqeq */
+    if (typeof module === 'undefined') res.status(500).json({ message: 'Failed to find module with id' })
+    else {
+      res.status(200).json({
+        message: 'Successfully Retrieved Module Settings',
+        module: module
+      })
+    }
+  })
+})
+
+router.post('/:id/settings', (req, res, next) => {
+  Module.findOne({ where: { id: req.params.id } }).then((module) => {
+    if (module === null) {
+      res.status(502).json({ message: 'Failed to find module with id' })
+    } else {
+      module.name = req.body.name
+      module.save().then(() => {
+        const data = JSON.stringify({
+          name: module.name,
+          timezoneOffset: new Date().getTimezoneOffset()
+        })
+        Requests.NewPostRequest(module.ip, '/module/setup', data).then((response) => {
+          res.status(200).json({ message: 'Successfully Updated Module Data' })
+        })
+      })
+    }
+  })
+})
+
 router.get('/:id/info', (req, res, next) => {
-  UpdateModuleList().then((response) => {
+  UpdateModuleList().then(() => {
     /* eslint-disable eqeqeq */
     const module = moduleList.find(module => module.id == req.params.id)
     /* eslint-enable eqeqeq */

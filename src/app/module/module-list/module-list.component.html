@@ -32,7 +32,7 @@
 					</p>
 				</div>
 				<div class="float-right mb-1">
-					<button type="button" class="btn btn-warning m-1">Edit</button>
+					<button type="button" class="btn btn-warning m-1" [routerLink]="['/modules/edit', module.id]">Edit</button>
 					<button type="button" class="btn btn-danger m-1" (click)="deleteModule(module.id)">Delete</button>
 				</div>
 			</div>
