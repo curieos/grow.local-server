@@ -6,9 +6,9 @@ export class Plant {
   constructor(
     public id: string,
     public name: string,
-    public temperatureHistory: [{ value: number, time: string }] = null,
-    public humidityHistory: [{ value: number, time: string }] = null,
-    public soilMoistureHistory: [{ value: number, time: string }] = null,
+    public temperatureHistory: Array<{ value: number, time: string }> = null,
+    public humidityHistory: Array<{ value: number, time: string }> = null,
+    public soilMoistureHistory: Array<{ value: number, time: string }> = null,
   ) { }
 
   getCurrentTemperature() {
@@ -23,7 +23,7 @@ export class Plant {
     return this.getCurrentValue(this.soilMoistureHistory);
   }
 
-  getCurrentValue(data: [{ value: number, time: string }]) {
+  getCurrentValue(data: Array<{ value: number, time: string }>) {
     if (!data) {
       return 0;
     }
@@ -42,7 +42,7 @@ export class Plant {
     return this.getAverage(this.soilMoistureHistory);
   }
 
-  getAverage(data: [{ value: number, time: string }]) {
+  getAverage(data: Array<{ value: number, time: string }>) {
     let avg = 0;
     for (const dataPoint of data) {
       avg += dataPoint.value;

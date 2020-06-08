@@ -35,9 +35,9 @@ export class PlantsService {
       message: string,
       plant: { id: string, name: string },
       data: {
-        ambientTemperature: [{ value: number, time: string }],
-        humidity: [{ value: number, time: string }],
-        soilMoisture: [{ value: number, time: string }],
+        ambientTemperature: Array<{ value: number, time: string }>,
+        humidity: Array<{ value: number, time: string }>,
+        soilMoisture: Array<{ value: number, time: string }>,
       },
     }>(environment.apiURL + '/plants/' + plantID + '/info').pipe(map((data) => {
       return {
