@@ -30,11 +30,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
       xAxes: [{}],
       yAxes: [
         {
+          display: 'auto',
           id: 'humidity',
           position: 'left',
           ticks: { suggestedMin: 40, suggestedMax: 60 },
         },
         {
+          display: 'auto',
           id: 'moisture',
           position: 'right',
           ticks: { suggestedMin: 40, suggestedMax: 60 },
@@ -78,34 +80,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   getPlantInfo(plant: Plant) {
     this.plantsService.getPlantInfo(plant.id);
-    this.plantInfoSub = this.plantsService.getPlantInfoUpdateListener().subscribe((plantInfo: {plant: Plant}) => {
-      plant = plantInfo.plant;
-      this.lineChartData = this.getChartData(plant);
-      this.lineChartLabels = this.getPlantHistoryTimestamp(plant.humidityHistory);
-    });
-  }
-
-  getChartData(plant: Plant) {
-    const newData = [{ data: [], label: 'Humidity', yAxisID: 'humidity'}];
-    for (const dataPoint of plant.humidityHistory) {
-      newData[0].data.push(dataPoint.value);
-    }
-    if (plant.soilMoistureHistory) {
-      const moistureData = [];
-      for (const dataPoint of plant.soilMoistureHistory) {
-        moistureData.push(dataPoint.value);
+    this.plantInfoSub = this.plantsService.getPlantInfoUpdateListener().subscribe((plantInfo: { plant: Plant }) => {
+      plant = Object.assign(plant, plantInfo.plant);
+      this.lineChartData = [Plant.getChartData(plant.humidityHistory, 'Humidity')];
+      if (plant.soilMoistureHistory) {
+        this.lineChartData.push(Plant.getChartData(plant.soilMoistureHistory, 'Soil Moisture'));
       }
-      newData.push({data: moistureData, label: 'Soil Moisture', yAxisID: 'moisture'});
-    }
-    return newData;
-  }
-
-  getPlantHistoryTimestamp(data: [{value: number, time: string}]) {
-    const label = [];
-    for (const dataPoint of data) {
-      label.push(dataPoint.time.slice(0, 5));
-    }
-    return label;
+      this.lineChartLabels = Plant.getPlantHistoryTimestamp(plant.humidityHistory);
+    });
   }
 
   ngOnDestroy() {
@@ -114,5 +96,4 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.plantInfoSub.unsubscribe();
     }
   }
-
 }

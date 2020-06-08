@@ -18,7 +18,9 @@ export class PlantListComponent implements OnInit, OnDestroy {
   public plantList: Plant[];
 
   public lineChartData: ChartDataSets[] = [
-    { data: [], label: 'Temperature'},
+    { data: [], label: 'Temperature', yAxisID: 'temperature' },
+    { data: [], label: 'Humidity', yAxisID: 'humidity' },
+    { data: [], label: 'Soil Moisture', yAxisID: 'soilMoisture' },
   ];
   public lineChartLabels: Label[] = [];
   public lineChartOptions: (ChartOptions) = {
@@ -28,9 +30,22 @@ export class PlantListComponent implements OnInit, OnDestroy {
       xAxes: [{}],
       yAxes: [
         {
+          display: 'auto',
           id: 'temperature',
           position: 'right',
           ticks: { suggestedMin: 10, suggestedMax: 40 },
+        },
+        {
+          display: 'auto',
+          id: 'humidity',
+          position: 'right',
+          ticks: { suggestedMin: 10, suggestedMax: 40 },
+        },
+        {
+          display: 'auto',
+          id: 'soilMoisture',
+          position: 'right',
+          ticks: { suggestedMin: 500, suggestedMax: 800 },
         },
       ],
     },
@@ -73,30 +88,14 @@ export class PlantListComponent implements OnInit, OnDestroy {
     this.plantInfoSub = this.plantsService.getPlantInfoUpdateListener().subscribe((plantInfo: {plant: Plant}) => {
       this.isInfoLoading = false;
       plant = Object.assign(plant, plantInfo.plant);
-      this.lineChartData = this.getChartData(plant.temperatureHistory, 'Temperature');
-      this.lineChartLabels = this.getPlantHistoryTimestamp(plant.temperatureHistory);
+      this.lineChartData = [ Plant.getChartData(plant.temperatureHistory, 'Temperature') ];
+      this.lineChartLabels = Plant.getPlantHistoryTimestamp(plant.temperatureHistory);
     });
   }
 
-  setChartTo(data: [{value: number, time: string}], label: string) {
-    this.lineChartData = this.getChartData(data, label);
-    this.lineChartLabels = this.getPlantHistoryTimestamp(data);
-  }
-
-  getChartData(data: [{value: number, time: string}], label: string) {
-    const newData = [{ data: [], label}];
-    for (const dataPoint of data) {
-      newData[0].data.push(dataPoint.value);
-    }
-    return newData;
-  }
-
-  getPlantHistoryTimestamp(data: [{value: number, time: string}]) {
-    const label = [];
-    for (const dataPoint of data) {
-      label.push(dataPoint.time.slice(0, 5));
-    }
-    return label;
+  setChartTo(data: Array<{ value: number, time: string }>, label: string) {
+    this.lineChartData = [ Plant.getChartData(data, label) ];
+    this.lineChartLabels = Plant.getPlantHistoryTimestamp(data);
   }
 
   deletePlant(id: string) {
