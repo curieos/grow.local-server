@@ -61,7 +61,7 @@ export class PlantsService {
   getPlantSettings(plantID: string) {
     this.http.get<{
       message: string
-      plant: { id: string, name: string }
+      plant: { id: string, name: string },
     }>(environment.apiURL + '/plants/' + plantID + '/settings').pipe(map((data) => {
       return {
         plant: new Plant(
