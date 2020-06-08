@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ModuleEditComponent } from './module/module-edit/module-edit.component';
 import { ModuleLinkComponent } from './module/module-link/module-link.component';
 import { ModuleListComponent } from './module/module-list/module-list.component';
 import { PlantCreateComponent } from './plant/plant-create/plant-create.component';
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'plants/edit/:id', component: PlantEditComponent },
   { path: 'modules', component: ModuleListComponent },
   { path: 'modules/link', component: ModuleLinkComponent },
+  { path: 'modules/edit/:id', component: ModuleEditComponent },
 ];
 
 @NgModule({
