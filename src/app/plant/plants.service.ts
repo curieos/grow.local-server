@@ -79,6 +79,10 @@ export class PlantsService {
     });
   }
 
+  updatePlantSettings(plant: Plant) {
+    this.router.navigate(['/plants']);
+  }
+
   deletePlant(plantID: string) {
     this.http.delete(environment.apiURL + '/plants/' + plantID).subscribe();
   }
