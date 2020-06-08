@@ -54,10 +54,14 @@ export class ModulesService {
   }
 
   getModuleSettings(id: string) {
-    this.http.get<{}>(environment.apiURL + '/modules/' + id + '/info').subscribe(() => {
+    this.http.get<{
+      message: string,
+      module: { id: string, name: string, ip: string },
+    }>(environment.apiURL + '/modules/' + id + '/settings').subscribe((data) => {
       const module = new Module();
-      module.name = 'dummy';
-      module.id = id;
+      module.id = data.module.id;
+      module.name = data.module.name;
+      module.ipAddress = data.module.ip;
       this.moduleSettingsUpdated.next({ module });
     });
   }
