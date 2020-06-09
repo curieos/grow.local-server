@@ -28,7 +28,7 @@ export class ModulesService {
     })).subscribe((transformedModules) => {
       this.modules = transformedModules.modules;
       this.modulesUpdated.next({ modules: [...this.modules] });
-    }, (error) => {
+    }, () => {
       this.modulesUpdated.next({ modules: null });
     });
   }
@@ -86,7 +86,7 @@ export class ModulesService {
     })).subscribe((transformedModules) => {
       this.rawModules = transformedModules.modules;
       this.rawModulesUpdated.next({ modules: [...this.rawModules] });
-    }, (error) => {
+    }, () => {
       this.rawModulesUpdated.next({ modules: null });
     });
   }
@@ -101,10 +101,10 @@ export class ModulesService {
       environment.apiURL + '/modules',
       postData,
       { headers: { 'Content-Type': 'application/json' } },
-    ).subscribe((responseData) => {
+    ).subscribe(() => {
       this.router.navigate(['/modules']);
-    }, (error) => {
-      console.log(error);
+    }, () => {
+
     });
   }
 
@@ -116,8 +116,8 @@ export class ModulesService {
       { headers: { 'Content-Type': 'application/json' } },
     ).subscribe(() => {
       this.router.navigate(['/modules']);
-    }, (error) => {
-      console.log(error);
+    }, () => {
+
     });
   }
 

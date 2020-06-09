@@ -92,8 +92,8 @@ export class PlantsService {
       { headers: { 'Content-Type': 'application/json' } },
     ).subscribe(() => {
       this.router.navigate(['/plants']);
-    }, (error) => {
-      console.log(error);
+    }, () => {
+
     });
   }
 
@@ -105,8 +105,8 @@ export class PlantsService {
       { headers: { 'Content-Type': 'application/json' } },
     ).subscribe(() => {
       this.router.navigate(['/plants']);
-    }, (error) => {
-      console.log(error);
+    }, () => {
+
     });
   }
 
