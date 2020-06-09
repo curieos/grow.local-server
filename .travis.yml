@@ -12,6 +12,7 @@ before_script:
 
 script:
   - ng test --watch=false --browsers=ChromeHeadless
+  - npm run coveralls
   - ng build --prod
 
 notifications:
