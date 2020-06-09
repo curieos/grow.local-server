@@ -27,6 +27,9 @@ export class PlantEditComponent implements OnInit, OnDestroy {
   }
 
   getPlantSettings() {
+    if (!this.route.snapshot.params['id']) {
+      return;
+    }
     this.isLoading = true;
     this.plantsService.getPlantSettings(this.route.snapshot.params['id']);
     this.plantSettingsSub = this.plantsService.getPlantSettingsUpdateListener().subscribe((plant: {plant: Plant}) => {

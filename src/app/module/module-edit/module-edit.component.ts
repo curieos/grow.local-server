@@ -27,6 +27,9 @@ export class ModuleEditComponent implements OnInit, OnDestroy {
   }
 
   getModuleSettings() {
+    if (!this.route.snapshot.params['id']) {
+      return;
+    }
     this.isLoading = true;
     this.modulesService.getModuleSettings(this.route.snapshot.params['id']);
     this.moduleSettingsSubscription = this.modulesService.getModuleSettingsUpdateListener().subscribe((module: {module: Module}) => {
