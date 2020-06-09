@@ -4,24 +4,40 @@ image: node:latest
 # This folder is cached between builds
 # http://docs.gitlab.com/ce/ci/yaml/README.html#cache
 cache:
-  paths:
-    - node_modules/
+    paths:
+        - node_modules/
+
+before_script:
+    - npm install
+
+test:
+    stage: test
+    environment: test
+    script:
+        - ng test --no-watch
+        - ng e2e
+    coverage: '/Statements.*?(\d+(?:\.\d+)?)%/'
+    artifacts:
+        paths:
+            - coverage/
 
 build:
     stage: build
+    environment: build
     script:
-        - npm install
         - npm run build:prod
     cache:
         policy: push
         paths:
-        - node_modules/
+            - node_modules/
+    only: 
+        - master
     artifacts:
         paths:
-        - dist/
-        - backend/
-        - server.js
-        - package.json
-        - README.md
-        - LICENSE
+            - dist/
+            - backend/
+            - server.js
+            - package.json
+            - README.md
+            - LICENSE
 
