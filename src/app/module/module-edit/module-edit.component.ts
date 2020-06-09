@@ -57,6 +57,6 @@ export class ModuleEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.moduleSettingsSubscription.unsubscribe();
+    this.moduleSettingsSubscription?.unsubscribe();
   }
 }

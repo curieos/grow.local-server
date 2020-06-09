@@ -47,7 +47,7 @@ export class PlantCreateComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.moduleSub.unsubscribe();
+    this.moduleSub?.unsubscribe();
   }
 
 }

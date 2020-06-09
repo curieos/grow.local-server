@@ -52,9 +52,7 @@ export class ModuleListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.moduleSub.unsubscribe();
-    if (this.moduleInfoSub) {
-      this.moduleInfoSub.unsubscribe();
-    }
+    this.moduleSub?.unsubscribe();
+    this.moduleInfoSub?.unsubscribe();
   }
 }

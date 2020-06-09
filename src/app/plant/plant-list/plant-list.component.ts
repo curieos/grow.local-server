@@ -105,9 +105,7 @@ export class PlantListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.plantSub.unsubscribe();
-    if (this.plantInfoSub) {
-      this.plantInfoSub.unsubscribe();
-    }
+    this.plantSub?.unsubscribe();
+    this.plantInfoSub?.unsubscribe();
   }
 }

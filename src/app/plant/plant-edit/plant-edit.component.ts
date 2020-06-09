@@ -57,7 +57,7 @@ export class PlantEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.plantSettingsSub.unsubscribe();
+    this.plantSettingsSub?.unsubscribe();
   }
 
 }

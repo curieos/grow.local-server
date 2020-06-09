@@ -41,7 +41,7 @@ export class ModuleLinkComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.rawModuleSub.unsubscribe();
+    this.rawModuleSub?.unsubscribe();
   }
 
 }
