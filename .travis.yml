@@ -11,5 +11,5 @@ before_script:
   - npm install -g @angular/cli
 
 script:
-  - ng lint
+  - ng test --watch=false --browsers=ChromeHeadless
   - ng build --prod
