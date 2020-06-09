@@ -15,6 +15,7 @@ test:
     stage: test
     environment: test
     script:
+        - npm install sqlite3
         - setsid './gitlab-test.sh'
         - npm run test
         - npm run e2e
