@@ -14,8 +14,8 @@ test:
     stage: test
     environment: test
     script:
-        - ng test --no-watch
-        - ng e2e
+        - npm run test
+        - npm run e2e
     coverage: '/Statements.*?(\d+(?:\.\d+)?)%/'
     artifacts:
         paths:
