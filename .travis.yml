@@ -13,3 +13,6 @@ before_script:
 script:
   - ng test --watch=false --browsers=ChromeHeadless
   - ng build --prod
+
+notifications:
+  webhooks: https://coveralls.io/webhook
