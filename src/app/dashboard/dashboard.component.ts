@@ -78,6 +78,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   getPlantInfo(plant: Plant) {
+    if (!plant) {
+      return;
+    }
     this.plantsService.getPlantInfo(plant.id);
     this.plantInfoSub = this.plantsService.getPlantInfoUpdateListener().subscribe((plantInfo: { plant: Plant }) => {
       plant = Object.assign(plant, plantInfo.plant);
