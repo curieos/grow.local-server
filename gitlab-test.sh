@@ -1,3 +1,3 @@
 #!/bin/bash
 
-npm run test:back
+setsid nohup 'npm run test:back' &

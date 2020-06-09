@@ -16,7 +16,7 @@ test:
     environment: test
     script:
         - npm install sqlite3
-        - setsid nohup './gitlab-test.sh' &
+        - ./gitlab-test.sh
         - npm run test
         - npm run e2e
     coverage: '/Statements.*?(\d+(?:\.\d+)?)%/'
