@@ -1,0 +1,13 @@
+language: node_js
+
+branches:
+  only:
+  - master
+  - dev
+
+before_script:
+  - npm install -g @angular/cli
+
+script:
+  - ng lint
+  - ng build --prod
