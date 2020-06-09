@@ -40,7 +40,7 @@ export class ModuleEditComponent implements OnInit, OnDestroy {
   }
 
   updateForm() {
-    this.form.get('name').setValue(this.module.name);
+    this.form.get('name').setValue(this.module?.name);
     this.form.updateValueAndValidity();
   }
 
@@ -50,6 +50,7 @@ export class ModuleEditComponent implements OnInit, OnDestroy {
 
   updateModuleSettings() {
     if (this.form.invalid) { return; }
+    if (!this.module) { return; }
     this.updateModule();
     this.modulesService.updateModuleSettings(this.module);
     this.isUpdateLoading = true;

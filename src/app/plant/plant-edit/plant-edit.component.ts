@@ -27,9 +27,7 @@ export class PlantEditComponent implements OnInit, OnDestroy {
   }
 
   getPlantSettings() {
-    if (!this.route.snapshot.params['id']) {
-      return;
-    }
+    if (!this.route.snapshot.params['id']) { return; }
     this.isLoading = true;
     this.plantsService.getPlantSettings(this.route.snapshot.params['id']);
     this.plantSettingsSub = this.plantsService.getPlantSettingsUpdateListener().subscribe((plant: {plant: Plant}) => {
@@ -40,7 +38,7 @@ export class PlantEditComponent implements OnInit, OnDestroy {
   }
 
   updateForm() {
-    this.form.get('name').setValue(this.plant.name);
+    this.form.get('name').setValue(this.plant?.name);
     this.form.updateValueAndValidity();
   }
 
@@ -50,6 +48,7 @@ export class PlantEditComponent implements OnInit, OnDestroy {
 
   updatePlantSettings() {
     if (this.form.invalid) { return; }
+    if (!this.plant) { return; }
     this.updatePlant();
     this.plantsService.updatePlantSettings(this.plant);
     this.isUpdateLoading = true;

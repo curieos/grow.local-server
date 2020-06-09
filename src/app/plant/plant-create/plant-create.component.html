@@ -10,10 +10,10 @@
 	<div class="form-group">
 		<label for="moduleSelect">Select a Module</label>
 		<select formControlName="module" class="form-control" [class.is-invalid]="form.get('module').invalid"
-			id="moduleSelect" *ngIf="moduleList.length > 0">
+			id="moduleSelect" *ngIf="moduleList">
 			<option *ngFor="let module of moduleList" [ngValue]="module">{{ module.name }}</option>
 		</select>
-		<p *ngIf="moduleList.length == 0">Please setup a module before creating a plant</p>
+		<p *ngIf="!moduleList">Please setup a module before creating a plant</p>
 		<div class="invalid-feedback">
 			Please select a module.
 		</div>

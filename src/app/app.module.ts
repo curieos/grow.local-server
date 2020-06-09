@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -7,6 +7,7 @@ import { ChartsModule } from 'ng2-charts';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ErrorInterceptor } from './error.interceptor';
 import { HeaderComponent } from './header/header.component';
 import { ModuleEditComponent } from './module/module-edit/module-edit.component';
 import { ModuleLinkComponent } from './module/module-link/module-link.component';
@@ -36,7 +37,9 @@ import { PlantListComponent } from './plant/plant-list/plant-list.component';
     AppRoutingModule,
     ChartsModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   bootstrap: [
     AppComponent,
   ],

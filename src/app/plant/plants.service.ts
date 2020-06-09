@@ -23,6 +23,8 @@ export class PlantsService {
       };
     })).subscribe((transformedPlants) => {
       this.plantsUpdated.next({ plants: [...transformedPlants.plants] });
+    }, () => {
+      this.plantsUpdated.next({ plants: null });
     });
   }
 
@@ -51,6 +53,8 @@ export class PlantsService {
       };
     })).subscribe((data) => {
       this.plantInfoUpdated.next(data);
+    }, () => {
+      this.plantInfoUpdated.next({ plant: null });
     });
   }
 
@@ -71,6 +75,8 @@ export class PlantsService {
       };
     })).subscribe((data) => {
       this.plantSettingsUpdated.next(data);
+    }, () => {
+      this.plantSettingsUpdated.next({ plant: null });
     });
   }
 
@@ -86,6 +92,8 @@ export class PlantsService {
       { headers: { 'Content-Type': 'application/json' } },
     ).subscribe(() => {
       this.router.navigate(['/plants']);
+    }, (error) => {
+      console.log(error);
     });
   }
 
@@ -97,6 +105,8 @@ export class PlantsService {
       { headers: { 'Content-Type': 'application/json' } },
     ).subscribe(() => {
       this.router.navigate(['/plants']);
+    }, (error) => {
+      console.log(error);
     });
   }
 

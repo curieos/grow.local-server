@@ -28,6 +28,8 @@ export class ModulesService {
     })).subscribe((transformedModules) => {
       this.modules = transformedModules.modules;
       this.modulesUpdated.next({ modules: [...this.modules] });
+    }, (error) => {
+      this.modulesUpdated.next({ modules: null });
     });
   }
 
@@ -46,6 +48,8 @@ export class ModulesService {
       module.ipAddress = data.ipAddress;
       module.ambientTemperature = data.ambientTemperature;
       this.moduleInfoUpdated.next({ module });
+    }, () => {
+      this.moduleInfoUpdated.next({ module: null });
     });
   }
 
@@ -63,6 +67,8 @@ export class ModulesService {
       module.name = data.module.name;
       module.ipAddress = data.module.ip;
       this.moduleSettingsUpdated.next({ module });
+    }, () => {
+      this.moduleSettingsUpdated.next({ module: null });
     });
   }
 
@@ -80,6 +86,8 @@ export class ModulesService {
     })).subscribe((transformedModules) => {
       this.rawModules = transformedModules.modules;
       this.rawModulesUpdated.next({ modules: [...this.rawModules] });
+    }, (error) => {
+      this.rawModulesUpdated.next({ modules: null });
     });
   }
 
@@ -95,6 +103,8 @@ export class ModulesService {
       { headers: { 'Content-Type': 'application/json' } },
     ).subscribe((responseData) => {
       this.router.navigate(['/modules']);
+    }, (error) => {
+      console.log(error);
     });
   }
 
@@ -106,6 +116,8 @@ export class ModulesService {
       { headers: { 'Content-Type': 'application/json' } },
     ).subscribe(() => {
       this.router.navigate(['/modules']);
+    }, (error) => {
+      console.log(error);
     });
   }
 
