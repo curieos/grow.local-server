@@ -15,7 +15,7 @@ test:
     stage: test
     environment: test
     script:
-        - setsid 'npm run test:back'
+        - setsid './test.sh'
         - npm run test
         - npm run e2e
     coverage: '/Statements.*?(\d+(?:\.\d+)?)%/'
