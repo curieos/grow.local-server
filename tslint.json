@@ -9,5 +9,10 @@
       "*.sqlite"
     ]
   },
-  "rules": {}
+  "rules": {
+    "no-unused-expression": [
+      true,
+      "allow-fast-null-checks"
+    ]
+  }
 }
