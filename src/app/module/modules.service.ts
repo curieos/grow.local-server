@@ -9,7 +9,6 @@ import { RawModule } from './rawmodule.model';
 
 @Injectable({ providedIn: 'root' })
 export class ModulesService {
-  private rawModules: RawModule[] = [];
   private modulesUpdated = new Subject<{ modules: Module[] }>();
   private moduleInfoUpdated = new Subject<{ module: Module }>();
   private moduleSettingsUpdated = new Subject<{ module: Module }>();
@@ -85,8 +84,7 @@ export class ModulesService {
         }),
       };
     })).subscribe((transformedModules) => {
-      this.rawModules = transformedModules.modules;
-      this.rawModulesUpdated.next({ modules: [...this.rawModules] });
+      this.rawModulesUpdated.next({ modules: [...transformedModules.modules] });
     }, () => {
       this.rawModulesUpdated.next({ modules: null });
     });
