@@ -126,4 +126,39 @@ describe('ModulesService', () => {
       req.error(new ErrorEvent(''));
     });
   });
+
+  describe('#getRawModules', () => {
+    it('should return a list of raw modules', () => {
+      const dummyRequest = {
+        message: '',
+        modules: [
+          {
+            moduleName: 'ModuleA',
+            ipAddress: '192.168.0.111',
+          },
+        ],
+      };
+
+      service.getRawModules();
+      service.getRawModulesUpdateListener().subscribe((data) => {
+        expect(data.modules[0].moduleName).toEqual(dummyRequest.modules[0].moduleName);
+        expect(data.modules[0].ipAddress).toEqual(dummyRequest.modules[0].ipAddress);
+      });
+
+      const req = httpMock.expectOne(environment.apiURL + '/modules/raw');
+      expect(req.request.method).toBe('GET');
+      req.flush(dummyRequest);
+    });
+
+    it('should return null if there is an error', () => {
+      service.getRawModules();
+      service.getRawModulesUpdateListener().subscribe((data) => {
+        expect(data.modules).toBeNull();
+      });
+
+      const req = httpMock.expectOne(environment.apiURL + '/modules/raw');
+      expect(req.request.method).toBe('GET');
+      req.error(new ErrorEvent(''));
+    });
+  });
 });
