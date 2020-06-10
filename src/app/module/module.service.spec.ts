@@ -92,4 +92,38 @@ describe('ModulesService', () => {
       req.error(new ErrorEvent(''));
     });
   });
+
+  describe('#getModuleSettings', () => {
+    it('should return a module object with settings filled out', () => {
+      const dummyRequest = {
+        message: '',
+        module: {
+          id: '1',
+          name: 'ModuleA',
+          ip: '192.168.0.111',
+        },
+      };
+
+      service.getModuleSettings(dummyRequest.module.id);
+      service.getModuleSettingsUpdateListener().subscribe((data) => {
+        expect(data.module.name).toEqual(dummyRequest.module.name);
+        expect(data.module.ipAddress).toEqual(dummyRequest.module.ip);
+      });
+
+      const req = httpMock.expectOne(environment.apiURL + '/modules/' + dummyRequest.module.id + '/settings');
+      expect(req.request.method).toBe('GET');
+      req.flush(dummyRequest);
+    });
+
+    it('should return a null object when there is an error', () => {
+      service.getModuleSettings('1');
+      service.getModuleSettingsUpdateListener().subscribe((data) => {
+        expect(data.module).toBeFalsy();
+      });
+
+      const req = httpMock.expectOne(environment.apiURL + '/modules/' + '1' + '/settings');
+      expect(req.request.method).toBe('GET');
+      req.error(new ErrorEvent(''));
+    });
+  });
 });
