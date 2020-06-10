@@ -20,7 +20,13 @@ export class MockPlantsService {
 
   getPlantInfo(plantID: string): void {
     delay(100);
-    this.plantInfoUpdated.next({ plant: new Plant(plantID, 'Violets') });
+    this.plantInfoUpdated.next({ plant: new Plant(
+      plantID,
+      'Violets',
+      [{ value: 25, time: '08:30' }],
+      [{ value: 50, time: '08:30' }],
+      [{ value: 800, time: '08:30' }]),
+    });
   }
 
   getPlantInfoUpdateListener(): Observable<{ plant: Plant }> {
