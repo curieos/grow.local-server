@@ -1,4 +1,4 @@
-import { Observable, Subject } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { Plant } from './plant.model';
 
@@ -9,19 +9,17 @@ export class MockPlantsService {
 
   constructor() { }
 
-  getPlants(): void {
-    delay(100);
-    this.plantsUpdated.next({ plants: [] });
-  }
+  getPlants(): void {}
 
   getPlantsUpdateListener(): Observable<{ plants: Plant[] }> {
-    return this.plantsUpdated.asObservable();
+    return of({ plants: [] });
   }
 
-  getPlantInfo(plantID: string): void {
-    delay(100);
-    this.plantInfoUpdated.next({ plant: new Plant(
-      plantID,
+  getPlantInfo(plantID: string): void {}
+
+  getPlantInfoUpdateListener(): Observable<{ plant: Plant }> {
+    return of({ plant: new Plant(
+      '1',
       'Violets',
       [{ value: 25, time: '08:30' }],
       [{ value: 50, time: '08:30' }],
@@ -29,17 +27,11 @@ export class MockPlantsService {
     });
   }
 
-  getPlantInfoUpdateListener(): Observable<{ plant: Plant }> {
-    return this.plantInfoUpdated.asObservable();
-  }
-
   getPlantSettings(plantID: string): void {
-    delay(100);
-    this.plantSettingsUpdated.next({ plant: new Plant(plantID, 'Violets') });
   }
 
   getPlantSettingsUpdateListener(): Observable<{ plant: Plant }> {
-    return this.plantSettingsUpdated.asObservable();
+    return of({ plant: new Plant('1', 'Violets') });
   }
 
   addNewPlant(plantName: string, moduleName: string): void {

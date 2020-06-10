@@ -50,4 +50,14 @@ describe('PlantListComponent', () => {
       expect(serviceSpy).toHaveBeenCalledWith(plant.id);
     });
   });
+
+  describe('#deletePlant', () => {
+    it('should tell the plants service to delete plant', async(() => {
+      const serviceSpy = spyOn(plantsService, 'deletePlant');
+
+      component.deletePlant('1');
+
+      expect(serviceSpy).toHaveBeenCalledWith('1');
+    }));
+  });
 });
