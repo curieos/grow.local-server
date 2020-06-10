@@ -50,7 +50,7 @@ describe('ModulesService', () => {
     it('should return a null array on error', () => {
       service.getModules();
       service.getModulesUpdateListener().subscribe((data) => {
-        expect(data.modules).toBeFalsy();
+        expect(data.modules).toBeNull();
       });
 
       const req = httpMock.expectOne(environment.apiURL + '/modules');
@@ -84,7 +84,7 @@ describe('ModulesService', () => {
     it('should return null if given an error', () => {
       service.getModuleInfo('1');
       service.getModuleInfoUpdateListener().subscribe((data) => {
-        expect(data.module).toBeFalsy();
+        expect(data.module).toBeNull();
       });
 
       const req = httpMock.expectOne(environment.apiURL + '/modules/' + '1' + '/info');
@@ -118,7 +118,7 @@ describe('ModulesService', () => {
     it('should return a null object when there is an error', () => {
       service.getModuleSettings('1');
       service.getModuleSettingsUpdateListener().subscribe((data) => {
-        expect(data.module).toBeFalsy();
+        expect(data.module).toBeNull();
       });
 
       const req = httpMock.expectOne(environment.apiURL + '/modules/' + '1' + '/settings');

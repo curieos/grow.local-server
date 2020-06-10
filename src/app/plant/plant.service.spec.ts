@@ -89,7 +89,7 @@ describe('PlantsService', () => {
     it('should return a null plant on error', () => {
       service.getPlantInfo('1');
       service.getPlantInfoUpdateListener().subscribe((data) => {
-        expect(data.plant).toBeFalsy();
+        expect(data.plant).toBeNull();
       });
 
       const req = httpMock.expectOne(environment.apiURL + '/plants/' + '1' + '/info');
