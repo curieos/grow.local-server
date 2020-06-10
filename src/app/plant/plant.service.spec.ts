@@ -1,13 +1,16 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { async, getTestBed, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from 'src/environments/environment';
 import { PlantsService } from './plants.service';
+import { Plant } from './plant.model';
 
 describe('PlantsService', () => {
   let injector: TestBed;
   let service: PlantsService;
   let httpMock: HttpTestingController;
+  let router: Router;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -19,6 +22,7 @@ describe('PlantsService', () => {
     injector = getTestBed();
     service = injector.inject(PlantsService);
     httpMock = injector.inject(HttpTestingController);
+    router = injector.inject(Router);
   }));
 
   it('should be created', () => {
@@ -121,6 +125,33 @@ describe('PlantsService', () => {
       const req = httpMock.expectOne(environment.apiURL + '/plants/' + '1' + '/settings');
       expect(req.request.method).toBe('GET');
       req.error(new ErrorEvent(''));
+    });
+  });
+
+  describe('#addNewPlant', () => {
+    it('should navigate away on success', () => {
+      const navSpy = spyOn(router, 'navigate');
+
+      service.addNewPlant('Violets', 'ModuleA');
+
+      const req = httpMock.expectOne(environment.apiURL + '/plants');
+      expect(req.request.method).toBe('POST');
+      req.flush({ message: 'Success' });
+      expect(navSpy).toHaveBeenCalledWith(['/plants']);
+    });
+  });
+
+  describe('#updatePlantSettings', () => {
+    it('should navigate away on success', () => {
+      const navSpy = spyOn(router, 'navigate');
+      const plant = new Plant('1', 'Violets');
+
+      service.updatePlantSettings(plant);
+
+      const req = httpMock.expectOne(environment.apiURL + '/plants/' + plant.id + '/settings');
+      expect(req.request.method).toBe('POST');
+      req.flush({ message: 'Success' });
+      expect(navSpy).toHaveBeenCalledWith(['/plants']);
     });
   });
 
