@@ -43,10 +43,21 @@ describe('PlantsService', () => {
       expect(req.request.method).toBe('GET');
       req.flush(dummyRequest);
     });
+
+    it('should return a null array on error', () => {
+      service.getPlants();
+      service.getPlantsUpdateListener().subscribe((data) => {
+        expect(data.plants).toBeFalsy();
+      });
+
+      const req = httpMock.expectOne(environment.apiURL + '/plants');
+      expect(req.request.method).toBe('GET');
+      req.error(new ErrorEvent(''));
+    });
   });
 
   describe('#getPlantInfo', () => {
-    it('should return info about a plant', () => {
+    it('should return a plant object with info filled out', () => {
       const dummyRequest = {
         message: 'Plant Info Successfully Retrieved',
         plant: { id: '1', name: 'Violets' },
@@ -69,6 +80,47 @@ describe('PlantsService', () => {
       const req = httpMock.expectOne(environment.apiURL + '/plants/' + dummyRequest.plant.id + '/info');
       expect(req.request.method).toBe('GET');
       req.flush(dummyRequest);
+    });
+
+    it('should return a null plant on error', () => {
+      service.getPlantInfo('1');
+      service.getPlantInfoUpdateListener().subscribe((data) => {
+        expect(data.plant).toBeFalsy();
+      });
+
+      const req = httpMock.expectOne(environment.apiURL + '/plants/' + '1' + '/info');
+      expect(req.request.method).toBe('GET');
+      req.error(new ErrorEvent(''));
+    });
+  });
+
+  describe('#getPlantSettings', () => {
+    it('should return a plant object with settings filled out', () => {
+      const dummyRequest = {
+        message: '',
+        plant: { id: '1', name: 'Violets' },
+      };
+
+      service.getPlantSettings(dummyRequest.plant.id);
+      service.getPlantSettingsUpdateListener().subscribe((data) => {
+        expect(data.plant.id).toEqual(dummyRequest.plant.id);
+        expect(data.plant.name).toEqual(dummyRequest.plant.name);
+      });
+
+      const req = httpMock.expectOne(environment.apiURL + '/plants/' + dummyRequest.plant.id + '/settings');
+      expect(req.request.method).toBe('GET');
+      req.flush(dummyRequest);
+    });
+
+    it('should return a null plant on error', () => {
+      service.getPlantSettings('1');
+      service.getPlantSettingsUpdateListener().subscribe((data) => {
+        expect(data.plant).toBeFalsy();
+      });
+
+      const req = httpMock.expectOne(environment.apiURL + '/plants/' + '1' + '/settings');
+      expect(req.request.method).toBe('GET');
+      req.error(new ErrorEvent(''));
     });
   });
 
