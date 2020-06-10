@@ -3,8 +3,8 @@ import { async, getTestBed, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from 'src/environments/environment';
-import { PlantsService } from './plants.service';
 import { Plant } from './plant.model';
+import { PlantsService } from './plants.service';
 
 describe('PlantsService', () => {
   let injector: TestBed;
