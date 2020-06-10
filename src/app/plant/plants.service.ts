@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Plant } from './plant.model';
@@ -14,7 +14,7 @@ export class PlantsService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  getPlants() {
+  getPlants(): void {
     this.http.get<{ message: string, plants: any }>(environment.apiURL + '/plants').pipe(map((data) => {
       return {
         plants: data.plants.map((plant: { id: string; name: string; }) => {
@@ -28,11 +28,11 @@ export class PlantsService {
     });
   }
 
-  getPlantsUpdateListener() {
+  getPlantsUpdateListener(): Observable<{ plants: Plant[] }> {
     return this.plantsUpdated.asObservable();
   }
 
-  getPlantInfo(plantID: string) {
+  getPlantInfo(plantID: string): void {
     this.http.get<{
       message: string,
       plant: { id: string, name: string },
@@ -58,11 +58,11 @@ export class PlantsService {
     });
   }
 
-  getPlantInfoUpdateListener() {
+  getPlantInfoUpdateListener(): Observable<{ plant: Plant }> {
     return this.plantInfoUpdated.asObservable();
   }
 
-  getPlantSettings(plantID: string) {
+  getPlantSettings(plantID: string): void {
     this.http.get<{
       message: string
       plant: { id: string, name: string },
@@ -80,11 +80,11 @@ export class PlantsService {
     });
   }
 
-  getPlantSettingsUpdateListener() {
+  getPlantSettingsUpdateListener(): Observable<{ plant: Plant }> {
     return this.plantSettingsUpdated.asObservable();
   }
 
-  addNewPlant(plantName: string, moduleName: string) {
+  addNewPlant(plantName: string, moduleName: string): void {
     const postData = JSON.stringify({ plantName, moduleName });
     this.http.post(
       environment.apiURL + '/plants',
@@ -97,7 +97,7 @@ export class PlantsService {
     });
   }
 
-  updatePlantSettings(plant: Plant) {
+  updatePlantSettings(plant: Plant): void {
     const postData = JSON.stringify({ plantName: plant.name });
     this.http.post(
       environment.apiURL + '/plants/' + plant.id + '/settings',
@@ -110,7 +110,7 @@ export class PlantsService {
     });
   }
 
-  deletePlant(plantID: string) {
+  deletePlant(plantID: string): void {
     this.http.delete(environment.apiURL + '/plants/' + plantID).subscribe();
   }
 }
