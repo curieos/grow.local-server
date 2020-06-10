@@ -125,7 +125,14 @@ router.get('/:id/info', (req, res, next) => {
     const module = moduleList.find(module => module.id == req.params.id)
     /* eslint-enable eqeqeq */
     Requests.NewGetRequest(`${module.name}.local`, '/module/info').then(response => {
-      res.status(200).json(response)
+      res.status(200).json({
+        message: 'Module info received',
+        module: {
+          name: module.name,
+          moduleName: response.moduleName,
+          ipAddress: response.ipAddress
+        }
+      })
     }).catch(error => {
       console.error(error)
       res.status(502).json({ message: 'Failed to retrieve data from module' })

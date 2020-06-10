@@ -9,7 +9,6 @@ import { RawModule } from './rawmodule.model';
 
 @Injectable({ providedIn: 'root' })
 export class ModulesService {
-  private modules: Module[] = [];
   private rawModules: RawModule[] = [];
   private modulesUpdated = new Subject<{ modules: Module[] }>();
   private moduleInfoUpdated = new Subject<{ module: Module }>();
@@ -26,8 +25,7 @@ export class ModulesService {
         }),
       };
     })).subscribe((transformedModules) => {
-      this.modules = transformedModules.modules;
-      this.modulesUpdated.next({ modules: [...this.modules] });
+      this.modulesUpdated.next({ modules: [...transformedModules.modules] });
     }, () => {
       this.modulesUpdated.next({ modules: null });
     });
@@ -39,14 +37,17 @@ export class ModulesService {
 
   getModuleInfo(id: string) {
     this.http.get<{
-      moduleName: string,
-      ipAddress: string,
-      ambientTemperature: string,
+      message: string,
+      module: {
+        name: string,
+        moduleName: string,
+        ipAddress: string,
+      },
     }>(environment.apiURL + '/modules/' + id + '/info').subscribe((data) => {
-      const module = this.modules.find((m) => m.id === id);
-      module.moduleName = data.moduleName;
-      module.ipAddress = data.ipAddress;
-      module.ambientTemperature = data.ambientTemperature;
+      const module = new Module();
+      module.name = data.module.name;
+      module.moduleName = data.module.moduleName;
+      module.ipAddress = data.module.ipAddress;
       this.moduleInfoUpdated.next({ module });
     }, () => {
       this.moduleInfoUpdated.next({ module: null });
