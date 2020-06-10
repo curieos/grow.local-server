@@ -1,4 +1,5 @@
 import { Observable, Subject } from 'rxjs';
+import { delay } from 'rxjs/operators';
 import { Plant } from './plant.model';
 
 export class MockPlantsService {
@@ -9,6 +10,7 @@ export class MockPlantsService {
   constructor() { }
 
   getPlants(): void {
+    delay(100);
     this.plantsUpdated.next({ plants: [] });
   }
 
@@ -17,6 +19,7 @@ export class MockPlantsService {
   }
 
   getPlantInfo(plantID: string): void {
+    delay(100);
     this.plantInfoUpdated.next({ plant: new Plant(plantID, 'Violets') });
   }
 
@@ -25,6 +28,7 @@ export class MockPlantsService {
   }
 
   getPlantSettings(plantID: string): void {
+    delay(100);
     this.plantSettingsUpdated.next({ plant: new Plant(plantID, 'Violets') });
   }
 
