@@ -3,6 +3,7 @@ import { async, getTestBed, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from 'src/environments/environment';
+import { Module } from './module.model';
 import { ModulesService } from './modules.service';
 
 describe('ModulesService', () => {
@@ -160,5 +161,36 @@ describe('ModulesService', () => {
       expect(req.request.method).toBe('GET');
       req.error(new ErrorEvent(''));
     });
+  });
+
+  describe('#addNewModule', () => {
+    it('should navigate away on success', () => {
+      const navSpy = spyOn(router, 'navigate');
+
+      service.addNewModule('ModuleA', '192.168.0.111');
+
+      const req = httpMock.expectOne(environment.apiURL + '/modules');
+      expect(req.request.method).toBe('POST');
+      req.flush({ message: 'Success' });
+      expect(navSpy).toHaveBeenCalledWith(['/modules']);
+    });
+  });
+
+  describe('#updateModuleSettings', () => {
+    it('should navigate away on success', () => {
+      const navSpy = spyOn(router, 'navigate');
+      const module = new Module();
+
+      service.updateModuleSettings(module);
+
+      const req = httpMock.expectOne(environment.apiURL + '/modules/' + module.id + '/settings');
+      expect(req.request.method).toBe('POST');
+      req.flush({ message: 'Success' });
+      expect(navSpy).toHaveBeenCalledWith(['/modules']);
+    });
+  });
+
+  afterEach(() => {
+    httpMock.verify();
   });
 });
