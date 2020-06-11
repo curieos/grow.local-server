@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Module } from './module.model';
@@ -16,7 +16,7 @@ export class ModulesService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  getModules() {
+  getModules(): void {
     this.http.get<{ message: string, modules: any }>(environment.apiURL + '/modules').pipe(map((data) => {
       return {
         modules: data.modules.map((module) => {
@@ -30,11 +30,11 @@ export class ModulesService {
     });
   }
 
-  getModulesUpdateListener() {
+  getModulesUpdateListener(): Observable<{ modules: Module[] }> {
     return this.modulesUpdated.asObservable();
   }
 
-  getModuleInfo(id: string) {
+  getModuleInfo(id: string): void {
     this.http.get<{
       message: string,
       module: {
@@ -53,11 +53,11 @@ export class ModulesService {
     });
   }
 
-  getModuleInfoUpdateListener() {
+  getModuleInfoUpdateListener(): Observable<{ module: Module }> {
     return this.moduleInfoUpdated.asObservable();
   }
 
-  getModuleSettings(id: string) {
+  getModuleSettings(id: string): void {
     this.http.get<{
       message: string,
       module: { id: string, name: string, ip: string },
@@ -72,11 +72,11 @@ export class ModulesService {
     });
   }
 
-  getModuleSettingsUpdateListener() {
+  getModuleSettingsUpdateListener(): Observable<{ module: Module }> {
     return this.moduleSettingsUpdated.asObservable();
   }
 
-  getRawModules() {
+  getRawModules(): void {
     this.http.get<{ message: string, modules: any }>(environment.apiURL + '/modules/raw').pipe(map((data) => {
       return {
         modules: data.modules.map((module) => {
@@ -90,11 +90,11 @@ export class ModulesService {
     });
   }
 
-  getRawModulesUpdateListener() {
+  getRawModulesUpdateListener(): Observable<{ modules: RawModule[] }> {
     return this.rawModulesUpdated.asObservable();
   }
 
-  addNewModule(name: string, ip: string) {
+  addNewModule(name: string, ip: string): void {
     const postData = JSON.stringify({ name, ip });
     this.http.post(
       environment.apiURL + '/modules',
@@ -107,7 +107,7 @@ export class ModulesService {
     });
   }
 
-  updateModuleSettings(module: Module) {
+  updateModuleSettings(module: Module): void {
     const postData = JSON.stringify({ name: module.name });
     this.http.post(
       environment.apiURL + '/modules/' + module.id + '/settings',
@@ -120,7 +120,7 @@ export class ModulesService {
     });
   }
 
-  deleteModule(moduleID: string) {
+  deleteModule(moduleID: string): void {
     this.http.delete(environment.apiURL + '/modules/' + moduleID).subscribe();
   }
 }
