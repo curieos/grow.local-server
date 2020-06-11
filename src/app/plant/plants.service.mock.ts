@@ -1,48 +1,48 @@
-import { Observable, of, Subject } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 import { Plant } from './plant.model';
 
 export class MockPlantsService {
-  private plantsUpdated = new Subject<{ plants: Plant[] }>();
-  private plantInfoUpdated = new Subject<{ plant: Plant }>();
-  private plantSettingsUpdated = new Subject<{ plant: Plant }>();
 
   constructor() { }
 
-  getPlants(): void {}
+  getPlants(): void { }
 
   getPlantsUpdateListener(): Observable<{ plants: Plant[] }> {
-    return of({ plants: [] });
+    return of({ plants: [/*new Plant('1', 'Violets')*/] });
   }
 
-  getPlantInfo(plantID: string): void {}
+  getPlantInfo(plantID: string): void { }
 
   getPlantInfoUpdateListener(): Observable<{ plant: Plant }> {
-    return of({ plant: new Plant(
-      '1',
-      'Violets',
-      [{ value: 25, time: '08:30' }],
-      [{ value: 50, time: '08:30' }],
-      [{ value: 800, time: '08:30' }]),
+    return of({
+      plant: new Plant(
+        '1',
+        'Violets',
+        [
+          { value: 25, time: '08:30' },
+          { value: 25, time: '08:40' },
+        ],
+        [
+          { value: 50, time: '08:30' },
+          { value: 50, time: '08:40' },
+        ],
+        [
+          { value: 800, time: '08:30' },
+          { value: 800, time: '08:40' },
+        ],
+      ),
     });
   }
 
-  getPlantSettings(plantID: string): void {
-  }
+  getPlantSettings(plantID: string): void { }
 
   getPlantSettingsUpdateListener(): Observable<{ plant: Plant }> {
     return of({ plant: new Plant('1', 'Violets') });
   }
 
-  addNewPlant(plantName: string, moduleName: string): void {
+  addNewPlant(plantName: string, moduleName: string): void { }
 
-  }
+  updatePlantSettings(plant: Plant): void { }
 
-  updatePlantSettings(plant: Plant): void {
-
-  }
-
-  deletePlant(plantID: string): void {
-
-  }
+  deletePlant(plantID: string): void { }
 }
