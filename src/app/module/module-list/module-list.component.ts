@@ -39,7 +39,7 @@ export class ModuleListComponent implements OnInit, OnDestroy {
     this.modulesService.getModuleInfo(module.id);
     this.moduleInfoSub = this.modulesService.getModuleInfoUpdateListener().subscribe((moduleInfo: {module: Module}) => {
       this.isInfoLoading = false;
-      module = moduleInfo.module;
+      module = Object.assign(module, moduleInfo.module);
     });
   }
 

@@ -3,5 +3,4 @@ export class Module {
   name: string;
   moduleName: string;
   ipAddress: string;
-  ambientTemperature: string;
 }
