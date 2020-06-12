@@ -9,7 +9,7 @@ var moduleList = []
 var rawModuleList = []
 
 function UpdateModuleList () {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     Module.findAll().then(modules => {
       const newList = []
       for (const module of modules) {
@@ -35,8 +35,8 @@ function UpdateRawModuleList () {
   })
 }
 
-router.get('', (req, res, next) => {
-  UpdateModuleList().then((response) => {
+router.get('', (req, res) => {
+  UpdateModuleList().then(() => {
     res.status(200).json({
       message: 'Modules Fetched Successfully',
       modules: moduleList
@@ -44,13 +44,13 @@ router.get('', (req, res, next) => {
   })
 })
 
-router.post('', (req, res, next) => {
+router.post('', (req, res) => {
   Module.create({ name: req.body.name, ip: req.body.ip }).then(module => {
     const data = JSON.stringify({
       name: module.name,
       timezoneOffset: new Date().getTimezoneOffset()
     })
-    Requests.NewPostRequest(module.ip, '/module/setup', data).then(response => {
+    Requests.NewPostRequest(module.ip, '/module/setup', data).then(() => {
       res.status(201).json({ message: 'Successfuly Added Module' })
     }).catch(error => {
       console.error(error)
@@ -59,16 +59,14 @@ router.post('', (req, res, next) => {
   })
 })
 
-router.delete('/:id', (req, res, next) => {
-  UpdateModuleList().then((response) => {
-    /* eslint-disable eqeqeq */
+router.delete('/:id', (req, res) => {
+  UpdateModuleList().then(() => {
     const module = moduleList.find(module => module.id == req.params.id)
-    /* eslint-enable eqeqeq */
     const data = JSON.stringify({
       name: 'new_module',
       timezoneOffset: new Date().getTimezoneOffset()
     })
-    Requests.NewPostRequest(`${module.name}.local`, '/module/setup', data).then(response => {
+    Requests.NewPostRequest(`${module.name}.local`, '/module/setup', data).then(() => {
       Module.destroy({ where: { id: req.params.id } }).then(() => {
         res.status(204).json({ message: 'Successfully Deleted Module' })
       }).catch(error => {
@@ -85,11 +83,9 @@ router.delete('/:id', (req, res, next) => {
   })
 })
 
-router.get('/:id/settings', (req, res, next) => {
+router.get('/:id/settings', (req, res) => {
   UpdateModuleList().then(() => {
-    /* eslint-disable eqeqeq */
     const module = moduleList.find(module => module.id == req.params.id)
-    /* eslint-enable eqeqeq */
     if (typeof module === 'undefined') res.status(500).json({ message: 'Failed to find module with id' })
     else {
       res.status(200).json({
@@ -100,7 +96,7 @@ router.get('/:id/settings', (req, res, next) => {
   })
 })
 
-router.post('/:id/settings', (req, res, next) => {
+router.post('/:id/settings', (req, res) => {
   Module.findOne({ where: { id: req.params.id } }).then((module) => {
     if (module === null) {
       res.status(502).json({ message: 'Failed to find module with id' })
@@ -111,7 +107,7 @@ router.post('/:id/settings', (req, res, next) => {
           name: module.name,
           timezoneOffset: new Date().getTimezoneOffset()
         })
-        Requests.NewPostRequest(module.ip, '/module/setup', data).then((response) => {
+        Requests.NewPostRequest(module.ip, '/module/setup', data).then(() => {
           res.status(200).json({ message: 'Successfully Updated Module Data' })
         })
       })
@@ -119,12 +115,10 @@ router.post('/:id/settings', (req, res, next) => {
   })
 })
 
-router.get('/:id/info', (req, res, next) => {
+router.get('/:id/info', (req, res) => {
   UpdateModuleList().then(() => {
-    /* eslint-disable eqeqeq */
     const module = moduleList.find(module => module.id == req.params.id)
-    /* eslint-enable eqeqeq */
-    Requests.NewGetRequest(`${module.name}.local`, '/module/info').then(response => {
+    Requests.NewGetRequest(`${module.name}.local`, '/module/info').then((response) => {
       res.status(200).json({
         message: 'Module info received',
         module: {
@@ -143,8 +137,8 @@ router.get('/:id/info', (req, res, next) => {
   })
 })
 
-router.get('/raw', (req, res, next) => {
-  UpdateRawModuleList().then((response) => {
+router.get('/raw', (req, res) => {
+  UpdateRawModuleList().then(() => {
     res.status(200).json({
       message: 'Raw Modules Fetched Successfully',
       modules: rawModuleList

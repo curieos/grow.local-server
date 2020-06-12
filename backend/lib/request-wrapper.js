@@ -51,6 +51,6 @@ class Requests {
       post.end()
     })
   }
-};
+}
 
 module.exports = Requests

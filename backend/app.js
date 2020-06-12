@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 
 app.use('/api/plants', plantsRoutes)
 app.use('/api/modules', moduleRoutes)
-app.use((req, res, next) => {
+app.use((req, res) => {
   const _path = path.join(__dirname, '..', 'dist', 'grow-local', 'index.html')
   res.sendFile(_path)
 })
