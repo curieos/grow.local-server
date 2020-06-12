@@ -30,17 +30,20 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr *ngIf="plant.temperatureHistory" class="cursor-pointer" (click)="setChartTo(plant.temperatureHistory, 'Temperature')">
+								<tr *ngIf="plant.temperatureHistory" class="cursor-pointer"
+								(click)="setChartTo(plant.temperatureHistory, 'Temperature')">
 									<th scope="row">Ambient Temperature (°C)</th>
 									<td>{{ plant.getCurrentTemperature() }}</td>
 									<td>{{ plant.getAverageTemperature().toPrecision(3) }}</td>
 								</tr>
-								<tr *ngIf="plant.humidityHistory" class="cursor-pointer" (click)="setChartTo(plant.humidityHistory, 'Humidity')">
+								<tr *ngIf="plant.humidityHistory" class="cursor-pointer"
+								(click)="setChartTo(plant.humidityHistory, 'Humidity')">
 									<th scope="row">Humidity (%)</th>
 									<td>{{ plant.getCurrentHumidity() }}</td>
 									<td>{{ plant.getAverageHumidity().toPrecision(3) }}</td>
 								</tr>
-								<tr *ngIf="plant.soilMoistureHistory" class="cursor-pointer" (click)="setChartTo(plant.soilMoistureHistory, 'Soil Moisture')">
+								<tr *ngIf="plant.soilMoistureHistory" class="cursor-pointer"
+								(click)="setChartTo(plant.soilMoistureHistory, 'Soil Moisture')">
 									<th scope="row">Soil Moisture</th>
 									<td>{{ plant.getCurrentSoilMoisture() }}</td>
 									<td>{{ plant.getAverageSoilMoisture().toPrecision(3) }}</td>

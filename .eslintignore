@@ -1,11 +1,6 @@
-src
 e2e
 node_modules
 dist
 
 *.json
-*.js
 *.sqlite
-
-!server.js
-!backend/**/*js
