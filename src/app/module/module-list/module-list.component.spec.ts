@@ -1,10 +1,10 @@
 import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Module } from '../module.model';
 import { ModulesService } from '../modules.service';
 import { MockModulesService } from '../modules.service.mock';
 import { ModuleListComponent } from './module-list.component';
-import { Module } from '../module.model';
 
 describe('ModuleListComponent', () => {
   let component: ModuleListComponent;
