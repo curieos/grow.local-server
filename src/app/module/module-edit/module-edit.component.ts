@@ -27,9 +27,7 @@ export class ModuleEditComponent implements OnInit, OnDestroy {
   }
 
   getModuleSettings() {
-    if (!this.route.snapshot.params['id']) {
-      return;
-    }
+    if (!this.route.snapshot.params['id']) { return; }
     this.isLoading = true;
     this.modulesService.getModuleSettings(this.route.snapshot.params['id']);
     this.moduleSettingsSubscription = this.modulesService.getModuleSettingsUpdateListener().subscribe((module: {module: Module}) => {
@@ -40,7 +38,8 @@ export class ModuleEditComponent implements OnInit, OnDestroy {
   }
 
   updateForm() {
-    this.form.get('name').setValue(this.module?.name);
+    if (!this.module) { return; }
+    this.form.get('name').setValue(this.module.name);
     this.form.updateValueAndValidity();
   }
 

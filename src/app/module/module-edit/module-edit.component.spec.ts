@@ -44,4 +44,59 @@ describe('ModuleEditComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have form value filled out', () => {
+    expect(component.form.get('name').value).toEqual('ModuleA');
+  });
+
+  describe('#updateForm', () => {
+    it('should not set the form value \'name\' if module is null', () => {
+      component.module = null;
+
+      component.updateForm();
+
+      expect(component.form.get('name').value).toEqual('ModuleA');
+    });
+  });
+
+  describe('#updateModule', () => {
+    it('should modify the module if form data is changed', () => {
+      const newValue = 'newPlant';
+      component.form.get('name').setValue(newValue);
+
+      component.updateModule();
+
+      expect(component.module.name).toEqual(newValue);
+    });
+  });
+
+  describe('#updateModuleSettings', () => {
+    it('should call on the modules service to update the module', () => {
+      const serviceSpy = spyOn(modulesService, 'updateModuleSettings');
+
+      component.updateModuleSettings();
+
+      expect(serviceSpy).toHaveBeenCalledWith(component.module);
+    });
+
+    it('should not call on the modules service if the form is invalid', () => {
+      const serviceSpy = spyOn(modulesService, 'updateModuleSettings');
+
+      component.form.get('name').setValue('i');
+
+      component.updateModuleSettings();
+
+      expect(serviceSpy).toHaveBeenCalledTimes(0);
+    });
+
+    it('should not call on the modules service if there is no module', () => {
+      const serviceSpy = spyOn(modulesService, 'updateModuleSettings');
+
+      component.module = null;
+
+      component.updateModuleSettings();
+
+      expect(serviceSpy).toHaveBeenCalledTimes(0);
+    });
+  });
 });
