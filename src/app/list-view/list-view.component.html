@@ -1,0 +1,6 @@
+<div class="accordion" id="plant-accordion">
+	<div class="card" *ngFor="let item of listItems" tabindex="0">
+		<ng-template ngFor let-item [ngForOf]="[item]" [ngForTemplate]="itemTemplate">
+		</ng-template>
+	</div>
+</div>
