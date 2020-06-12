@@ -68,12 +68,12 @@ describe('PlantListItemComponent', () => {
 
   describe('#getPlantInfo', () => {
     it('should request plant info', () => {
-      const plant = new Plant('1', 'Violets');
+      component.plant = new Plant('1', 'Violets');
       const serviceSpy = spyOn(plantsService, 'getPlantInfo');
 
-      component.getPlantInfo(plant);
+      component.getPlantInfo();
 
-      expect(serviceSpy).toHaveBeenCalledWith(plant.id);
+      expect(serviceSpy).toHaveBeenCalledWith(component.plant.id);
     });
   });
 
