@@ -40,9 +40,8 @@ export class MockModulesService {
   getRawModules(): void { }
 
   getRawModulesUpdateListener(): Observable<{ modules: RawModule[] }> {
-    const module1 = new Module();
-    module1.id = '1';
-    module1.name = 'ModuleA';
+    const module1 = new RawModule();
+    module1.moduleName = 'New Module';
     module1.ipAddress = '192.168.0.111';
     return of({ modules: [module1] });
   }
