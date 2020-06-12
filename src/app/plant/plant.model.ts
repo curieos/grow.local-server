@@ -1,6 +1,7 @@
 import { Module } from '../module/module.model';
+import { IListable } from '../listable.interface';
 
-export class Plant {
+export class Plant implements IListable {
   module: Module;
 
   static getPlantHistoryTimestamp(data: Array<{ value: number, time: string }>) {
