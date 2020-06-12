@@ -1,0 +1,9 @@
+{
+	"recommendations": [
+		"johnpapa.angular2",
+		"dbaeumer.vscode-eslint",
+		"angular.ng-template",
+		"ktriek.ng-bootstrap-snippets",
+		"stylelint.vscode-stylelint",
+	]
+}
