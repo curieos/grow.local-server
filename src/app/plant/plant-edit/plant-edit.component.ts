@@ -38,7 +38,8 @@ export class PlantEditComponent implements OnInit, OnDestroy {
   }
 
   updateForm() {
-    this.form.get('name').setValue(this.plant?.name);
+    if (!this.plant) { return; }
+    this.form.get('name').setValue(this.plant.name);
     this.form.updateValueAndValidity();
   }
 
