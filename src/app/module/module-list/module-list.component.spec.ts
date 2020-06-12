@@ -1,11 +1,15 @@
 import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ModulesService } from '../modules.service';
+import { MockModulesService } from '../modules.service.mock';
 import { ModuleListComponent } from './module-list.component';
+import { Module } from '../module.model';
 
 describe('ModuleListComponent', () => {
   let component: ModuleListComponent;
   let fixture: ComponentFixture<ModuleListComponent>;
+  let modulesService: ModulesService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -20,12 +24,42 @@ describe('ModuleListComponent', () => {
   }));
 
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        ModuleListComponent,
+        { provide: ModulesService, useClass: MockModulesService },
+      ],
+    });
     fixture = TestBed.createComponent(ModuleListComponent);
     component = fixture.componentInstance;
+    modulesService = TestBed.inject(ModulesService);
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('#getModuleInfo', () => {
+    it('should request module info', () => {
+      const module = new Module();
+      module.id = '1';
+      module.name = 'ModuleA';
+      const serviceSpy = spyOn(modulesService, 'getModuleInfo');
+
+      component.getModuleInfo(module);
+
+      expect(serviceSpy).toHaveBeenCalledWith(module.id);
+    });
+  });
+
+  describe('#deleteModule', () => {
+    it('should tell the modules service to delete a module', async(() => {
+      const serviceSpy = spyOn(modulesService, 'deleteModule');
+
+      component.deleteModule('1');
+
+      expect(serviceSpy).toHaveBeenCalledWith('1');
+    }));
   });
 });
