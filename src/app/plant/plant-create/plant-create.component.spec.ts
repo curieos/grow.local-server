@@ -47,4 +47,25 @@ describe('PlantCreateComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('#onSavePlant', () => {
+    it('should not call addNewPlant if the form is invalid', () => {
+      const serviceSpy = spyOn(plantsService, 'addNewPlant');
+
+      component.form.get('name').setValue('Violets');
+      component.form.get('module').setValue(component.moduleList[0]);
+
+      component.onSavePlant();
+
+      expect(serviceSpy).toHaveBeenCalledWith('Violets', 'ModuleA');
+    });
+
+    it('should not call addNewPlant if the form is invalid', () => {
+      const serviceSpy = spyOn(plantsService, 'addNewPlant');
+
+      component.onSavePlant();
+
+      expect(serviceSpy).toHaveBeenCalledTimes(0);
+    });
+  });
 });
