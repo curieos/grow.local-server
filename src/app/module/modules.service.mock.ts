@@ -6,33 +6,50 @@ export class MockModulesService {
 
   constructor() { }
 
-  getModules(): void {}
+  getModules(): void { }
 
   getModulesUpdateListener(): Observable<{ modules: Module[] }> {
-    return of({ modules: [] });
+    const module1 = new Module();
+    module1.id = '1';
+    module1.name = 'ModuleA';
+    module1.ipAddress = '192.168.0.111';
+    return of({ modules: [module1] });
   }
 
-  getModuleInfo(id: string): void {}
+  getModuleInfo(id: string): void { }
 
   getModuleInfoUpdateListener() {
-    return of({ modules: null });
+    const module = new Module();
+    module.id = '1';
+    module.name = 'ModuleA';
+    module.moduleName = 'MACADDRESS';
+    module.ipAddress = '192.168.0.111';
+    return of({ module });
   }
 
-  getModuleSettings(id: string): void {}
+  getModuleSettings(id: string): void { }
 
   getModuleSettingsUpdateListener() {
-    return of({ module: null });
+    const module = new Module();
+    module.id = '1';
+    module.name = 'ModuleA';
+    module.ipAddress = '192.168.0.111';
+    return of({ module });
   }
 
-  getRawModules(): void {}
+  getRawModules(): void { }
 
   getRawModulesUpdateListener(): Observable<{ modules: RawModule[] }> {
-    return of({ modules: [] });
+    const module1 = new Module();
+    module1.id = '1';
+    module1.name = 'ModuleA';
+    module1.ipAddress = '192.168.0.111';
+    return of({ modules: [module1] });
   }
 
-  addNewModule(name: string, ip: string): void {}
+  addNewModule(name: string, ip: string): void { }
 
-  updateModuleSettings(module: Module): void {}
+  updateModuleSettings(module: Module): void { }
 
-  deleteModule(moduleID: string): void {}
+  deleteModule(moduleID: string): void { }
 }
