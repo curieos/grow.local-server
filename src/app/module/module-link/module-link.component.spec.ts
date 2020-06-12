@@ -42,4 +42,25 @@ describe('ModuleLinkComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('#onSavePlant', () => {
+    it('should not call addNewPlant if the form is invalid', () => {
+      const serviceSpy = spyOn(modulesService, 'addNewModule');
+
+      component.form.get('name').setValue('ModuleA');
+      component.form.get('module').setValue(component.rawModuleList[0]);
+
+      component.onSaveModule();
+
+      expect(serviceSpy).toHaveBeenCalledWith('ModuleA', '192.168.0.111');
+    });
+
+    it('should not call addNewPlant if the form is invalid', () => {
+      const serviceSpy = spyOn(modulesService, 'addNewModule');
+
+      component.onSaveModule();
+
+      expect(serviceSpy).toHaveBeenCalledTimes(0);
+    });
+  });
 });
