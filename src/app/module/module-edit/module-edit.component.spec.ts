@@ -61,7 +61,7 @@ describe('ModuleEditComponent', () => {
 
   describe('#updateModule', () => {
     it('should modify the module if form data is changed', () => {
-      const newValue = 'newPlant';
+      const newValue = 'newModule';
       component.form.get('name').setValue(newValue);
 
       component.updateModule();
