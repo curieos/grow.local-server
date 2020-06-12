@@ -7,5 +7,5 @@
 	<button class="btn btn-primary" routerLink="/plants/create">New Plant</button>
 </div>
 <app-list-view class="list-view" [listItems]="plantList" [emptyMsg]="'No Plants'">
-	<app-plant-list-item *item="let item" [plant]="item"></app-plant-list-item>
+	<app-plant-list-item (deleted)="getPlants()" *item="let item" [plant]="item"></app-plant-list-item>
 </app-list-view>

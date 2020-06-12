@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { Subscription } from 'rxjs';
@@ -14,6 +14,9 @@ export class PlantListItemComponent implements OnInit, OnDestroy {
   @Input() public plant: Plant;
   public isInfoLoading: Boolean = false;
   private plantInfoSub: Subscription;
+
+  @Output()
+  deleted = new EventEmitter<string>();
 
   public lineChartData: ChartDataSets[] = [
     { data: [], label: 'Temperature', yAxisID: 'temperature' },
@@ -61,26 +64,34 @@ export class PlantListItemComponent implements OnInit, OnDestroy {
 
   constructor(private plantsService: PlantsService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-  getPlantInfo(plant: Plant) {
+  delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  getPlantInfo() {
     this.isInfoLoading = true;
-    this.plantsService.getPlantInfo(plant.id);
-    this.plantInfoSub = this.plantsService.getPlantInfoUpdateListener().subscribe((plantInfo: {plant: Plant}) => {
+    this.plantsService.getPlantInfo(this.plant.id);
+    this.plantInfoSub = this.plantsService.getPlantInfoUpdateListener().subscribe((plantInfo: { plant: Plant }) => {
+      if (this.plant.id !== plantInfo.plant.id) { return; }
       this.isInfoLoading = false;
-      plant = Object.assign(plant, plantInfo.plant);
-      this.lineChartData = [ Plant.getChartData(plant.temperatureHistory, 'Temperature') ];
-      this.lineChartLabels = Plant.getPlantHistoryTimestamp(plant.temperatureHistory);
+      this.plant = Object.assign(this.plant, plantInfo.plant);
+      this.lineChartData = [Plant.getChartData(this.plant.temperatureHistory, 'Temperature')];
+      this.lineChartLabels = Plant.getPlantHistoryTimestamp(this.plant.temperatureHistory);
     });
   }
 
   setChartTo(data: Array<{ value: number, time: string }>, label: string) {
-    this.lineChartData = [ Plant.getChartData(data, label) ];
+    this.lineChartData = [Plant.getChartData(data, label)];
     this.lineChartLabels = Plant.getPlantHistoryTimestamp(data);
   }
 
   deletePlant(id: string) {
     this.plantsService.deletePlant(id);
+    this.delay(100).then(() => {
+      this.deleted.emit();
+    });
   }
 
   ngOnDestroy(): void {
