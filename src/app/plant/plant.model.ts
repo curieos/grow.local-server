@@ -1,7 +1,7 @@
 import { Module } from '../module/module.model';
-import { IListable } from '../listable.interface';
+import { Listable } from '../listable';
 
-export class Plant implements IListable {
+export class Plant extends Listable {
   module: Module;
 
   static getPlantHistoryTimestamp(data: Array<{ value: number, time: string }>) {
@@ -28,12 +28,14 @@ export class Plant implements IListable {
   }
 
   constructor(
-    public id: string,
-    public name: string,
+    id: string,
+    name: string,
     public temperatureHistory: Array<{ value: number, time: string }> = null,
     public humidityHistory: Array<{ value: number, time: string }> = null,
     public soilMoistureHistory: Array<{ value: number, time: string }> = null,
-  ) { }
+  ) { 
+    super(id, name);
+  }
 
   getCurrentTemperature() {
     return this.getCurrentValue(this.temperatureHistory);

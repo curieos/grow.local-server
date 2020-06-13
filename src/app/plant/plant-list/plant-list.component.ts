@@ -1,6 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ChartDataSets, ChartOptions } from 'chart.js';
-import { Color, Label } from 'ng2-charts';
 import { Subscription } from 'rxjs';
 import { Plant } from '../plant.model';
 import { PlantsService } from '../plants.service';

@@ -1,8 +1,6 @@
-import { IListable } from '../listable.interface';
+import { Listable } from '../listable';
 
-export class Module implements IListable {
-  id: string;
-  name: string;
+export class Module extends Listable {
   moduleName: string;
   ipAddress: string;
 }

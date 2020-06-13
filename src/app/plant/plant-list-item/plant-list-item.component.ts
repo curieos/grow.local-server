@@ -14,9 +14,7 @@ export class PlantListItemComponent implements OnInit, OnDestroy {
   @Input() public plant: Plant;
   public isInfoLoading: Boolean = false;
   private plantInfoSub: Subscription;
-
-  @Output()
-  deleted = new EventEmitter<string>();
+  @Output() deleted = new EventEmitter<string>();
 
   public lineChartData: ChartDataSets[] = [
     { data: [], label: 'Temperature', yAxisID: 'temperature' },
