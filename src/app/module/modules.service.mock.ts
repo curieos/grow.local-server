@@ -9,9 +9,7 @@ export class MockModulesService {
   getModules(): void { }
 
   getModulesUpdateListener(): Observable<{ modules: Module[] }> {
-    const module1 = new Module();
-    module1.id = '1';
-    module1.name = 'ModuleA';
+    const module1 = new Module('1', 'ModuleA');
     module1.ipAddress = '192.168.0.111';
     return of({ modules: [module1] });
   }
@@ -19,9 +17,7 @@ export class MockModulesService {
   getModuleInfo(id: string): void { }
 
   getModuleInfoUpdateListener() {
-    const module = new Module();
-    module.id = '1';
-    module.name = 'ModuleA';
+    const module = new Module('1', 'ModuleA');
     module.moduleName = 'MACADDRESS';
     module.ipAddress = '192.168.0.111';
     return of({ module });
@@ -30,9 +26,7 @@ export class MockModulesService {
   getModuleSettings(id: string): void { }
 
   getModuleSettingsUpdateListener() {
-    const module = new Module();
-    module.id = '1';
-    module.name = 'ModuleA';
+    const module = new Module('1', 'ModuleA');
     module.ipAddress = '192.168.0.111';
     return of({ module });
   }

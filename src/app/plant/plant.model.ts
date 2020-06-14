@@ -1,7 +1,7 @@
 import { Module } from '../module/module.model';
-import { Listable } from '../listable';
+import { Searchable } from '../searchable';
 
-export class Plant extends Listable {
+export class Plant extends Searchable {
   module: Module;
 
   static getPlantHistoryTimestamp(data: Array<{ value: number, time: string }>) {

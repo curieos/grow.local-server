@@ -1,6 +1,6 @@
-import { Listable } from '../listable';
+import { Searchable } from '../searchable';
 
-export class Module extends Listable {
+export class Module extends Searchable {
   moduleName: string;
   ipAddress: string;
 }
