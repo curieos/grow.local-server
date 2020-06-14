@@ -1,6 +1,11 @@
+<ng-template #rt let-r="result" let-t="term">
+	<ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+</ng-template>
 <div class="container p-0 pb-2">
 	<div class="row m-0">
-		<input type="text" placeholder="Search"/>
+		<input #searchBox type="text" placeholder="Search" [(ngModel)]="model" [resultTemplate]="rt"
+			[ngbTypeahead]="search" [inputFormatter]="formatter" (click)="plantList = getPlantsByName(searchBox.value)"
+			(keyup)="plantList = getPlantsByName(searchBox.value)"/>
 		<div class="col p-0"></div>
 		<button class="btn btn-primary" routerLink="/plants/create">New Plant</button>
 	</div>
