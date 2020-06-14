@@ -1,3 +1,14 @@
+<ng-template #rt let-r="result" let-t="term">
+	<ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+</ng-template>
+<div class="container p-0 pb-2">
+	<div class="row m-0">
+		<input #searchBox type="text" placeholder="Search" [(ngModel)]="model" [resultTemplate]="rt"
+			[ngbTypeahead]="search" [inputFormatter]="formatter" (blur)="listItems = getItemsByName(searchBox.value)"
+			(keyup)="listItems = getItemsByName(searchBox.value)" />
+		<div class="col p-0"></div>
+	</div>
+</div>
 <div class="accordion" id="plant-accordion">
 	<div class="card" *ngFor="let item of listItems | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize"
 		tabindex="0">
@@ -5,6 +16,6 @@
 		</ng-template>
 	</div>
 </div>
-<div class="d-flex pt-2 justify-content-center">
+<div class="d-flex pt-2 justify-content-center" *ngIf="showPaging">
 	<ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="listItems.length"></ngb-pagination>
 </div>
