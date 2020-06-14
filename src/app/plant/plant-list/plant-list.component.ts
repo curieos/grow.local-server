@@ -23,13 +23,7 @@ export class PlantListComponent implements OnInit, OnDestroy {
 
   formatter = (x: { name: string }) => x.name;
 
-  constructor(private plantsService: PlantsService) {
-    this.plantSub = this.plantsService.getPlantsUpdateListener().subscribe((plantData: { plants: Plant[] }) => {
-      this.isLoading = false;
-      this.plants = plantData.plants;
-      this.plantList = this.plants;
-    });
-  }
+  constructor(private plantsService: PlantsService) { }
 
   ngOnInit() {
     this.getPlants();
@@ -43,6 +37,11 @@ export class PlantListComponent implements OnInit, OnDestroy {
     console.log(this.search);
     this.isLoading = true;
     this.plantsService.getPlants();
+    this.plantSub = this.plantsService.getPlantsUpdateListener().subscribe((plantData: { plants: Plant[] }) => {
+      this.isLoading = false;
+      this.plants = plantData.plants;
+      this.plantList = this.plants;
+    });
   }
 
   ngOnDestroy() {

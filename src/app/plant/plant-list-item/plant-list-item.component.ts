@@ -62,15 +62,7 @@ export class PlantListItemComponent implements OnInit, OnDestroy {
 
   constructor(private plantsService: PlantsService) { }
 
-  ngOnInit(): void {
-    this.plantInfoSub = this.plantsService.getPlantInfoUpdateListener().subscribe((plantInfo: { plant: Plant }) => {
-      if (this.plant?.id !== plantInfo.plant.id) { return; }
-      this.isInfoLoading = false;
-      this.plant = Object.assign(this.plant, plantInfo.plant);
-      this.lineChartData = [Plant.getChartData(this.plant.temperatureHistory, 'Temperature')];
-      this.lineChartLabels = Plant.getPlantHistoryTimestamp(this.plant.temperatureHistory);
-    });
-  }
+  ngOnInit(): void { }
 
   delay(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -79,6 +71,13 @@ export class PlantListItemComponent implements OnInit, OnDestroy {
   getPlantInfo() {
     this.isInfoLoading = true;
     this.plantsService.getPlantInfo(this.plant.id);
+    this.plantInfoSub = this.plantsService.getPlantInfoUpdateListener().subscribe((plantInfo: { plant: Plant }) => {
+      if (this.plant?.id !== plantInfo.plant.id) { return; }
+      this.isInfoLoading = false;
+      this.plant = Object.assign(this.plant, plantInfo.plant);
+      this.lineChartData = [Plant.getChartData(this.plant.temperatureHistory, 'Temperature')];
+      this.lineChartLabels = Plant.getPlantHistoryTimestamp(this.plant.temperatureHistory);
+    });
   }
 
   setChartTo(data: Array<{ value: number, time: string }>, label: string) {
