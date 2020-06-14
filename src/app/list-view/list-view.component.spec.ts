@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Listable } from '../listable';
+import { Searchable } from '../searchable';
 import { ListViewComponent } from './list-view.component';
 
 describe('ListViewComponent', () => {
@@ -25,11 +25,11 @@ describe('ListViewComponent', () => {
 
   @Component({
     selector: 'app-host-component',
-    template: '<app-list-view [listItems]="listItems" #list></app-list-view>'
+    template: '<app-list-view [_listItems]="listItems" #list></app-list-view>'
   })
   class TestHostComponent {
     @ViewChild('list')
-    public listViewComponent: ListViewComponent<Listable>;
+    public listViewComponent: ListViewComponent<Searchable>;
     public listItems = [];
   }
 });
