@@ -1,8 +1,7 @@
+import { Component, ViewChild } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Listable } from '../listable';
 import { ListViewComponent } from './list-view.component';
-import { Component, ViewChild } from '@angular/core';
-import { Plant } from '../plant/plant.model';
 
 describe('ListViewComponent', () => {
   let component: TestHostComponent;
@@ -30,7 +29,7 @@ describe('ListViewComponent', () => {
   })
   class TestHostComponent {
     @ViewChild('list')
-    public listViewComponent: ListViewComponent<Plant>;
+    public listViewComponent: ListViewComponent<Listable>;
     public listItems = [];
   }
 });
