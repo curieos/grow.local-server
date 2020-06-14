@@ -179,7 +179,7 @@ describe('ModulesService', () => {
   describe('#updateModuleSettings', () => {
     it('should navigate away on success', () => {
       const navSpy = spyOn(router, 'navigate');
-      const module = new Module();
+      const module = new Module('1', 'ModuleA');
 
       service.updateModuleSettings(module);
 

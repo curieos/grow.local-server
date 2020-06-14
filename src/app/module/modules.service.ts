@@ -43,8 +43,7 @@ export class ModulesService {
         ipAddress: string,
       },
     }>(environment.apiURL + '/modules/' + id + '/info').subscribe((data) => {
-      const module = new Module();
-      module.name = data.module.name;
+      const module = new Module(id, data.module.name);
       module.moduleName = data.module.moduleName;
       module.ipAddress = data.module.ipAddress;
       this.moduleInfoUpdated.next({ module });
@@ -62,9 +61,7 @@ export class ModulesService {
       message: string,
       module: { id: string, name: string, ip: string },
     }>(environment.apiURL + '/modules/' + id + '/settings').subscribe((data) => {
-      const module = new Module();
-      module.id = data.module.id;
-      module.name = data.module.name;
+      const module = new Module(data.module.id, data.module.name);
       module.ipAddress = data.module.ip;
       this.moduleSettingsUpdated.next({ module });
     }, () => {

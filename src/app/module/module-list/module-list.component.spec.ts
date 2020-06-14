@@ -42,9 +42,7 @@ describe('ModuleListComponent', () => {
 
   describe('#getModuleInfo', () => {
     it('should request module info', () => {
-      const module = new Module();
-      module.id = '1';
-      module.name = 'ModuleA';
+      const module = new Module('1', 'ModuleA');
       const serviceSpy = spyOn(modulesService, 'getModuleInfo');
 
       component.getModuleInfo(module);

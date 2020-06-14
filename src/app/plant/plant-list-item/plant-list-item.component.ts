@@ -14,9 +14,7 @@ export class PlantListItemComponent implements OnInit, OnDestroy {
   @Input() public plant: Plant;
   public isInfoLoading: Boolean = false;
   private plantInfoSub: Subscription;
-
-  @Output()
-  deleted = new EventEmitter<string>();
+  @Output() deleted = new EventEmitter<string>();
 
   public lineChartData: ChartDataSets[] = [
     { data: [], label: 'Temperature', yAxisID: 'temperature' },
@@ -74,7 +72,7 @@ export class PlantListItemComponent implements OnInit, OnDestroy {
     this.isInfoLoading = true;
     this.plantsService.getPlantInfo(this.plant.id);
     this.plantInfoSub = this.plantsService.getPlantInfoUpdateListener().subscribe((plantInfo: { plant: Plant }) => {
-      if (this.plant.id !== plantInfo.plant.id) { return; }
+      if (this.plant?.id !== plantInfo.plant.id) { return; }
       this.isInfoLoading = false;
       this.plant = Object.assign(this.plant, plantInfo.plant);
       this.lineChartData = [Plant.getChartData(this.plant.temperatureHistory, 'Temperature')];

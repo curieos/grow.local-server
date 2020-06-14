@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IListable } from '../listable.interface';
+import { Listable } from '../listable';
 import { ListViewComponent } from './list-view.component';
 
 describe('ListViewComponent', () => {
-  let component: ListViewComponent<IListable>;
-  let fixture: ComponentFixture<ListViewComponent<IListable>>;
+  let component: ListViewComponent<Listable>;
+  let fixture: ComponentFixture<ListViewComponent<Listable>>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
