@@ -64,7 +64,7 @@ export class PlantListItemComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.plantInfoSub = this.plantsService.getPlantInfoUpdateListener().subscribe((plantInfo: { plant: Plant }) => {
-      if (this.plant.id !== plantInfo.plant.id) { return; }
+      if (this.plant?.id !== plantInfo.plant.id) { return; }
       this.isInfoLoading = false;
       this.plant = Object.assign(this.plant, plantInfo.plant);
       this.lineChartData = [Plant.getChartData(this.plant.temperatureHistory, 'Temperature')];
