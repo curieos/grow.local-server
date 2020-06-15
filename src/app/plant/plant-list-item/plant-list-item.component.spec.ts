@@ -61,8 +61,8 @@ describe('PlantListItemComponent', () => {
 
       component.setChartTo(plant.humidityHistory, 'Humidity');
 
-      expect(component.lineChartData[0].label).toEqual('Humidity');
-      expect(component.lineChartData[0].yAxisID).toEqual('humidity');
+      expect(component.multi[0].name).toEqual('Humidity');
+      expect(component.yAxisLabel).toEqual('Humidity');
     });
   });
 
