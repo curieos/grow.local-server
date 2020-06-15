@@ -68,7 +68,7 @@ describe('PlantListItemComponent', () => {
 
   describe('#getPlantInfo', () => {
     it('should request plant info', () => {
-      component.plant = new Plant('1', 'Violets');
+      component._plant = new Plant('1', 'Violets');
       const serviceSpy = spyOn(plantsService, 'getPlantInfo');
 
       component.getPlantInfo();

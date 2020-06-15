@@ -39,25 +39,4 @@ describe('ModuleListComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  describe('#getModuleInfo', () => {
-    it('should request module info', () => {
-      const module = new Module('1', 'ModuleA');
-      const serviceSpy = spyOn(modulesService, 'getModuleInfo');
-
-      component.getModuleInfo(module);
-
-      expect(serviceSpy).toHaveBeenCalledWith(module.id);
-    });
-  });
-
-  describe('#deleteModule', () => {
-    it('should tell the modules service to delete a module', async(() => {
-      const serviceSpy = spyOn(modulesService, 'deleteModule');
-
-      component.deleteModule('1');
-
-      expect(serviceSpy).toHaveBeenCalledWith('1');
-    }));
-  });
 });
