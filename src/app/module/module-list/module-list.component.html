@@ -1,40 +1,11 @@
+<div class="d-flex flex-row justify-content-end pb-2">
+	<button class="btn btn-primary" routerLink="/modules/link">New Module</button>
+</div>
 <div class="d-flex justify-content-center" *ngIf="isLoading">
 	<div class="spinner-border" role="status">
 		<span class="sr-only">Loading...</span>
 	</div>
 </div>
-<div class="d-flex flex-row justify-content-end pb-2">
-	<button class="btn btn-primary" routerLink="/modules/link">New Module</button>
-</div>
-<div class="accordion" id="module-accordion" *ngIf="!isLoading">
-	<div class="card" *ngFor="let module of moduleList">
-		<div class="card-header" id="headingOne">
-			<h2 class="mb-0">
-				<button class="btn btn-link" type="button" data-toggle="collapse" attr.data-target="#p{{ module.id }}"
-					aria-expanded="false" attr.aria-controls="p{{ module.id }}" (click)="getModuleInfo(module)">
-					{{ module.name }}
-				</button>
-			</h2>
-		</div>
-
-		<div id="p{{ module.id }}" class="collapse" aria-labelledby="headingOne" data-parent="#module-accordion">
-			<div class="card-body">
-				<div class="d-flex justify-content-center" *ngIf="isInfoLoading">
-					<div class="spinner-border" role="status">
-						<span class="sr-only">Loading...</span>
-					</div>
-				</div>
-				<div *ngIf="!isInfoLoading">
-					<p>
-						Module Name: {{ module.moduleName }}<br>
-						Module IP: {{ module.ipAddress }}<br>
-					</p>
-				</div>
-				<div class="float-right mb-1">
-					<button type="button" class="btn btn-warning m-1" [routerLink]="['/modules/edit', module.id]">Edit</button>
-					<button type="button" class="btn btn-danger m-1" (click)="deleteModule(module.id)">Delete</button>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+<app-list-view class="list-view" [_listItems]="moduleList" *ngIf="!isLoading">
+	<app-module-list-item (deleted)="getModules()" *item="let item" [_module]="item"></app-module-list-item>
+</app-list-view>
