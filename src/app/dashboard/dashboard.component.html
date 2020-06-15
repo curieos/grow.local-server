@@ -25,10 +25,10 @@
 	</div>
 	<div class="col-sm-6">
 		<h2>Monitoring {{ selectedPlant?.name }} </h2>
-		<div style="display: block;">
-			<canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels"
-				[options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
-				[chartType]="lineChartType"></canvas>
+		<div class="container chart-parent p-0">
+			<ngx-charts-area-chart [timeline]="true" [scheme]="colorScheme" [showXAxisLabel]="showXAxisLabel"
+				[xAxis]="xAxis" [yAxis]="yAxis" [xAxisLabel]="xAxisLabel" [timeline]="timeline" [results]="multi">
+			</ngx-charts-area-chart>
 		</div>
 	</div>
 </div>

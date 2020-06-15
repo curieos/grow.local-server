@@ -66,10 +66,34 @@ describe('Plant', () => {
 
   it('should have a static method getChartData that returns formatted chart data', () => {
     expect(Plant.getChartData(plant.temperatureHistory, 'Temperature')).toEqual(
-      { data: [24, 27, 25, 25.4], label: 'Temperature', yAxisID: 'temperature' });
+      {
+        name: 'Temperature',
+        series: [
+          { name: '08:30', value: 24 },
+          { name: '08:40', value: 27 },
+          { name: '08:50', value: 25 },
+          { name: '09:00', value: 25.4 },
+        ]
+      });
     expect(Plant.getChartData(plant.humidityHistory, 'Humidity')).toEqual(
-      { data: [52.2, 52.7, 51, 50], label: 'Humidity', yAxisID: 'humidity' });
+      {
+        name: 'Humidity',
+        series: [
+          { name: '08:30', value: 52.2 },
+          { name: '08:40', value: 52.7 },
+          { name: '08:50', value: 51 },
+          { name: '09:00', value: 50 },
+        ]
+      });
     expect(Plant.getChartData(plant.soilMoistureHistory, 'Soil Moisture')).toEqual(
-      { data: [812, 810, 800, 850], label: 'Soil Moisture', yAxisID: 'soilMoisture' });
+      {
+        name: 'Soil Moisture',
+        series: [
+          { name: '08:30', value: 812 },
+          { name: '08:40', value: 810 },
+          { name: '08:50', value: 800 },
+          { name: '09:00', value: 850 },
+        ]
+      });
   });
 });
