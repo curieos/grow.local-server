@@ -1,0 +1,17 @@
+<div class="card-body">
+	<div class="d-flex justify-content-center" *ngIf="isInfoLoading">
+		<div class="spinner-border" role="status">
+			<span class="sr-only">Loading...</span>
+		</div>
+	</div>
+	<div *ngIf="!isInfoLoading">
+		<p>
+			Module Name: {{ module?.moduleName }}<br>
+			Module IP: {{ module?.ipAddress }}<br>
+		</p>
+	</div>
+	<div class="float-right mb-1">
+		<button type="button" class="btn btn-warning m-1" [routerLink]="['/modules/edit', module?.id]">Edit</button>
+		<button type="button" class="btn btn-danger m-1" (click)="deleteModule(module?.id)">Delete</button>
+	</div>
+</div>
