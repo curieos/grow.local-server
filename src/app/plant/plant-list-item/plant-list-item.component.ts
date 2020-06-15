@@ -11,8 +11,8 @@ import { PlantsService } from '../plants.service';
   styleUrls: ['./plant-list-item.component.scss']
 })
 export class PlantListItemComponent implements OnInit, OnDestroy {
-  @Input() public plant: Plant;
-  public isInfoLoading: Boolean = false;
+  public plant: Plant;
+  public isInfoLoading = false;
   private plantInfoSub: Subscription;
   @Output() deleted = new EventEmitter<string>();
 
@@ -59,6 +59,12 @@ export class PlantListItemComponent implements OnInit, OnDestroy {
   ];
   public lineChartLegend = true;
   public lineChartType = 'line';
+
+@Input()
+  set _plant(plant: Plant) {
+    this.plant = plant;
+    this.getPlantInfo();
+  }
 
   constructor(private plantsService: PlantsService) { }
 

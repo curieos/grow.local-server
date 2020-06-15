@@ -1,57 +1,52 @@
-<div class="card-header" id="headingOne">
-	<h2 class="mb-0">
-		<button class="btn btn-link" type="button" data-toggle="collapse" attr.data-target="#p{{ plant?.id }}"
-			aria-expanded="false" attr.aria-controls="p{{ plant?.id }}" (click)="getPlantInfo()">
-			{{ plant?.name }}
-		</button>
-	</h2>
-</div>
-<div id="p{{ plant?.id }}" class="collapse" aria-labelledby="headingOne" data-parent="#plant-accordion">
-	<div class="card-body">
-		<div class="row">
-			<div class="col-sm-6">
-				<h2>Recent Activity</h2>
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th scope="col"></th>
-							<th scope="col">Current Value</th>
-							<th scope="col">12hr Average</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr *ngIf="plant?.temperatureHistory" class="cursor-pointer"
-							(click)="setChartTo(plant?.temperatureHistory, 'Temperature')">
-							<th scope="row">Ambient Temperature (°C)</th>
-							<td>{{ plant?.getCurrentTemperature() }}</td>
-							<td>{{ plant?.getAverageTemperature().toPrecision(3) }}</td>
-						</tr>
-						<tr *ngIf="plant?.humidityHistory" class="cursor-pointer"
-							(click)="setChartTo(plant?.humidityHistory, 'Humidity')">
-							<th scope="row">Humidity (%)</th>
-							<td>{{ plant?.getCurrentHumidity() }}</td>
-							<td>{{ plant?.getAverageHumidity().toPrecision(3) }}</td>
-						</tr>
-						<tr *ngIf="plant?.soilMoistureHistory" class="cursor-pointer"
-							(click)="setChartTo(plant?.soilMoistureHistory, 'Soil Moisture')">
-							<th scope="row">Soil Moisture</th>
-							<td>{{ plant?.getCurrentSoilMoisture() }}</td>
-							<td>{{ plant?.getAverageSoilMoisture().toPrecision(3) }}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="col-sm-6">
-				<div style="display: block;">
-					<canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels"
-						[options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
-						[chartType]="lineChartType"></canvas>
-				</div>
+<div class="card-body">
+	<div class="d-flex justify-content-center" *ngIf="isInfoLoading">
+		<div class="spinner-border" role="status">
+			<span class="sr-only">Loading...</span>
+		</div>
+	</div>
+	<div class="row" *ngIf="!isInfoLoading">
+		<div class="col-sm-6">
+			<h2>Recent Activity</h2>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col"></th>
+						<th scope="col">Current Value</th>
+						<th scope="col">12hr Average</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngIf="plant?.temperatureHistory" class="cursor-pointer"
+						(click)="setChartTo(plant?.temperatureHistory, 'Temperature')">
+						<th scope="row">Ambient Temperature (°C)</th>
+						<td>{{ plant?.getCurrentTemperature() }}</td>
+						<td>{{ plant?.getAverageTemperature().toPrecision(3) }}</td>
+					</tr>
+					<tr *ngIf="plant?.humidityHistory" class="cursor-pointer"
+						(click)="setChartTo(plant?.humidityHistory, 'Humidity')">
+						<th scope="row">Humidity (%)</th>
+						<td>{{ plant?.getCurrentHumidity() }}</td>
+						<td>{{ plant?.getAverageHumidity().toPrecision(3) }}</td>
+					</tr>
+					<tr *ngIf="plant?.soilMoistureHistory" class="cursor-pointer"
+						(click)="setChartTo(plant?.soilMoistureHistory, 'Soil Moisture')">
+						<th scope="row">Soil Moisture</th>
+						<td>{{ plant?.getCurrentSoilMoisture() }}</td>
+						<td>{{ plant?.getAverageSoilMoisture().toPrecision(3) }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-sm-6">
+			<div style="display: block;">
+				<canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels"
+					[options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+					[chartType]="lineChartType"></canvas>
 			</div>
 		</div>
-		<div class="float-right mb-1">
-			<button type="button" class="btn btn-warning m-1" [routerLink]="['/plants/edit', plant?.id]">Edit</button>
-			<button type="button" class="btn btn-danger m-1" (click)="deletePlant(plant?.id)">Delete</button>
-		</div>
+	</div>
+	<div class="float-right mb-1">
+		<button type="button" class="btn btn-warning m-1" [routerLink]="['/plants/edit', plant?.id]">Edit</button>
+		<button type="button" class="btn btn-danger m-1" (click)="deletePlant(plant?.id)">Delete</button>
 	</div>
 </div>

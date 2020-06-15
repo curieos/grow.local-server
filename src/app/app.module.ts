@@ -17,6 +17,7 @@ import { PlantCreateComponent } from './plant/plant-create/plant-create.componen
 import { PlantEditComponent } from './plant/plant-edit/plant-edit.component';
 import { PlantListItemComponent } from './plant/plant-list-item/plant-list-item.component';
 import { PlantListComponent } from './plant/plant-list/plant-list.component';
+import { ModuleListItemComponent } from './module/module-list-item/module-list-item.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { PlantListComponent } from './plant/plant-list/plant-list.component';
     ModuleEditComponent,
     ListViewComponent,
     PlantListItemComponent,
+    ModuleListItemComponent,
   ],
   imports: [
     NgbModule,

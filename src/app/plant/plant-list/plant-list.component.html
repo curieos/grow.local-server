@@ -10,5 +10,5 @@
 	</div>
 </div>
 <app-list-view class="list-view" [_listItems]="plantList" *ngIf="!isLoading">
-	<app-plant-list-item (deleted)="getPlants()" *item="let item" [plant]="item"></app-plant-list-item>
+	<app-plant-list-item (deleted)="getPlants()" *item="let item" [_plant]="item"></app-plant-list-item>
 </app-list-view>
