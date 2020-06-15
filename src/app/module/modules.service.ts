@@ -19,8 +19,8 @@ export class ModulesService {
   getModules(): void {
     this.http.get<{ message: string, modules: any }>(environment.apiURL + '/modules').pipe(map((data) => {
       return {
-        modules: data.modules.map((module) => {
-          return { id: module.id, name: module.name };
+        modules: data.modules.map((module: { id: any; name: any; }) => {
+          return new Module(module.id, module.name);
         }),
       };
     })).subscribe((transformedModules) => {
