@@ -11,6 +11,7 @@ import { Searchable } from '../searchable';
 export class ListViewComponent<T extends Searchable> implements OnInit {
   @Input() public emptyMsg: string;
   @Input() public showPaging = true;
+  @Input() public showSearch = true;
   public listItems: Array<T>;
   private items: Array<T>;
   public pageSize = 10;

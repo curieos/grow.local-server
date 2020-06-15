@@ -3,7 +3,7 @@
 </ng-template>
 <div class="container p-0 pb-2">
 	<div class="row m-0">
-		<input #searchBox type="text" placeholder="Search" [(ngModel)]="model" [resultTemplate]="rt"
+		<input #searchBox *ngIf="showSearch" type="text" placeholder="Search" [(ngModel)]="model" [resultTemplate]="rt"
 			[ngbTypeahead]="search" [inputFormatter]="formatter" (blur)="listItems = getItemsByName(searchBox.value)"
 			(keyup)="listItems = getItemsByName(searchBox.value)" />
 		<div class="col p-0"></div>
