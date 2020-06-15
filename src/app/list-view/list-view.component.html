@@ -1,0 +1,22 @@
+<ng-template #rt let-r="result" let-t="term">
+	<ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+</ng-template>
+<div class="container p-0 pb-2">
+	<div class="row m-0">
+		<input #searchBox *ngIf="showSearch" type="text" placeholder="Search" [(ngModel)]="model" [resultTemplate]="rt"
+			[ngbTypeahead]="search" [inputFormatter]="formatter" (blur)="listItems = getItemsByName(searchBox.value)"
+			(keyup)="listItems = getItemsByName(searchBox.value)" />
+		<div class="col p-0"></div>
+	</div>
+</div>
+<ngb-accordion [closeOthers]="true">
+	<ngb-panel title="{{ item.name }}"
+		*ngFor="let item of listItems | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+		<ng-template ngbPanelContent>
+			<ng-template ngFor let-item [ngForOf]="[item]" [ngForTemplate]="itemTemplate"></ng-template>
+		</ng-template>
+	</ngb-panel>
+</ngb-accordion>
+<div class="d-flex pt-2 justify-content-center" *ngIf="showPaging">
+	<ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="listItems.length"></ngb-pagination>
+</div>

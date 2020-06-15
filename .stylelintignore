@@ -1,11 +1,13 @@
 dist
 node_modules
+coverage
 .vscode
 
 *.js
 *.ts
 *.json
 *.ico
+*.sh
 Procfile
 LICENSE
 *.sqlite

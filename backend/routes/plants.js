@@ -8,7 +8,7 @@ const router = express.Router()
 var plantList = []
 
 function UpdatePlantList () {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     Plant.findAll().then((plants) => {
       const newList = []
       for (const plant of plants) {
@@ -22,8 +22,8 @@ function UpdatePlantList () {
   })
 }
 
-router.get('', (req, res, next) => {
-  UpdatePlantList().then((response) => {
+router.get('', (req, res) => {
+  UpdatePlantList().then(() => {
     res.status(200).json({
       message: 'Plants Fetched Successfully',
       plants: plantList
@@ -31,15 +31,15 @@ router.get('', (req, res, next) => {
   })
 })
 
-router.post('', (req, res, next) => {
+router.post('', (req, res) => {
   Module.findOne({ where: { name: req.body.moduleName } }).then(module => {
-    Plant.create({ name: req.body.plantName, moduleId: module.id }).then(plant => {
+    Plant.create({ name: req.body.plantName, moduleId: module.id }).then(() => {
       res.status(201).json({ message: 'Successfully Added Plant' })
     })
   })
 })
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', (req, res) => {
   Plant.destroy({
     where: {
       id: req.params.id
@@ -49,11 +49,9 @@ router.delete('/:id', (req, res, next) => {
   })
 })
 
-router.get('/:id/settings', (req, res, next) => {
-  UpdatePlantList().then((response) => {
-    /* eslint-disable eqeqeq */
+router.get('/:id/settings', (req, res) => {
+  UpdatePlantList().then(() => {
     const plant = plantList.find(plant => plant.id == req.params.id)
-    /* eslint-enable eqeqeq */
     if (typeof plant === 'undefined') res.status(500).json({ message: 'Failed to find plant with id' })
     else {
       res.status(200).json({
@@ -64,7 +62,7 @@ router.get('/:id/settings', (req, res, next) => {
   })
 })
 
-router.post('/:id/settings', (req, res, next) => {
+router.post('/:id/settings', (req, res) => {
   Plant.findOne({ where: { id: req.params.id } }).then((plant) => {
     if (plant === null) {
       res.status(502).json({ message: 'Failed to find plant with id' })
@@ -77,11 +75,9 @@ router.post('/:id/settings', (req, res, next) => {
   })
 })
 
-router.get('/:id/info', (req, res, next) => {
-  UpdatePlantList().then((response) => {
-    /* eslint-disable eqeqeq */
+router.get('/:id/info', (req, res) => {
+  UpdatePlantList().then(() => {
     const plant = plantList.find(plant => plant.id == req.params.id)
-    /* eslint-enable eqeqeq */
     if (typeof plant === 'undefined') res.status(500).json({ message: 'Failed to find plant with id' })
     else {
       Module.findOne({ where: { id: plant.moduleId } }).then(module => {

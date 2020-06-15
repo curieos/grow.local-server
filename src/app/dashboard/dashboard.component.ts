@@ -74,6 +74,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.isLoading = false;
       this.plantList = plantData.plants;
       if (this.plantList) {
+        this.selectedPlant = this.plantList[0];
         this.getPlantInfo(this.plantList[0]);
       }
     });
@@ -83,7 +84,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     if (!plant) { return; }
     this.plantsService.getPlantInfo(plant.id);
     this.plantInfoSub = this.plantsService.getPlantInfoUpdateListener().subscribe((plantInfo: { plant: Plant }) => {
+      if (plant.id !== plantInfo.plant.id) { return; }
       plant = Object.assign(plant, plantInfo.plant);
+      this.selectedPlant = plant;
       this.lineChartData = [Plant.getChartData(plant.humidityHistory, 'Humidity')];
       if (plant.soilMoistureHistory) {
         this.lineChartData.push(Plant.getChartData(plant.soilMoistureHistory, 'Soil Moisture'));

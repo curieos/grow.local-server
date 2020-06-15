@@ -1,6 +1,7 @@
 import { Module } from '../module/module.model';
+import { Searchable } from '../searchable';
 
-export class Plant {
+export class Plant extends Searchable {
   module: Module;
 
   static getPlantHistoryTimestamp(data: Array<{ value: number, time: string }>) {
@@ -27,12 +28,14 @@ export class Plant {
   }
 
   constructor(
-    public id: string,
-    public name: string,
+    id: string,
+    name: string,
     public temperatureHistory: Array<{ value: number, time: string }> = null,
     public humidityHistory: Array<{ value: number, time: string }> = null,
     public soilMoistureHistory: Array<{ value: number, time: string }> = null,
-  ) { }
+  ) { 
+    super(id, name);
+  }
 
   getCurrentTemperature() {
     return this.getCurrentValue(this.temperatureHistory);
