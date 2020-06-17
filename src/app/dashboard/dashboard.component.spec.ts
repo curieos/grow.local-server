@@ -1,7 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ChartsModule } from 'ng2-charts';
 import { PlantsService } from '../plant/plants.service';
 import { MockPlantsService } from '../plant/plants.service.mock';
 import { DashboardComponent } from './dashboard.component';
@@ -14,7 +13,6 @@ describe('DashboardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        ChartsModule,
         HttpClientModule,
         RouterTestingModule,
       ],

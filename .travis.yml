@@ -1,20 +1,29 @@
 language: node_js
 node_js:
-  - "stable"
-
+- stable
 branches:
   only:
   - master
   - dev
-
+  - /^v.*$/
 before_script:
-  - npm install -g @angular/cli
-
+- npm install -g @angular/cli
 script:
-  - ng test --watch=false --browsers=ChromeHeadless
-  - npm run coveralls
-  - bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l Typescript -r ./coverage/grow-local/lcov.info
-  - ng build --prod
-
+- ng test --watch=false --browsers=ChromeHeadless
+- npm run coveralls
+- bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l Typescript -r ./coverage/grow-local/lcov.info
+- ng build --prod
 notifications:
   webhooks: https://coveralls.io/webhook
+deploy:
+  provider: releases
+  api_key:
+    secure: BSC2bpn3JywUgxI+JUxq3kOLwGkHQFQ7+j9wwhCB5SS6y4TwXhWQrw3r//xSd3EwfW29VqDfuqEqtJiUmQSG5ExVK4n6GtZg9DUcu+Ncqa/iEktJfVFFk7VHxtnZY9ynONA/WVn3jEemcp103AKp3mxdBFcthBEMG1TuN5lMUwYTJqp6yY50/fPBDKXzXLnLYd4OmoX13BPPfobfgKPVbVvsXv3sX1QIZZcbIaa5znLjakpNXBCCi2BHJfFAAz4RKD7JhwHsRp8ldzGhVvkSbrnpeZ+HrgNZ1Wkabt58XAhNNwnHsX2PwvUbdm2oy7YYlbtwATsggOSiF97+nvsP3AhYfggjoMqO9c66DgkI1zf3sZ6ynYfdq5RCxjrgUAtJYl9VxYvJ5HMY/eCTJmAASN3tjzDc9dp3VVO/Rt/nUmGCjgYvk0xJfGLvzzrWSjQ2ev/SFXPuV6Fdns6y0TLLPgIygyiFR4pGzQeXTNDAPs4rgWwgCws/BuJcWXrnaYSLObSrN5x6iQHZ32EdipspnYSgNVsFUcM0QQ5z00L08EmE1US3RcAAIA+NkZhT2qySwzTHrs5iMFdmSWhGQJkKcuoBsWdtH0FsYpgIUkTXEcUHuseR1gC9YxW3RBvjQJlWG2YAzKJQ8liBzVI6Ri5+IYo1rPv6i3CvJbAE30s566w=
+  file_glob: true
+  file: 
+  - server.js
+  - dist/*
+  - backend/*
+  on:
+    tags: true
+  skip_cleanup: 'true'

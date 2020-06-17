@@ -1,6 +1,4 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { ChartDataSets, ChartOptions } from 'chart.js';
-import { Color, Label } from 'ng2-charts';
 import { Subscription } from 'rxjs';
 import { Plant } from '../plant.model';
 import { PlantsService } from '../plants.service';
@@ -16,51 +14,22 @@ export class PlantListItemComponent implements OnInit, OnDestroy {
   private plantInfoSub: Subscription;
   @Output() deleted = new EventEmitter<string>();
 
-  public lineChartData: ChartDataSets[] = [
-    { data: [], label: 'Temperature', yAxisID: 'temperature' },
-  ];
-  public lineChartLabels: Label[] = [];
-  public lineChartOptions: (ChartOptions) = {
-    responsive: true,
-    scales: {
-      // We use this empty structure as a placeholder for dynamic theming.
-      xAxes: [{}],
-      yAxes: [
-        {
-          display: 'auto',
-          id: 'temperature',
-          position: 'right',
-          ticks: { suggestedMin: 10, suggestedMax: 40 },
-        },
-        {
-          display: 'auto',
-          id: 'humidity',
-          position: 'right',
-          ticks: { suggestedMin: 10, suggestedMax: 40 },
-        },
-        {
-          display: 'auto',
-          id: 'soilMoisture',
-          position: 'right',
-          ticks: { suggestedMin: 500, suggestedMax: 800 },
-        },
-      ],
-    },
-  };
-  public lineChartColors: Color[] = [
-    {
-      backgroundColor: 'rgba(1,50,220,0.2)',
-      borderColor: 'rgba(1,50,220,1)',
-      pointBackgroundColor: 'rgba(1,15,220,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(1,50,220,0.8)',
-    },
-  ];
-  public lineChartLegend = true;
-  public lineChartType = 'line';
+  multi: Array<{ name: string, series: Array<{ name: Date, value: number }> }>;
+  showLabels = true;
+  animations = true;
+  xAxis = true;
+  yAxis = true;
+  showYAxisLabel = true;
+  showXAxisLabel = true;
+  xAxisLabel = 'Time';
+  yAxisLabel = 'Temperature';
+  timeline = true;
 
-@Input()
+  colorScheme = {
+    domain: ['rgba(1,50,220,0.4)']
+  };
+
+  @Input()
   set _plant(plant: Plant) {
     this.plant = plant;
     this.getPlantInfo();
@@ -78,17 +47,17 @@ export class PlantListItemComponent implements OnInit, OnDestroy {
     this.isInfoLoading = true;
     this.plantsService.getPlantInfo(this.plant.id);
     this.plantInfoSub = this.plantsService.getPlantInfoUpdateListener().subscribe((plantInfo: { plant: Plant }) => {
-      if (this.plant?.id !== plantInfo.plant.id) { return; }
+      if (this.plant?.id !== plantInfo.plant.id) return;
       this.isInfoLoading = false;
       this.plant = Object.assign(this.plant, plantInfo.plant);
-      this.lineChartData = [Plant.getChartData(this.plant.temperatureHistory, 'Temperature')];
-      this.lineChartLabels = Plant.getPlantHistoryTimestamp(this.plant.temperatureHistory);
+      this.multi = [Plant.getChartData(this.plant.temperatureHistory, 'Temperature')];
+      this.yAxisLabel = 'Temperature';
     });
   }
 
   setChartTo(data: Array<{ value: number, time: string }>, label: string) {
-    this.lineChartData = [Plant.getChartData(data, label)];
-    this.lineChartLabels = Plant.getPlantHistoryTimestamp(data);
+    this.multi = [Plant.getChartData(data, label)];
+    this.yAxisLabel = label;
   }
 
   deletePlant(id: string) {

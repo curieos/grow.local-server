@@ -4,25 +4,14 @@ import { Searchable } from '../searchable';
 export class Plant extends Searchable {
   module: Module;
 
-  static getPlantHistoryTimestamp(data: Array<{ value: number, time: string }>) {
-    const label = [];
-    for (const dataPoint of data) {
-      label.push(dataPoint.time.slice(0, 5));
-    }
-    return label;
-  }
-
-  static getChartData(data: Array<{ value: number, time: string }>, label: string): { data: number[], label: string, yAxisID: string } {
+  static getChartData(data: Array<{ value: number, time: string }>, name: string):
+    { name: string, series: Array<{ name: Date, value: number }> } {
     const newData = {
-      data: [], label, yAxisID: label.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, (match, index) => {
-        if (+match === 0) {
-          return ''; // or if (/\s+/.test(match)) for white spaces
-        }
-        return index === 0 ? match.toLowerCase() : match.toUpperCase();
-      }),
+      name,
+      series: [],
     };
     for (const dataPoint of data) {
-      newData.data.push(dataPoint.value);
+      newData.series.push({ name: new Date(dataPoint.time), value: dataPoint.value });
     }
     return newData;
   }
@@ -33,7 +22,7 @@ export class Plant extends Searchable {
     public temperatureHistory: Array<{ value: number, time: string }> = null,
     public humidityHistory: Array<{ value: number, time: string }> = null,
     public soilMoistureHistory: Array<{ value: number, time: string }> = null,
-  ) { 
+  ) {
     super(id, name);
   }
 

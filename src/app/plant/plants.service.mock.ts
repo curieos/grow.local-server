@@ -8,7 +8,7 @@ export class MockPlantsService {
   getPlants(): void { }
 
   getPlantsUpdateListener(): Observable<{ plants: Plant[] }> {
-    return of({ plants: [/*new Plant('1', 'Violets')*/] });
+    return of({ plants: [new Plant('1', 'Violets')] });
   }
 
   getPlantInfo(plantID: string): void { }
