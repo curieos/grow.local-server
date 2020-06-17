@@ -5,6 +5,7 @@ branches:
   only:
   - master
   - dev
+  - /^v.*$/
 before_script:
 - npm install -g @angular/cli
 script:
