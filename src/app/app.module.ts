@@ -15,6 +15,7 @@ import { ModuleEditComponent } from './module/module-edit/module-edit.component'
 import { ModuleLinkComponent } from './module/module-link/module-link.component';
 import { ModuleListItemComponent } from './module/module-list-item/module-list-item.component';
 import { ModuleListComponent } from './module/module-list/module-list.component';
+import { MultiAxisChartComponent } from './multi-axis-chart/multi-axis-chart.component';
 import { PlantCreateComponent } from './plant/plant-create/plant-create.component';
 import { PlantEditComponent } from './plant/plant-edit/plant-edit.component';
 import { PlantListItemComponent } from './plant/plant-list-item/plant-list-item.component';
@@ -34,6 +35,7 @@ import { PlantListComponent } from './plant/plant-list/plant-list.component';
     ListViewComponent,
     PlantListItemComponent,
     ModuleListItemComponent,
+    MultiAxisChartComponent,
   ],
   imports: [
     NgbModule,

@@ -14,7 +14,7 @@ export class PlantListItemComponent implements OnInit, OnDestroy {
   private plantInfoSub: Subscription;
   @Output() deleted = new EventEmitter<string>();
 
-  multi: Array<{ name: string, series: Array<{ name: string, value: number }> }>;
+  multi: Array<{ name: string, series: Array<{ name: Date, value: number }> }>;
   showLabels = true;
   animations = true;
   xAxis = true;
@@ -26,7 +26,7 @@ export class PlantListItemComponent implements OnInit, OnDestroy {
   timeline = true;
 
   colorScheme = {
-    domain: ['#7aa3e5', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
+    domain: ['rgba(1,50,220,0.4)']
   };
 
   @Input()
@@ -47,7 +47,7 @@ export class PlantListItemComponent implements OnInit, OnDestroy {
     this.isInfoLoading = true;
     this.plantsService.getPlantInfo(this.plant.id);
     this.plantInfoSub = this.plantsService.getPlantInfoUpdateListener().subscribe((plantInfo: { plant: Plant }) => {
-      if (this.plant?.id !== plantInfo.plant.id) { return; }
+      if (this.plant?.id !== plantInfo.plant.id) return;
       this.isInfoLoading = false;
       this.plant = Object.assign(this.plant, plantInfo.plant);
       this.multi = [Plant.getChartData(this.plant.temperatureHistory, 'Temperature')];

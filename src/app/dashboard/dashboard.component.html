@@ -26,9 +26,16 @@
 	<div class="col-sm-6">
 		<h2>Monitoring {{ selectedPlant?.name }} </h2>
 		<div class="container chart-parent p-0">
-			<ngx-charts-area-chart [timeline]="true" [scheme]="colorScheme" [showXAxisLabel]="showXAxisLabel"
+			<app-multi-axis-chart [timeline]="true" [scheme]="colorScheme" [showXAxisLabel]="showXAxisLabel"
 				[xAxis]="xAxis" [yAxis]="yAxis" [xAxisLabel]="xAxisLabel" [timeline]="timeline" [results]="multi">
-			</ngx-charts-area-chart>
+				<ng-template #tooltipTemplate let-model="model">
+					<div class="tool-tip">
+						<p>{{ model["name"]|date:'short' }}</p>
+						<p>{{ model["series"] }}</p>
+						<h6>{{ model["value"] }}</h6>
+					</div>
+				</ng-template>
+			</app-multi-axis-chart>
 		</div>
 	</div>
 </div>

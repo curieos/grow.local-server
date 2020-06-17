@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public plantList: Plant[];
   public selectedPlant: Plant;
 
-  multi: Array<{ name: string, series: Array<{ name: string, value: number }>}>;
+  multi: Array<{ name: string, series: Array<{ name: Date, value: number }> }>;
   showLabels = true;
   animations = true;
   xAxis = true;
@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   timeline = true;
 
   colorScheme = {
-    domain: ['#7aa3e5', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
+    domain: ['rgba(1,50,220,0.4)', '#rgba(120,8,9,0.4)']
   };
 
   constructor(private plantsService: PlantsService) { }

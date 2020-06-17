@@ -4,22 +4,14 @@ import { Searchable } from '../searchable';
 export class Plant extends Searchable {
   module: Module;
 
-  static getPlantHistoryTimestamp(data: Array<{ value: number, time: string }>) {
-    const label = [];
-    for (const dataPoint of data) {
-      label.push(dataPoint.time.slice(0, 5));
-    }
-    return label;
-  }
-
   static getChartData(data: Array<{ value: number, time: string }>, name: string):
-    { name: string, series: Array<{ name: string, value: number }> } {
+    { name: string, series: Array<{ name: Date, value: number }> } {
     const newData = {
       name,
-      series: []
+      series: [],
     };
     for (const dataPoint of data) {
-      newData.series.push({ name: dataPoint.time.slice(0, 5), value: dataPoint.value });
+      newData.series.push({ name: new Date(dataPoint.time), value: dataPoint.value });
     }
     return newData;
   }
