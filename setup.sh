@@ -14,7 +14,6 @@ COL_LIGHT_RED='\e[1;31m'
 TICK="[${COL_LIGHT_GREEN}✓${COL_NC}]"
 CROSS="[${COL_LIGHT_RED}✗${COL_NC}]"
 INFO="[i]"
-# shellcheck disable=SC2034
 DONE="${COL_LIGHT_GREEN} done!${COL_NC}"
 OVER="\\r\\033[K"
 
@@ -36,34 +35,42 @@ is_command() {
 }
 
 check_hostname() {
+	local str="Hostname is configured correctly"
+    printf "  %b %s" "${INFO}" "${str}"
 	if [[ $(< /etc/hostname) != "grow" ]]; then
-		printf "Hostname should be grow, is %s\\n" "$(< /etc/hostname)"
+		printf "%b  %b %s...\\n" "${OVER}" "${CROSS}" "${str}"
 		exit 1
 	fi
-	printf "Hostname is configured correctly\\n"
+	printf "%b  %b %s...\\n" "${OVER}" "${TICK}" "${str}"
 }
 
 install_dependencies() {
 	printf "You need to install dependencies manually for now\\n"
-	printf "Required:\\n"
-	printf "%s\\n" "${DEPENDENCIES[@]}"
+	printf "  Required:\\n"
+	printf "  - %s\\n" "${DEPENDENCIES[@]}"
 }
 
 download_latest() {
-	printf "Downloading the latest version of Grow.local...\\n"
-	curl -sSL -o grow-local.zip https://github.com/curieos/Grow.local-Server/releases/download/v0.1.2/grow-local.zip
+	local str="Downloading the latest version of Grow.local..."
+    printf "  %b %s" "${INFO}" "${str}"
+	curl -sSL -o grow-local.zip https://github.com/curieos/Grow.local-Server/releases/download/v0.1.2-1/grow-local.zip
 	unzip -o -q grow-local.zip
+	printf "%b  %b %s...\\n" "${OVER}" "${TICK}" "${str}"
 }
 
 install_node_packages() {
-	printf "Installing Node.js Packages\\n"
-	npm install --prod
-	sudo npm install -g pm2
+	local str="Installing NPM Packages"
+    printf "  %b %s" "${INFO}" "${str}"
+	npm install --prod &> /dev/null
+	sudo npm install -g pm2 &> /dev/null
+	printf "%b  %b %s...\\n" "${OVER}" "${TICK}" "${str}"
 }
 
 setup_configs() {
-	printf "Overwriting HAProxy Config\\n"
+	local str="Overwriting HAProxy Config"
+    printf "  %b %s..." "${INFO}" "${str}"
 	sudo cp -f ./configurations/haproxy.cfg $haProxyConfig
+	printf "%b  %b %s...\\n" "${OVER}" "${TICK}" "${str}"
 }
 
 start_proxy() {
@@ -71,8 +78,10 @@ start_proxy() {
 }
 
 start_server() {
-	printf "Starting the server using pm2\\n"
+	local str="Starting the server with PM2"
+    printf "  %b %s..." "${INFO}" "${str}"
 	pm2 start
+	printf "%b  %b %s...\\n" "${OVER}" "${TICK}" "${str}"
 }
 
 stop_pm2() {
@@ -88,9 +97,9 @@ stop_service() {
     local str="Stopping ${1} service"
     printf "  %b %s..." "${INFO}" "${str}"
     if is_command systemctl ; then
-        systemctl stop "${1}" &> /dev/null || true
+        sudo systemctl stop "${1}" &> /dev/null || true
     else
-        service "${1}" stop &> /dev/null || true
+        sudo service "${1}" stop &> /dev/null || true
     fi
     printf "%b  %b %s...\\n" "${OVER}" "${TICK}" "${str}"
 }
@@ -109,17 +118,18 @@ restart_service() {
     # If systemctl exists,
     if is_command systemctl ; then
         # use that to restart the service
-        systemctl restart "${1}" &> /dev/null
+        sudo systemctl restart "${1}" &> /dev/null
     # Otherwise,
     else
         # fall back to the service command
-        service "${1}" restart &> /dev/null
+        sudo service "${1}" restart &> /dev/null
     fi
     printf "%b  %b %s...\\n" "${OVER}" "${TICK}" "${str}"
 }
 
 make_service() {
-	printf "Making the service\\n"
+	local str="Making the service"
+    printf "  %b %s..." "${INFO}" "${str}"
 	pm2 startup
 	printf "Run the above command to automatically make PM2 start on boot"
 }
