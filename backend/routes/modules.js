@@ -124,7 +124,8 @@ router.get('/:id/info', (req, res) => {
         module: {
           name: module.name,
           moduleName: response.moduleName,
-          ipAddress: response.ipAddress
+          ipAddress: response.ipAddress,
+          version: response.version
         }
       })
     }).catch(error => {

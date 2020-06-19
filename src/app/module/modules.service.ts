@@ -41,11 +41,13 @@ export class ModulesService {
         name: string,
         moduleName: string,
         ipAddress: string,
+        version: string,
       },
     }>(environment.apiURL + '/modules/' + id + '/info').subscribe((data) => {
       const module = new Module(id, data.module.name);
       module.moduleName = data.module.moduleName;
       module.ipAddress = data.module.ipAddress;
+      module.version = data.module.version;
       this.moduleInfoUpdated.next({ module });
     }, () => {
       this.moduleInfoUpdated.next({ module: null });

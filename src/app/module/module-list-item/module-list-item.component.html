@@ -8,9 +8,12 @@
 		<p>
 			Module Name: {{ module?.moduleName }}<br>
 			Module IP: {{ module?.ipAddress }}<br>
+			Version: {{ module?.version }}<br>
 		</p>
 	</div>
-	<div class="float-right mb-1">
+	<div class="row mb-0">
+		<button type="button" class="btn btn-secondary m-1">Update</button>
+		<div class="col p-0"></div>
 		<button type="button" class="btn btn-warning m-1" [routerLink]="['/modules/edit', module?.id]">Edit</button>
 		<button type="button" class="btn btn-danger m-1" (click)="deleteModule(module?.id)">Delete</button>
 	</div>
