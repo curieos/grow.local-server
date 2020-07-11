@@ -22,26 +22,22 @@ describe('PlantEditComponent', () => {
       declarations: [
         PlantEditComponent,
       ],
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
       providers: [
         PlantEditComponent,
         { provide: PlantService, useClass: MockPlantService },
-        { provide: ActivatedRoute,
+        {
+          provide: ActivatedRoute,
           useValue: {
             snapshot: { params: { id: '1' } },
           },
         },
       ],
-    });
+    }).compileComponents();
     fixture = TestBed.createComponent(PlantEditComponent);
     component = fixture.componentInstance;
     plantsService = TestBed.inject(PlantService);
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

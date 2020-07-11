@@ -21,21 +21,16 @@ describe('PlantListComponent', () => {
       declarations: [
         PlantListComponent,
       ],
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
       providers: [
         PlantListComponent,
         { provide: PlantService, useClass: MockPlantService },
       ],
-    });
+    }).compileComponents();
     fixture = TestBed.createComponent(PlantListComponent);
     component = fixture.componentInstance;
     plantsService = TestBed.inject(PlantService);
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
