@@ -30,7 +30,7 @@ export class MockModuleService {
 
   getModuleInfo(id: string): void {
     this.delay(testDelay).then(() => {
-      const module = new Module('1', 'ModuleA');
+      const module = new Module(id, 'ModuleA');
       module.moduleName = 'MACADDRESS';
       module.ipAddress = '192.168.0.111';
       this.moduleInfoUpdated.next({ module });
@@ -43,7 +43,7 @@ export class MockModuleService {
 
   getModuleSettings(id: string): void {
     this.delay(testDelay).then(() => {
-      const module = new Module('1', 'ModuleA');
+      const module = new Module(id, 'ModuleA');
       module.ipAddress = '192.168.0.111';
       this.moduleSettingsUpdated.next({ module });
     });
