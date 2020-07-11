@@ -23,6 +23,11 @@ export class ModuleEditComponent implements OnInit, OnDestroy {
     this.form = new FormGroup({
       name: new FormControl('', { validators: [Validators.required, Validators.minLength(4)] }),
     });
+    this.moduleSettingsSubscription = this.modulesService.getModuleSettingsUpdateListener().subscribe((module: {module: Module}) => {
+      this.isLoading = false;
+      this.module = module.module;
+      this.updateForm();
+    });
     this.getModuleSettings();
   }
 
@@ -30,11 +35,6 @@ export class ModuleEditComponent implements OnInit, OnDestroy {
     if (!this.route.snapshot.params['id']) { return; }
     this.isLoading = true;
     this.modulesService.getModuleSettings(this.route.snapshot.params['id']);
-    this.moduleSettingsSubscription = this.modulesService.getModuleSettingsUpdateListener().subscribe((module: {module: Module}) => {
-      this.isLoading = false;
-      this.module = module.module;
-      this.updateForm();
-    });
   }
 
   updateForm() {
