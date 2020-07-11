@@ -1,4 +1,4 @@
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Plant } from './plant.model';
 
 const testDelay = 10;
