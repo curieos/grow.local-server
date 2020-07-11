@@ -3,7 +3,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { PlantService } from '../plant/plant.service';
 import { MockPlantService } from '../plant/plant.service.mock';
-import { SharedModule } from '../shared/shared.module';
 import { DashboardComponent } from './dashboard.component';
 
 describe('DashboardComponent', () => {
@@ -16,7 +15,6 @@ describe('DashboardComponent', () => {
       imports: [
         HttpClientModule,
         RouterTestingModule,
-        SharedModule,
       ],
       declarations: [
         DashboardComponent,
