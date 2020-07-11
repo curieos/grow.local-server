@@ -31,16 +31,16 @@ export class ModuleListItemComponent implements OnInit, OnDestroy {
     this.modulesService.getUpdateProgress(this.module).subscribe((data) => {
       this.updateProgress = JSON.parse(data.data).progress;
     });
-  }
-
-  getModuleInfo(): void {
-    this.isInfoLoading = true;
-    this.modulesService.getModuleInfo(this.module.id);
     this.moduleInfoSub = this.modulesService.getModuleInfoUpdateListener().subscribe((moduleInfo: { module: Module }) => {
       if (this.module?.id !== moduleInfo.module.id) { return; }
       this.isInfoLoading = false;
       this.module = Object.assign(this.module, moduleInfo.module);
     });
+  }
+
+  getModuleInfo(): void {
+    this.isInfoLoading = true;
+    this.modulesService.getModuleInfo(this.module.id);
   }
 
   onUploadUpdate(event: Event) {

@@ -39,14 +39,14 @@ describe('ModuleListItemComponent', () => {
   });
 
   describe('#getModuleInfo', () => {
-    it('should request module info', () => {
+    it('should request module info', async(() => {
       component._module = new Module('1', 'ModuleA');
       const serviceSpy = spyOn(modulesService, 'getModuleInfo');
 
       component.getModuleInfo();
 
       expect(serviceSpy).toHaveBeenCalledWith(component.module.id);
-    });
+    }));
   });
 
   describe('#deleteModule', () => {
