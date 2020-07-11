@@ -17,16 +17,16 @@ export class ModuleListComponent implements OnInit, OnDestroy {
   constructor(private modulesService: ModuleService) { }
 
   ngOnInit() {
+    this.moduleSub = this.modulesService.getModulesUpdateListener().subscribe((moduleData: { modules: Module[] }) => {
+      this.isLoading = false;
+      this.moduleList = moduleData.modules;
+    });
     this.getModules();
   }
 
   getModules() {
     this.isLoading = true;
     this.modulesService.getModules();
-    this.moduleSub = this.modulesService.getModulesUpdateListener().subscribe((moduleData: { modules: Module[] }) => {
-      this.isLoading = false;
-      this.moduleList = moduleData.modules;
-    });
   }
 
   ngOnDestroy() {
