@@ -19,21 +19,16 @@ describe('DashboardComponent', () => {
       declarations: [
         DashboardComponent,
       ],
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
       providers: [
         DashboardComponent,
         { provide: PlantService, useClass: MockPlantService },
       ],
-    });
+    }).compileComponents();
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
     plantsService = TestBed.inject(PlantService);
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

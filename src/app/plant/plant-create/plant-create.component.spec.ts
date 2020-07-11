@@ -24,23 +24,18 @@ describe('PlantCreateComponent', () => {
       declarations: [
         PlantCreateComponent,
       ],
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
       providers: [
         PlantCreateComponent,
         { provide: PlantService, useClass: MockPlantService },
         { provide: ModuleService, useClass: MockModuleService },
       ],
-    });
+    }).compileComponents();
     fixture = TestBed.createComponent(PlantCreateComponent);
     component = fixture.componentInstance;
     plantsService = TestBed.inject(PlantService);
     modulesService = TestBed.inject(ModuleService);
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

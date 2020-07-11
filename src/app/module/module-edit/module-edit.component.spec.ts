@@ -22,11 +22,6 @@ describe('ModuleEditComponent', () => {
       declarations: [
         ModuleEditComponent,
       ],
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
       providers: [
         ModuleEditComponent,
         { provide: ModuleService, useClass: MockModuleService },
@@ -36,12 +31,12 @@ describe('ModuleEditComponent', () => {
           },
         },
       ],
-    });
+    }).compileComponents();
     fixture = TestBed.createComponent(ModuleEditComponent);
     component = fixture.componentInstance;
     modulesService = TestBed.inject(ModuleService);
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

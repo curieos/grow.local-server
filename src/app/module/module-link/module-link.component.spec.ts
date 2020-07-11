@@ -21,21 +21,16 @@ describe('ModuleLinkComponent', () => {
       declarations: [
         ModuleLinkComponent,
       ],
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
       providers: [
         ModuleLinkComponent,
         { provide: ModuleService, useClass: MockModuleService },
       ],
-    });
+    }).compileComponents();
     fixture = TestBed.createComponent(ModuleLinkComponent);
     component = fixture.componentInstance;
     modulesService = TestBed.inject(ModuleService);
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

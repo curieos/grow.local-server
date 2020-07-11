@@ -21,23 +21,18 @@ describe('ModuleListComponent', () => {
       declarations: [
         ModuleListComponent,
       ],
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
       providers: [
         ModuleListComponent,
         { provide: ModuleService, useClass: MockModuleService },
       ],
-    });
+    }).compileComponents();
     fixture = TestBed.createComponent(ModuleListComponent);
     component = fixture.componentInstance;
     modulesService = TestBed.inject(ModuleService);
     fixture.detectChanges();
-  });
+  }));
 
-  it('should create', () => {
+  it('should create', async (() => {
     expect(component).toBeTruthy();
-  });
+  }));
 });

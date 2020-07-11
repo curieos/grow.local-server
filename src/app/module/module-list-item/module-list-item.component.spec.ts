@@ -23,21 +23,16 @@ describe('ModuleListItemComponent', () => {
       declarations: [
         ModuleListItemComponent,
       ],
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
       providers: [
         ModuleListItemComponent,
         { provide: ModuleService, useClass: MockModuleService },
       ],
-    });
+    }).compileComponents();
     fixture = TestBed.createComponent(ModuleListItemComponent);
     component = fixture.componentInstance;
     modulesService = TestBed.inject(ModuleService);
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -55,12 +50,12 @@ describe('ModuleListItemComponent', () => {
   });
 
   describe('#deleteModule', () => {
-    it('should tell the modules service to delete a module', async(() => {
+    it('should tell the modules service to delete a module', () => {
       const serviceSpy = spyOn(modulesService, 'deleteModule');
 
       component.deleteModule('1');
 
       expect(serviceSpy).toHaveBeenCalledWith('1');
-    }));
+    });
   });
 });
