@@ -1,20 +1,22 @@
 import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { PlantsService } from '../plants.service';
-import { MockPlantsService } from '../plants.service.mock';
+import { PlantService } from '../plant.service';
+import { MockPlantService } from '../plant.service.mock';
 import { PlantListComponent } from './plant-list.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('PlantListComponent', () => {
   let component: PlantListComponent;
   let fixture: ComponentFixture<PlantListComponent>;
-  let plantsService: PlantsService;
+  let plantsService: PlantService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
         HttpClientModule,
+        SharedModule,
       ],
       declarations: [
         PlantListComponent,
@@ -26,12 +28,12 @@ describe('PlantListComponent', () => {
     TestBed.configureTestingModule({
       providers: [
         PlantListComponent,
-        { provide: PlantsService, useClass: MockPlantsService },
+        { provide: PlantService, useClass: MockPlantService },
       ],
     });
     fixture = TestBed.createComponent(PlantListComponent);
     component = fixture.componentInstance;
-    plantsService = TestBed.inject(PlantsService);
+    plantsService = TestBed.inject(PlantService);
     fixture.detectChanges();
   });
 

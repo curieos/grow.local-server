@@ -55,7 +55,7 @@
 	</div>
 	<div class="row">
 		<div class="col p-0"></div>
-		<button type="button" class="btn btn-warning m-1" [routerLink]="['/plants/edit', plant?.id]">Edit</button>
+		<button type="button" class="btn btn-warning m-1" [routerLink]="['/plants', plant?.id, 'edit']">Edit</button>
 		<button type="button" class="btn btn-danger m-1" (click)="deletePlant(plant?.id)">Delete</button>
 	</div>
 </div>

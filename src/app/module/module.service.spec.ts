@@ -1,14 +1,16 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { async, getTestBed, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
 import { Module } from './module.model';
-import { ModulesService } from './modules.service';
+import { ModuleService } from './module.service';
 
-describe('ModulesService', () => {
+describe('ModuleService', () => {
   let injector: TestBed;
-  let service: ModulesService;
+  let service: ModuleService;
   let httpMock: HttpTestingController;
   let router: Router;
 
@@ -20,7 +22,7 @@ describe('ModulesService', () => {
       ],
     }).compileComponents();
     injector = getTestBed();
-    service = injector.inject(ModulesService);
+    service = injector.inject(ModuleService);
     httpMock = injector.inject(HttpTestingController);
     router = injector.inject(Router);
   }));
@@ -183,8 +185,8 @@ describe('ModulesService', () => {
 
       service.updateModuleSettings(module);
 
-      const req = httpMock.expectOne(environment.apiURL + '/modules/' + module.id + '/settings');
-      expect(req.request.method).toBe('POST');
+      const req = httpMock.expectOne(environment.apiURL + '/modules/' + module.id);
+      expect(req.request.method).toBe('PATCH');
       req.flush({ message: 'Success' });
       expect(navSpy).toHaveBeenCalledWith(['/modules']);
     });

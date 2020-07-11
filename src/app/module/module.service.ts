@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -8,13 +8,13 @@ import { Module } from './module.model';
 import { RawModule } from './rawmodule.model';
 
 @Injectable({ providedIn: 'root' })
-export class ModulesService {
+export class ModuleService {
   private modulesUpdated = new Subject<{ modules: Module[] }>();
   private moduleInfoUpdated = new Subject<{ module: Module }>();
   private moduleSettingsUpdated = new Subject<{ module: Module }>();
   private rawModulesUpdated = new Subject<{ modules: RawModule[] }>();
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private zone: NgZone) { }
 
   getModules(): void {
     this.http.get<{ message: string, modules: any }>(environment.apiURL + '/modules').pipe(map((data) => {
@@ -93,6 +93,24 @@ export class ModulesService {
     return this.rawModulesUpdated.asObservable();
   }
 
+  getUpdateProgress(module: Module): Observable<any> {
+    return Observable.create((observer) => {
+      const eventSource = new EventSource(environment.apiURL + '/modules/' + module.id + '/update/status');
+
+      eventSource.onmessage = (event) => {
+        this.zone.run(() => {
+          observer.next(event);
+        });
+      }
+
+      eventSource.onerror = (error) => {
+        this.zone.run(() => {
+          observer.error(error);
+        });
+      }
+    });
+  }
+
   addNewModule(name: string, ip: string): void {
     const postData = JSON.stringify({ name, ip });
     this.http.post(
@@ -106,10 +124,23 @@ export class ModulesService {
     });
   }
 
+  updateModuleFirmware(module: Module, firmware: File) {
+    const data = new FormData();
+    data.append('firmware', firmware, firmware.name);
+    return this.http.post(
+      environment.apiURL + '/modules/' + module.id + '/update',
+      data,
+      {
+        reportProgress: true,
+        observe: 'events',
+      },
+    );
+  }
+
   updateModuleSettings(module: Module): void {
     const postData = JSON.stringify({ name: module.name });
-    this.http.post(
-      environment.apiURL + '/modules/' + module.id + '/settings',
+    this.http.patch(
+      environment.apiURL + '/modules/' + module.id,
       postData,
       { headers: { 'Content-Type': 'application/json' } },
     ).subscribe(() => {

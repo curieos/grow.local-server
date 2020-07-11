@@ -1,7 +1,9 @@
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { Module } from '../module.model';
-import { ModulesService } from '../modules.service';
+import { ModuleService } from '../module.service';
 
 @Component({
   selector: 'app-module-list-item',
@@ -12,6 +14,9 @@ export class ModuleListItemComponent implements OnInit, OnDestroy {
   public module: Module;
   private moduleInfoSub: Subscription;
   public isInfoLoading = false;
+  public progress = 0;
+  public updateProgress = 0;
+  public response: string;
   @Output() deleted = new EventEmitter<string>();
 
   @Input()
@@ -20,17 +25,48 @@ export class ModuleListItemComponent implements OnInit, OnDestroy {
     this.getModuleInfo();
   }
 
-  constructor(private modulesService: ModulesService) { }
+  constructor(private modulesService: ModuleService, private modalService: NgbModal) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.modulesService.getUpdateProgress(this.module).subscribe((data) => {
+      this.updateProgress = JSON.parse(data.data).progress;
+    });
+  }
 
   getModuleInfo(): void {
     this.isInfoLoading = true;
     this.modulesService.getModuleInfo(this.module.id);
-    this.moduleInfoSub = this.modulesService.getModuleInfoUpdateListener().subscribe((moduleInfo: {module: Module}) => {
+    this.moduleInfoSub = this.modulesService.getModuleInfoUpdateListener().subscribe((moduleInfo: { module: Module }) => {
       if (this.module?.id !== moduleInfo.module.id) { return; }
       this.isInfoLoading = false;
       this.module = Object.assign(this.module, moduleInfo.module);
+    });
+  }
+
+  onUploadUpdate(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.modulesService.updateModuleFirmware(this.module, file).subscribe((event: HttpEvent<any>) => {
+      switch (event.type) {
+        case HttpEventType.UploadProgress:
+          this.progress = Math.round(event.loaded / event.total * 100);
+          break;
+        case HttpEventType.Response:
+          this.response = event.body.message;
+          console.log(this.response);
+          break;
+      }
+    }, (error) => {
+      this.response = error.error.message;
+    });
+  }
+
+  open(content) {
+    this.modalService.open(content, { ariaLabelledBy: 'firmware-update-modal' }).result.then(() => {
+
+    }, () => {
+      this.progress = 0;
+      this.updateProgress = 0;
+      this.response = null;
     });
   }
 

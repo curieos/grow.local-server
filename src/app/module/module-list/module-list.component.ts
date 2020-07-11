@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Module } from '../module.model';
-import { ModulesService } from '../modules.service';
+import { ModuleService } from '../module.service';
 
 @Component({
   selector: 'app-module-list',
@@ -14,7 +14,7 @@ export class ModuleListComponent implements OnInit, OnDestroy {
   private moduleSub: Subscription;
   public moduleList: Module[];
 
-  constructor(private modulesService: ModulesService) { }
+  constructor(private modulesService: ModuleService) { }
 
   ngOnInit() {
     this.getModules();

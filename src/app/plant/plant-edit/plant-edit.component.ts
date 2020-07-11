@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Plant } from '../plant.model';
-import { PlantsService } from '../plants.service';
+import { PlantService } from '../plant.service';
 
 @Component({
   selector: 'app-plant-edit',
@@ -17,7 +17,7 @@ export class PlantEditComponent implements OnInit, OnDestroy {
   private plantSettingsSub: Subscription;
   public plant: Plant;
 
-  constructor(private plantsService: PlantsService, private route: ActivatedRoute) { }
+  constructor(private plantsService: PlantService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({

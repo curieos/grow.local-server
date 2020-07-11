@@ -1,16 +1,16 @@
 import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ModulesService } from '../modules.service';
+import { ModuleService } from '../module.service';
 import { ModuleListItemComponent } from './module-list-item.component';
-import { MockModulesService } from '../modules.service.mock';
+import { MockModuleService } from '../module.service.mock';
 import { Module } from '../module.model';
 
 
 describe('ModuleListItemComponent', () => {
   let component: ModuleListItemComponent;
   let fixture: ComponentFixture<ModuleListItemComponent>;
-  let modulesService: ModulesService;
+  let modulesService: ModuleService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -28,12 +28,12 @@ describe('ModuleListItemComponent', () => {
     TestBed.configureTestingModule({
       providers: [
         ModuleListItemComponent,
-        { provide: ModulesService, useClass: MockModulesService },
+        { provide: ModuleService, useClass: MockModuleService },
       ],
     });
     fixture = TestBed.createComponent(ModuleListItemComponent);
     component = fixture.componentInstance;
-    modulesService = TestBed.inject(ModulesService);
+    modulesService = TestBed.inject(ModuleService);
     fixture.detectChanges();
   });
 

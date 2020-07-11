@@ -2,14 +2,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { PlantsService } from '../plants.service';
-import { MockPlantsService } from '../plants.service.mock';
+import { PlantService } from '../plant.service';
+import { MockPlantService } from '../plant.service.mock';
 import { PlantEditComponent } from './plant-edit.component';
 
 describe('PlantEditComponent', () => {
   let component: PlantEditComponent;
   let fixture: ComponentFixture<PlantEditComponent>;
-  let plantsService: PlantsService;
+  let plantsService: PlantService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -27,7 +27,7 @@ describe('PlantEditComponent', () => {
     TestBed.configureTestingModule({
       providers: [
         PlantEditComponent,
-        { provide: PlantsService, useClass: MockPlantsService },
+        { provide: PlantService, useClass: MockPlantService },
         { provide: ActivatedRoute,
           useValue: {
             snapshot: { params: { id: '1' } },
@@ -37,7 +37,7 @@ describe('PlantEditComponent', () => {
     });
     fixture = TestBed.createComponent(PlantEditComponent);
     component = fixture.componentInstance;
-    plantsService = TestBed.inject(PlantsService);
+    plantsService = TestBed.inject(PlantService);
     fixture.detectChanges();
   });
 

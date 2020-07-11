@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from 'src/environments/environment';
 import { Plant } from './plant.model';
-import { PlantsService } from './plants.service';
+import { PlantService } from './plant.service';
 
 describe('PlantsService', () => {
   let injector: TestBed;
-  let service: PlantsService;
+  let service: PlantService;
   let httpMock: HttpTestingController;
   let router: Router;
 
@@ -20,7 +20,7 @@ describe('PlantsService', () => {
       ],
     }).compileComponents();
     injector = getTestBed();
-    service = injector.inject(PlantsService);
+    service = injector.inject(PlantService);
     httpMock = injector.inject(HttpTestingController);
     router = injector.inject(Router);
   }));

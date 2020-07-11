@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Plant } from '../plant/plant.model';
-import { PlantsService } from '../plant/plants.service';
+import { PlantService } from '../plant/plant.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     domain: ['rgba(1,50,220,0.4)', '#rgba(120,8,9,0.4)']
   };
 
-  constructor(private plantsService: PlantsService) { }
+  constructor(private plantsService: PlantService) { }
 
   ngOnInit() {
     this.isLoading = true;

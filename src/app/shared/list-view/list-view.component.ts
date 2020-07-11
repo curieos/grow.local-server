@@ -1,7 +1,7 @@
 import { Component, ContentChild, Input, OnInit, TemplateRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
-import { Searchable } from '../searchable';
+import { Searchable } from '../../searchable';
 
 @Component({
   selector: 'app-list-view',

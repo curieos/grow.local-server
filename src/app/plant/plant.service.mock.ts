@@ -1,7 +1,7 @@
 import { Observable, of } from 'rxjs';
 import { Plant } from './plant.model';
 
-export class MockPlantsService {
+export class MockPlantService {
 
   constructor() { }
 

@@ -2,7 +2,7 @@ import { Observable, of } from 'rxjs';
 import { Module } from './module.model';
 import { RawModule } from './rawmodule.model';
 
-export class MockModulesService {
+export class MockModuleService {
 
   constructor() { }
 
@@ -40,7 +40,13 @@ export class MockModulesService {
     return of({ modules: [module1] });
   }
 
+  getUpdateProgress(module: Module): Observable<any> {
+    return of();
+  }
+
   addNewModule(name: string, ip: string): void { }
+
+  updateModuleFirmware(module: Module, firmware: File) { }
 
   updateModuleSettings(module: Module): void { }
 
