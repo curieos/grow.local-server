@@ -67,12 +67,14 @@ export class MockModuleService {
   }
 
   getUpdateProgress(module: Module): Observable<any> {
-    return of();
+    return of({data: JSON.stringify({data: { progress: 100 }})});
   }
 
   addNewModule(name: string, ip: string): void { }
 
-  updateModuleFirmware(module: Module, firmware: File) { }
+  updateModuleFirmware(module: Module, firmware: File): Observable<any> {
+    return of();
+  }
 
   updateModuleSettings(module: Module): void { }
 

@@ -124,7 +124,7 @@ export class ModuleService {
     });
   }
 
-  updateModuleFirmware(module: Module, firmware: File) {
+  updateModuleFirmware(module: Module, firmware: File): Observable<any> {
     const data = new FormData();
     data.append('firmware', firmware, firmware.name);
     return this.http.post(
