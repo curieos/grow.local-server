@@ -18,6 +18,9 @@ export class ModuleLinkComponent implements OnInit, OnDestroy {
   constructor(private modulesService: ModuleService) { }
 
   ngOnInit() {
+    this.rawModuleSub = this.modulesService.getRawModulesUpdateListener().subscribe((moduleData: { modules: RawModule[] }) => {
+      this.rawModuleList = moduleData.modules;
+    });
     this.getRawModules();
     this.form = new FormGroup({
       name: new FormControl(null, { validators: [Validators.required, Validators.minLength(4)] }),
@@ -27,9 +30,6 @@ export class ModuleLinkComponent implements OnInit, OnDestroy {
 
   getRawModules() {
     this.modulesService.getRawModules();
-    this.rawModuleSub = this.modulesService.getRawModulesUpdateListener().subscribe((moduleData: { modules: RawModule[] }) => {
-      this.rawModuleList = moduleData.modules;
-    });
   }
 
   onSaveModule() {
