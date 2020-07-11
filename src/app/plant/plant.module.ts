@@ -8,6 +8,7 @@ import { PlantCreateComponent } from './plant-create/plant-create.component';
 import { PlantEditComponent } from './plant-edit/plant-edit.component';
 import { PlantListItemComponent } from './plant-list-item/plant-list-item.component';
 import { PlantListComponent } from './plant-list/plant-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   { path: 'plants', component: PlantListComponent },
@@ -27,6 +28,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     SharedModule,
     NgxChartsModule,
+    BrowserAnimationsModule,
     RouterModule.forChild(routes),
   ],
   exports: [

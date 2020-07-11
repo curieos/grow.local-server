@@ -1,10 +1,10 @@
 import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { PlantModule } from '../plant.module';
 import { PlantService } from '../plant.service';
 import { MockPlantService } from '../plant.service.mock';
 import { PlantListComponent } from './plant-list.component';
-import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('PlantListComponent', () => {
   let component: PlantListComponent;
@@ -16,7 +16,7 @@ describe('PlantListComponent', () => {
       imports: [
         RouterTestingModule,
         HttpClientModule,
-        SharedModule,
+        PlantModule,
       ],
       declarations: [
         PlantListComponent,

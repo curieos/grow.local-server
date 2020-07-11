@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ModuleModule } from '../module.module';
 import { ModuleService } from '../module.service';
 import { MockModuleService } from '../module.service.mock';
 import { ModuleEditComponent } from './module-edit.component';
@@ -16,6 +17,7 @@ describe('ModuleEditComponent', () => {
       imports: [
         RouterTestingModule,
         HttpClientModule,
+        ModuleModule,
       ],
       declarations: [
         ModuleEditComponent,

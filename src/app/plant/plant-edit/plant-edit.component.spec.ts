@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { PlantModule } from '../plant.module';
 import { PlantService } from '../plant.service';
 import { MockPlantService } from '../plant.service.mock';
 import { PlantEditComponent } from './plant-edit.component';
@@ -16,6 +17,7 @@ describe('PlantEditComponent', () => {
       imports: [
         RouterTestingModule,
         HttpClientModule,
+        PlantModule,
       ],
       declarations: [
         PlantEditComponent,

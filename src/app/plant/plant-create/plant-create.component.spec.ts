@@ -1,10 +1,9 @@
 import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModuleService } from 'src/app/module/module.service';
 import { MockModuleService } from 'src/app/module/module.service.mock';
+import { PlantModule } from '../plant.module';
 import { PlantService } from '../plant.service';
 import { MockPlantService } from '../plant.service.mock';
 import { PlantCreateComponent } from './plant-create.component';
@@ -18,10 +17,9 @@ describe('PlantCreateComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        ReactiveFormsModule,
         HttpClientModule,
         RouterTestingModule,
-        NgbModule,
+        PlantModule,
       ],
       declarations: [
         PlantCreateComponent,

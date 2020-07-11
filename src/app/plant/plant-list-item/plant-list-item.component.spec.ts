@@ -2,12 +2,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Plant } from '../plant.model';
+import { PlantModule } from '../plant.module';
 import { PlantService } from '../plant.service';
 import { MockPlantService } from '../plant.service.mock';
 import { PlantListItemComponent } from './plant-list-item.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('PlantListItemComponent', () => {
   let component: PlantListItemComponent;
@@ -19,9 +17,7 @@ describe('PlantListItemComponent', () => {
       imports: [
         RouterTestingModule,
         HttpClientModule,
-        NgxChartsModule,
-        BrowserAnimationsModule,
-        NgbModule,
+        PlantModule,
       ],
       declarations: [
         PlantListItemComponent,

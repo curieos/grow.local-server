@@ -1,10 +1,11 @@
 import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ModuleService } from '../module.service';
-import { ModuleListItemComponent } from './module-list-item.component';
-import { MockModuleService } from '../module.service.mock';
 import { Module } from '../module.model';
+import { ModuleModule } from '../module.module';
+import { ModuleService } from '../module.service';
+import { MockModuleService } from '../module.service.mock';
+import { ModuleListItemComponent } from './module-list-item.component';
 
 
 describe('ModuleListItemComponent', () => {
@@ -17,6 +18,7 @@ describe('ModuleListItemComponent', () => {
       imports: [
         RouterTestingModule,
         HttpClientModule,
+        ModuleModule,
       ],
       declarations: [
         ModuleListItemComponent,
