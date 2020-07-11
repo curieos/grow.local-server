@@ -7,6 +7,9 @@ import { ModuleService } from '../module.service';
 import { MockModuleService } from '../module.service.mock';
 import { ModuleListItemComponent } from './module-list-item.component';
 
+function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 describe('ModuleListItemComponent', () => {
   let component: ModuleListItemComponent;
@@ -46,6 +49,19 @@ describe('ModuleListItemComponent', () => {
       component.getModuleInfo();
 
       expect(serviceSpy).toHaveBeenCalledWith(component.module.id);
+    }));
+    it('should not update module info if the id does not match', async(() => {
+      component._module = new Module('1', 'ModuleA');
+      const serviceSpy = spyOn(modulesService, 'getModuleInfo');
+
+      component.getModuleInfo();
+
+      expect(serviceSpy).toHaveBeenCalledWith(component.module.id);
+
+      component.module = new Module('2', 'ModuleA');
+      delay(20).then(() => {
+        expect(component.module.moduleName).toBeUndefined();
+      });
     }));
   });
 
