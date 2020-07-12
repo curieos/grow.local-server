@@ -69,11 +69,11 @@ describe('ModuleListItemComponent', () => {
 
   describe('#onUploadUpdate', () => {
     it('should call updateModuleFirmware on module service', () => {
-      const serviceSpy = spyOn(moduleService, 'updateModuleFirmware').and.returnValue(of({
-        event: new HttpResponse<{message: string}>({
-          body: {message: 'Update Complete'},
+      const serviceSpy = spyOn(moduleService, 'updateModuleFirmware').and.returnValue(of(
+        new HttpResponse<{ message: string }>({
+          body: { message: 'Update Complete' },
         }),
-      }));
+      ));
       component._module = new Module('1', 'ModuleA');
       const file = new File([''], 'firmware.bin');
       const fileList = new DataTransfer();
@@ -87,7 +87,7 @@ describe('ModuleListItemComponent', () => {
 
       expect(serviceSpy).toHaveBeenCalledWith(component.module, file);
     });
-    xit('should get a completed response back', () => {
+    it('should get a completed response back', () => {
       component._module = new Module('1', 'ModuleA');
       const file = new File([''], 'firmware.bin');
       const fileList = new DataTransfer();

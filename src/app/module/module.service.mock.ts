@@ -74,15 +74,14 @@ export class MockModuleService {
   addNewModule(name: string, ip: string): void { }
 
   updateModuleFirmware(module: Module, firmware: File): Observable<any> {
-    return of({
-      event: new HttpResponse<{message: string}>({
+    return of(new HttpResponse<{message: string}>({
         body: {message: 'Update Complete'},
         headers: new HttpHeaders({ normalizeNames: null, lazyUpdate: null, lazyInit: null }),
         status: 201,
         statusText: 'Created',
         url: 'http://localhost:3400/api/modules/' + module.id + '/update',
       }),
-    });
+    );
   }
 
   updateModuleSettings(module: Module): void { }
