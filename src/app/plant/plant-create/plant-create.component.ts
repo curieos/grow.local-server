@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Module } from 'src/app/module/module.model';
-import { ModulesService } from 'src/app/module/modules.service';
-import { PlantsService } from '../plants.service';
+import { ModuleService } from 'src/app/module/module.service';
+import { PlantService } from '../plant.service';
 
 @Component({
   selector: 'app-plant-create',
@@ -16,7 +16,7 @@ export class PlantCreateComponent implements OnInit, OnDestroy {
   public moduleList: Module[] = [];
   private moduleSub: Subscription;
 
-  constructor(public plantsService: PlantsService, public modulesService: ModulesService) { }
+  constructor(public plantsService: PlantService, public modulesService: ModuleService) { }
 
   ngOnInit() {
     this.form = new FormGroup({

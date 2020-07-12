@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { ModulesService } from '../modules.service';
+import { ModuleService } from '../module.service';
 import { RawModule } from '../rawmodule.model';
 
 @Component({
@@ -15,9 +15,12 @@ export class ModuleLinkComponent implements OnInit, OnDestroy {
   public rawModuleList: RawModule[];
   form: FormGroup;
 
-  constructor(private modulesService: ModulesService) { }
+  constructor(private modulesService: ModuleService) { }
 
   ngOnInit() {
+    this.rawModuleSub = this.modulesService.getRawModulesUpdateListener().subscribe((moduleData: { modules: RawModule[] }) => {
+      this.rawModuleList = moduleData.modules;
+    });
     this.getRawModules();
     this.form = new FormGroup({
       name: new FormControl(null, { validators: [Validators.required, Validators.minLength(4)] }),
@@ -27,9 +30,6 @@ export class ModuleLinkComponent implements OnInit, OnDestroy {
 
   getRawModules() {
     this.modulesService.getRawModules();
-    this.rawModuleSub = this.modulesService.getRawModulesUpdateListener().subscribe((moduleData: { modules: RawModule[] }) => {
-      this.rawModuleList = moduleData.modules;
-    });
   }
 
   onSaveModule() {

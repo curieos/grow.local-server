@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 import { Plant } from '../plant.model';
-import { PlantsService } from '../plants.service';
+import { PlantService } from '../plant.service';
 
 @Component({
   selector: 'app-plant-view',
@@ -14,7 +14,7 @@ export class PlantListComponent implements OnInit, OnDestroy {
   private plantSub: Subscription;
   public plantList: Plant[];
 
-  constructor(private plantsService: PlantsService) { }
+  constructor(private plantsService: PlantService) { }
 
   ngOnInit() {
     this.getPlants();

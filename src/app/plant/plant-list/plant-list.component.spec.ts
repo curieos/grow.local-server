@@ -1,39 +1,36 @@
 import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { PlantsService } from '../plants.service';
-import { MockPlantsService } from '../plants.service.mock';
+import { PlantModule } from '../plant.module';
+import { PlantService } from '../plant.service';
+import { MockPlantService } from '../plant.service.mock';
 import { PlantListComponent } from './plant-list.component';
 
 describe('PlantListComponent', () => {
   let component: PlantListComponent;
   let fixture: ComponentFixture<PlantListComponent>;
-  let plantsService: PlantsService;
+  let plantsService: PlantService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
         HttpClientModule,
+        PlantModule,
       ],
       declarations: [
         PlantListComponent,
       ],
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
       providers: [
         PlantListComponent,
-        { provide: PlantsService, useClass: MockPlantsService },
+        { provide: PlantService, useClass: MockPlantService },
       ],
-    });
+    }).compileComponents();
     fixture = TestBed.createComponent(PlantListComponent);
     component = fixture.componentInstance;
-    plantsService = TestBed.inject(PlantsService);
+    plantsService = TestBed.inject(PlantService);
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

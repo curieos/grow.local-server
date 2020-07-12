@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Module } from '../module.model';
-import { ModulesService } from '../modules.service';
+import { ModuleService } from '../module.service';
 
 @Component({
   selector: 'app-module-edit',
@@ -17,11 +17,16 @@ export class ModuleEditComponent implements OnInit, OnDestroy {
   private moduleSettingsSubscription: Subscription;
   public module: Module;
 
-  constructor(private modulesService: ModulesService, private route: ActivatedRoute) { }
+  constructor(private modulesService: ModuleService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
       name: new FormControl('', { validators: [Validators.required, Validators.minLength(4)] }),
+    });
+    this.moduleSettingsSubscription = this.modulesService.getModuleSettingsUpdateListener().subscribe((module: {module: Module}) => {
+      this.isLoading = false;
+      this.module = module.module;
+      this.updateForm();
     });
     this.getModuleSettings();
   }
@@ -30,11 +35,6 @@ export class ModuleEditComponent implements OnInit, OnDestroy {
     if (!this.route.snapshot.params['id']) { return; }
     this.isLoading = true;
     this.modulesService.getModuleSettings(this.route.snapshot.params['id']);
-    this.moduleSettingsSubscription = this.modulesService.getModuleSettingsUpdateListener().subscribe((module: {module: Module}) => {
-      this.isLoading = false;
-      this.module = module.module;
-      this.updateForm();
-    });
   }
 
   updateForm() {

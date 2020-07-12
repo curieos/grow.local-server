@@ -1,42 +1,38 @@
 import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Module } from '../module.model';
-import { ModulesService } from '../modules.service';
-import { MockModulesService } from '../modules.service.mock';
+import { ModuleModule } from '../module.module';
+import { ModuleService } from '../module.service';
+import { MockModuleService } from '../module.service.mock';
 import { ModuleListComponent } from './module-list.component';
 
 describe('ModuleListComponent', () => {
   let component: ModuleListComponent;
   let fixture: ComponentFixture<ModuleListComponent>;
-  let modulesService: ModulesService;
+  let modulesService: ModuleService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientModule,
         RouterTestingModule,
+        ModuleModule,
       ],
       declarations: [
         ModuleListComponent,
       ],
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
       providers: [
         ModuleListComponent,
-        { provide: ModulesService, useClass: MockModulesService },
+        { provide: ModuleService, useClass: MockModuleService },
       ],
-    });
+    }).compileComponents();
     fixture = TestBed.createComponent(ModuleListComponent);
     component = fixture.componentInstance;
-    modulesService = TestBed.inject(ModulesService);
+    modulesService = TestBed.inject(ModuleService);
     fixture.detectChanges();
-  });
+  }));
 
-  it('should create', () => {
+  it('should create', async(() => {
     expect(component).toBeTruthy();
-  });
+  }));
 });

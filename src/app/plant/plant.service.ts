@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 import { Plant } from './plant.model';
 
 @Injectable({ providedIn: 'root' })
-export class PlantsService {
+export class PlantService {
   private plantsUpdated = new Subject<{ plants: Plant[] }>();
   private plantInfoUpdated = new Subject<{ plant: Plant }>();
   private plantSettingsUpdated = new Subject<{ plant: Plant }>();

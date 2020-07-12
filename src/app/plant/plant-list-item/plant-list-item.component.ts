@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Plant } from '../plant.model';
-import { PlantsService } from '../plants.service';
+import { PlantService } from '../plant.service';
 
 @Component({
   selector: 'app-plant-list-item',
@@ -35,7 +35,7 @@ export class PlantListItemComponent implements OnInit, OnDestroy {
     this.getPlantInfo();
   }
 
-  constructor(private plantsService: PlantsService) { }
+  constructor(private plantsService: PlantService) { }
 
   ngOnInit(): void { }
 
