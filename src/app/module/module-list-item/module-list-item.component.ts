@@ -25,13 +25,13 @@ export class ModuleListItemComponent implements OnInit, OnDestroy {
     this.getModuleInfo();
   }
 
-  constructor(private modulesService: ModuleService, private modalService: NgbModal) { }
+  constructor(private moduleService: ModuleService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    this.modulesService.getUpdateProgress(this.module).subscribe((data) => {
+    this.moduleService.getUpdateProgress(this.module).subscribe((data) => {
       this.updateProgress = JSON.parse(data.data).progress;
     });
-    this.moduleInfoSub = this.modulesService.getModuleInfoUpdateListener().subscribe((moduleInfo: { module: Module }) => {
+    this.moduleInfoSub = this.moduleService.getModuleInfoUpdateListener().subscribe((moduleInfo: { module: Module }) => {
       if (this.module?.id !== moduleInfo.module.id) { return; }
       this.isInfoLoading = false;
       this.module = Object.assign(this.module, moduleInfo.module);
@@ -40,19 +40,18 @@ export class ModuleListItemComponent implements OnInit, OnDestroy {
 
   getModuleInfo(): void {
     this.isInfoLoading = true;
-    this.modulesService.getModuleInfo(this.module.id);
+    this.moduleService.getModuleInfo(this.module.id);
   }
 
   onUploadUpdate(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
-    this.modulesService.updateModuleFirmware(this.module, file).subscribe((event: HttpEvent<any>) => {
+    this.moduleService.updateModuleFirmware(this.module, file).subscribe((event: HttpEvent<any>) => {
       switch (event.type) {
         case HttpEventType.UploadProgress:
           this.progress = Math.round(event.loaded / event.total * 100);
           break;
         case HttpEventType.Response:
           this.response = event.body.message;
-          console.log(this.response);
           break;
       }
     }, (error) => {
@@ -75,7 +74,7 @@ export class ModuleListItemComponent implements OnInit, OnDestroy {
   }
 
   deleteModule(id: string) {
-    this.modulesService.deleteModule(id);
+    this.moduleService.deleteModule(id);
     this.delay(100).then(() => {
       this.deleted.emit();
     });
