@@ -1,3 +1,4 @@
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, of, Subject } from 'rxjs';
 import { Module } from './module.model';
 import { RawModule } from './rawmodule.model';
@@ -67,13 +68,21 @@ export class MockModuleService {
   }
 
   getUpdateProgress(module: Module): Observable<any> {
-    return of({data: JSON.stringify({data: { progress: 100 }})});
+    return of({ data: JSON.stringify({ data: { progress: 100 } }) });
   }
 
   addNewModule(name: string, ip: string): void { }
 
   updateModuleFirmware(module: Module, firmware: File): Observable<any> {
-    return of();
+    return of({
+      event: new HttpResponse<{message: string}>({
+        body: {message: 'Update Complete'},
+        headers: new HttpHeaders({ normalizeNames: null, lazyUpdate: null, lazyInit: null }),
+        status: 201,
+        statusText: 'Created',
+        url: 'http://localhost:3400/api/modules/' + module.id + '/update',
+      }),
+    });
   }
 
   updateModuleSettings(module: Module): void { }
