@@ -1,3 +1,4 @@
+import { HttpEventType, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { async, getTestBed, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
@@ -173,6 +174,36 @@ describe('ModuleService', () => {
       expect(req.request.method).toBe('POST');
       req.flush({ message: 'Success' });
       expect(navSpy).toHaveBeenCalledWith(['/modules']);
+    });
+  });
+
+  describe('#updateModuleFirmware', () => {
+    it('should take upload progress and completion responses', () => {
+      const module = new Module('1', 'ModuleA');
+      const file = new File([''], 'firmware.bin');
+
+      service.updateModuleFirmware(module, file).subscribe((event) => {
+        switch (event.type) {
+          case HttpEventType.Response:
+            expect(event.body.message).toEqual('Update Complete');
+            break;
+          case HttpEventType.UploadProgress:
+            const progress = Math.round(event.loaded / event.total * 100);
+            expect(progress).toEqual(100);
+            break;
+        }
+      });
+
+      const req = httpMock.expectOne(environment.apiURL + '/modules/' + module.id + '/update');
+      expect(req.request.method).toBe('POST');
+      req.event({
+        type: HttpEventType.UploadProgress,
+        loaded: 10,
+        total: 10
+      });
+      req.event(new HttpResponse({
+        body: { message: 'Update Complete' },
+      }));
     });
   });
 
