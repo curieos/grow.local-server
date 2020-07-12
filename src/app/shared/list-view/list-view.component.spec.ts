@@ -1,9 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Searchable } from '../searchable';
-import { ListViewComponent } from './list-view.component';
-import { Plant } from '../plant/plant.model';
 import { Observable, of } from 'rxjs';
+import { Plant } from '../../plant/plant.model';
+import { Searchable } from '../../searchable';
+import { SharedModule } from '../shared.module';
+import { ListViewComponent } from './list-view.component';
 
 describe('ListViewComponent', () => {
   let component: TestHostComponent;
@@ -11,7 +12,13 @@ describe('ListViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ListViewComponent, TestHostComponent]
+      declarations: [
+        ListViewComponent,
+        TestHostComponent,
+      ],
+      imports: [
+        SharedModule,
+      ],
     }).compileComponents();
   }));
 

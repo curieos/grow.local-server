@@ -87,6 +87,9 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "codeCoverage": true,
+            "codeCoverageExclude": [
+              "src/app/shared/multi-axis-chart/*"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"

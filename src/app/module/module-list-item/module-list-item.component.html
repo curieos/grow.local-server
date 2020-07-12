@@ -8,10 +8,34 @@
 		<p>
 			Module Name: {{ module?.moduleName }}<br>
 			Module IP: {{ module?.ipAddress }}<br>
+			Version: {{ module?.version }}<br>
 		</p>
 	</div>
-	<div class="float-right mb-1">
-		<button type="button" class="btn btn-warning m-1" [routerLink]="['/modules/edit', module?.id]">Edit</button>
+	<div class="row mb-0">
+		<button type="button" class="btn btn-secondary m-1" (click)="firmware.click()">Update</button>
+		<input type="file" #firmware style="visibility: hidden;" (change)="onUploadUpdate($event); open(firmwareUpdate)"
+			accept=".bin" id="firmware" />
+		<div class="col p-0"></div>
+		<button type="button" class="btn btn-warning m-1" [routerLink]="['/modules', module?.id, 'edit']">Edit</button>
 		<button type="button" class="btn btn-danger m-1" (click)="deleteModule(module?.id)">Delete</button>
 	</div>
 </div>
+<ng-template #firmwareUpdate let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="firmware-update-modal">Uploading Update</h4>
+	</div>
+	<div class="modal-body">
+		<div class="progress form-group">
+			<div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width.%]="progress">
+			</div>
+		</div>
+		<div *ngIf="updateProgress > 0">
+			<p>Updating...</p>
+			<div class="progress form-group">
+				<div class="progress-bar progress-bar-striped bg-success" role="progressbar"
+					[style.width.%]="updateProgress"></div>
+			</div>
+		</div>
+		<p>{{ response?.toString() }}</p>
+	</div>
+</ng-template>

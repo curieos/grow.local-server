@@ -1,14 +1,14 @@
 import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { PlantsService } from '../plant/plants.service';
-import { MockPlantsService } from '../plant/plants.service.mock';
+import { PlantService } from '../plant/plant.service';
+import { MockPlantService } from '../plant/plant.service.mock';
 import { DashboardComponent } from './dashboard.component';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
-  let plantsService: PlantsService;
+  let plantsService: PlantService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -19,21 +19,16 @@ describe('DashboardComponent', () => {
       declarations: [
         DashboardComponent,
       ],
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
       providers: [
         DashboardComponent,
-        { provide: PlantsService, useClass: MockPlantsService },
+        { provide: PlantService, useClass: MockPlantService },
       ],
-    });
+    }).compileComponents();
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
-    plantsService = TestBed.inject(PlantsService);
+    plantsService = TestBed.inject(PlantService);
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

@@ -1,48 +1,41 @@
 import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ModulesService } from 'src/app/module/modules.service';
-import { MockModulesService } from 'src/app/module/modules.service.mock';
-import { PlantsService } from '../plants.service';
-import { MockPlantsService } from '../plants.service.mock';
+import { ModuleService } from 'src/app/module/module.service';
+import { MockModuleService } from 'src/app/module/module.service.mock';
+import { PlantModule } from '../plant.module';
+import { PlantService } from '../plant.service';
+import { MockPlantService } from '../plant.service.mock';
 import { PlantCreateComponent } from './plant-create.component';
 
 describe('PlantCreateComponent', () => {
   let component: PlantCreateComponent;
   let fixture: ComponentFixture<PlantCreateComponent>;
-  let plantsService: PlantsService;
-  let modulesService: ModulesService;
+  let plantsService: PlantService;
+  let modulesService: ModuleService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        ReactiveFormsModule,
         HttpClientModule,
         RouterTestingModule,
-        NgbModule,
+        PlantModule,
       ],
       declarations: [
         PlantCreateComponent,
       ],
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
       providers: [
         PlantCreateComponent,
-        { provide: PlantsService, useClass: MockPlantsService },
-        { provide: ModulesService, useClass: MockModulesService },
+        { provide: PlantService, useClass: MockPlantService },
+        { provide: ModuleService, useClass: MockModuleService },
       ],
-    });
+    }).compileComponents();
     fixture = TestBed.createComponent(PlantCreateComponent);
     component = fixture.componentInstance;
-    plantsService = TestBed.inject(PlantsService);
-    modulesService = TestBed.inject(ModulesService);
+    plantsService = TestBed.inject(PlantService);
+    modulesService = TestBed.inject(ModuleService);
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

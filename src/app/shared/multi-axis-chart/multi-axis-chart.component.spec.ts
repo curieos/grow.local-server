@@ -126,7 +126,7 @@ class TestComponent {
   };
 }
 
-describe('<ngx-charts-area-chart>', () => {
+describe('<app-multi-axis-chart>', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [TestComponent],
