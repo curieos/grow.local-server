@@ -1,6 +1,8 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpResponse } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
 import { Module } from '../module.model';
 import { ModuleModule } from '../module.module';
 import { ModuleService } from '../module.service';
@@ -14,7 +16,7 @@ function delay(ms: number) {
 describe('ModuleListItemComponent', () => {
   let component: ModuleListItemComponent;
   let fixture: ComponentFixture<ModuleListItemComponent>;
-  let modulesService: ModuleService;
+  let moduleService: ModuleService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -33,7 +35,7 @@ describe('ModuleListItemComponent', () => {
     }).compileComponents();
     fixture = TestBed.createComponent(ModuleListItemComponent);
     component = fixture.componentInstance;
-    modulesService = TestBed.inject(ModuleService);
+    moduleService = TestBed.inject(ModuleService);
     fixture.detectChanges();
   }));
 
@@ -44,7 +46,7 @@ describe('ModuleListItemComponent', () => {
   describe('#getModuleInfo', () => {
     it('should request module info', async(() => {
       component._module = new Module('1', 'ModuleA');
-      const serviceSpy = spyOn(modulesService, 'getModuleInfo');
+      const serviceSpy = spyOn(moduleService, 'getModuleInfo');
 
       component.getModuleInfo();
 
@@ -52,7 +54,7 @@ describe('ModuleListItemComponent', () => {
     }));
     it('should not update module info if the id does not match', async(() => {
       component._module = new Module('1', 'ModuleA');
-      const serviceSpy = spyOn(modulesService, 'getModuleInfo');
+      const serviceSpy = spyOn(moduleService, 'getModuleInfo');
 
       component.getModuleInfo();
 
@@ -65,9 +67,45 @@ describe('ModuleListItemComponent', () => {
     }));
   });
 
+  describe('#onUploadUpdate', () => {
+    it('should call updateModuleFirmware on module service', () => {
+      const serviceSpy = spyOn(moduleService, 'updateModuleFirmware').and.returnValue(of({
+        event: new HttpResponse<{message: string}>({
+          body: {message: 'Update Complete'},
+        }),
+      }));
+      component._module = new Module('1', 'ModuleA');
+      const file = new File([''], 'firmware.bin');
+      const fileList = new DataTransfer();
+      fileList.items.add(file);
+
+      const fileInput = fixture.debugElement.query(By.css('#firmware'));
+      (fileInput.nativeElement as HTMLInputElement).files = fileList.files;
+      fileInput.triggerEventHandler('change', { target: fileInput.nativeElement });
+
+      fixture.detectChanges();
+
+      expect(serviceSpy).toHaveBeenCalledWith(component.module, file);
+    });
+    xit('should get a completed response back', () => {
+      component._module = new Module('1', 'ModuleA');
+      const file = new File([''], 'firmware.bin');
+      const fileList = new DataTransfer();
+      fileList.items.add(file);
+
+      const fileInput = fixture.debugElement.query(By.css('#firmware'));
+      (fileInput.nativeElement as HTMLInputElement).files = fileList.files;
+      fileInput.triggerEventHandler('change', { target: fileInput.nativeElement });
+
+      fixture.detectChanges();
+
+      expect(component.response).toEqual('Update Complete');
+    });
+  });
+
   describe('#deleteModule', () => {
     it('should tell the modules service to delete a module', () => {
-      const serviceSpy = spyOn(modulesService, 'deleteModule');
+      const serviceSpy = spyOn(moduleService, 'deleteModule');
 
       component.deleteModule('1');
 

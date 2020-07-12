@@ -12,9 +12,9 @@
 		</p>
 	</div>
 	<div class="row mb-0">
-		<button type="button" class="btn btn-secondary m-1" (click)="file.click()">Update</button>
-		<input type="file" #file style="visibility: hidden;" (change)="onUploadUpdate($event); open(firmwareUpdate)"
-			accept=".bin" />
+		<button type="button" class="btn btn-secondary m-1" (click)="firmware.click()">Update</button>
+		<input type="file" #firmware style="visibility: hidden;" (change)="onUploadUpdate($event); open(firmwareUpdate)"
+			accept=".bin" id="firmware" />
 		<div class="col p-0"></div>
 		<button type="button" class="btn btn-warning m-1" [routerLink]="['/modules', module?.id, 'edit']">Edit</button>
 		<button type="button" class="btn btn-danger m-1" (click)="deleteModule(module?.id)">Delete</button>
