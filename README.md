@@ -1,8 +1,8 @@
 # Grow.local
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/dcbc5600517643b6acb174a7c693e770)](https://app.codacy.com/manual/caroline/Grow.local-Server?utm_source=github.com&utm_medium=referral&utm_content=curieos/Grow.local-Server&utm_campaign=Badge_Grade_Settings)
-[![Build Status](https://travis-ci.org/curieos/Grow.local-Server.svg?branch=master)](https://travis-ci.org/curieos/Grow.local-Server)
-[![Coverage Status](https://coveralls.io/repos/github/curieos/Grow.local-Server/badge.svg?branch=master)](https://coveralls.io/github/curieos/Grow.local-Server?branch=master)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/803eae1e5fc4423da19de6379f91af9b)](https://www.codacy.com/gh/Grow-local/Server?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Grow-local/Server&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.org/Grow-local/Server.svg?branch=master)](https://travis-ci.org/Grow-local/Server)
+[![Coverage Status](https://coveralls.io/repos/github/Grow-local/Server/badge.svg?branch=master)](https://coveralls.io/github/Grow-local/Server?branch=master)
 
 Grow.local is a SEAN stack app for plant care.
 
