@@ -11,3 +11,4 @@ coverage
 Procfile
 LICENSE
 *.sqlite
+*.cfg
