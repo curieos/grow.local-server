@@ -1,5 +1,4 @@
 module.exports = {
-  plugins: ['@angular-eslint'],
   extends: ['plugin:@angular-eslint/recommended'],
   rules: {
     '@angular-eslint/directive-selector': [
@@ -14,10 +13,20 @@ module.exports = {
   overrides: [
     {
       files: ['*.js'],
+      parser: 'espree',
       extends: ['eslint:recommended'],
       env: {
         node: true,
         es6: true,
+      },
+    },
+    {
+      files: ['*.ts'],
+      parser: '@typescript-eslint/parser',
+      parserOptions: {
+        project: ['tsconfig.eslint.json'],
+        ecmaVersion: 2020,
+        sourceType: 'module',
       },
     },
     {
